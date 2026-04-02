@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-beige: #FAF6F0;
+  --color-sand: #F3ECE2;
+  --color-stone: #D4C8B8;
+  --color-espresso: #1F1410;
+  --color-taupe: #8A7B6B;
+  --color-crimson: #C41230;
+  --color-crimson-light: #D42040;
+
+  --font-outfit: var(--font-outfit-var), sans-serif;
+  --font-space-grotesk: var(--font-space-grotesk-var), sans-serif;
+  --font-space-mono: var(--font-space-mono-var), monospace;
+  --font-inter: var(--font-inter-var), sans-serif;
+
+  --spacing-18: 72px;
+  --spacing-22: 88px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAF6F0;
+    color: #1F1410;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    display: inline-block;
+    background-color: #C41230;
+    color: #FAF6F0;
+    font-family: var(--font-space-grotesk-var), sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 18px 44px;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    background-color: #D42040;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196, 18, 48, 0.25);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid #D4C8B8;
+    color: #1F1410;
+    font-family: var(--font-space-grotesk-var), sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 18px 44px;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .btn-ghost:hover {
+    border-color: #C41230;
+    color: #C41230;
+    transform: translateY(-2px);
+  }
+
+  .card {
+    background-color: #F3ECE2;
+    border-radius: 10px;
+    padding: 32px;
+    transition: all 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .section-padding {
+    @apply px-5 md:px-20 py-24 md:py-32;
+  }
+
+  .eyebrow {
+    font-family: var(--font-space-grotesk-var), sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #C41230;
+    font-size: 0.875rem;
+  }
+
+  .h1 {
+    font-family: var(--font-outfit-var), sans-serif;
+    font-weight: 900;
+    color: #1F1410;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .h2 {
+    font-family: var(--font-outfit-var), sans-serif;
+    font-weight: 800;
+    color: #1F1410;
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .h3 {
+    font-family: var(--font-outfit-var), sans-serif;
+    font-weight: 700;
+    color: #1F1410;
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.2;
+  }
+
+  .micro-phrase {
+    font-family: var(--font-space-grotesk-var), sans-serif;
+    font-weight: 500;
+    color: #8A7B6B;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+  }
 }

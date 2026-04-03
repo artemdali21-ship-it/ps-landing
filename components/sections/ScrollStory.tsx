@@ -1,9 +1,9 @@
 "use client";
-// v6 — no useScroll, pure useMotionValue + scroll listener
 
 import { useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
+// 6 scenes — background images cycle one by one during sticky scroll
 const scenes = [
   {
     img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.png-1hL8GTC70jCdoMKljCmmsPNQO5KOft.jpeg",
@@ -27,6 +27,13 @@ const scenes = [
     alt: "Чистый офис с открытой дверью и цифровыми оверлеями",
   },
   {
+    img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/4.png-Wd0lFYmU4OQ8m6e5Y7YfPalfPl5ADo.jpeg",
+    label: "МАСШТАБ",
+    headline: "СИСТЕМА РАСТЁТ С ВАМИ.",
+    sub: "Один процесс становится десятью. Компания движется как единый механизм.",
+    alt: "Птичий вид на город с цифровыми связями",
+  },
+  {
     img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5.png-w4ends69OL62yTe6SSjC9DbJkqRGqx.jpeg",
     label: "ПРОРЫВ",
     headline: "ПРОСТРАНСТВО РАЗРЫВАЕТСЯ.",
@@ -45,6 +52,7 @@ const scenes = [
 
 type MV = ReturnType<typeof useMotionValue<number>>;
 
+// Each scene fades in/out purely via opacity — background stays sticky behind text
 function Scene({
   scene,
   index,
@@ -56,34 +64,49 @@ function Scene({
   total: number;
   prog: MV;
 }) {
+  // Each scene owns 1/total of the scroll range
   const start = index / total;
   const end = (index + 1) / total;
+  const fadeLen = 0.03; // 3% of total range for fade in/out
 
-  const opacity = useTransform(prog, [start, start + 0.04, end - 0.04, end], [0, 1, 1, 0]);
-  const scale = useTransform(prog, [start, end], [1.06, 1.0]);
+  const opacity = useTransform(
+    prog,
+    [start, start + fadeLen, end - fadeLen, end],
+    [0, 1, 1, 0]
+  );
+  const scale = useTransform(prog, [start, end], [1.04, 1.0]);
+
   const textRef = useRef<HTMLDivElement>(null);
 
-  // Write y directly to DOM to avoid Framer Motion scroll detection warning
+  // Parallax text — write directly to DOM, no MotionValue in style prop
   useEffect(() => {
     return prog.on("change", (v) => {
       if (!textRef.current) return;
-      const local = total > 0 ? (v - start) / (end - start) : 0;
-      const ty = 24 - local * 48;
+      const range = end - start;
+      const local = range > 0 ? Math.min(1, Math.max(0, (v - start) / range)) : 0;
+      const ty = 30 - local * 60;
       textRef.current.style.transform = `translateY(${ty}px)`;
     });
   }, [prog, start, end, total]);
 
   return (
-    <motion.div className="absolute inset-0 flex items-end" style={{ opacity }}>
+    <motion.div
+      className="absolute inset-0"
+      style={{ opacity }}
+    >
+      {/* Background image with subtle Ken Burns */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url("${scene.img}")`, scale }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
+
+      {/* Text block */}
       <div
         ref={textRef}
-        className="relative z-10 w-full px-6 md:px-20 pb-16 md:pb-24 max-w-3xl"
-        style={{ transform: "translateY(24px)", willChange: "transform" }}
+        className="absolute bottom-0 left-0 right-0 px-6 md:px-20 pb-20 md:pb-28 max-w-3xl"
+        style={{ willChange: "transform", transform: "translateY(30px)" }}
       >
         <p
           className="text-xs tracking-widest uppercase mb-3"
@@ -112,10 +135,10 @@ function Scene({
         {scene.isFinal && (
           <a
             href="#services"
-            className="mt-8 inline-block text-sm uppercase tracking-widest px-8 py-3 bg-crimson text-white hover:bg-crimson/90 transition-colors"
+            className="mt-8 inline-block text-sm uppercase tracking-widest px-8 py-4 bg-crimson text-white hover:bg-crimson-light transition-colors"
             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 700, borderRadius: "2px" }}
           >
-            {"Разобрать кейс"}
+            Разобрать кейс
           </a>
         )}
       </div>
@@ -123,21 +146,28 @@ function Scene({
   );
 }
 
+// Progress indicator dots
 function Dot({ index, total, prog }: { index: number; total: number; prog: MV }) {
   const start = index / total;
   const end = (index + 1) / total;
   const mid = (start + end) / 2;
-  const opacity = useTransform(prog, [start, mid, end], [0.3, 1, 0.3]);
-  const scale = useTransform(prog, [start, mid, end], [0.7, 1.3, 0.7]);
-  return <motion.div className="w-1.5 h-1.5 rounded-full bg-white" style={{ opacity, scale }} />;
+  const opacity = useTransform(prog, [start, mid, end], [0.25, 1, 0.25]);
+  const scale = useTransform(prog, [start, mid, end], [0.6, 1.4, 0.6]);
+  return (
+    <motion.div
+      className="w-1.5 h-1.5 rounded-full bg-white"
+      style={{ opacity, scale }}
+    />
+  );
 }
 
+// Top progress bar per scene
 function Bar({ index, total, prog }: { index: number; total: number; prog: MV }) {
   const start = index / total;
   const end = (index + 1) / total;
   const scaleX = useTransform(prog, [start, end], [0, 1]);
   return (
-    <div className="w-8 h-px bg-white/20 overflow-hidden">
+    <div className="h-px bg-white/20 overflow-hidden" style={{ width: "28px" }}>
       <motion.div className="h-full bg-white origin-left" style={{ scaleX }} />
     </div>
   );
@@ -146,6 +176,7 @@ function Bar({ index, total, prog }: { index: number; total: number; prog: MV })
 export default function ScrollStory() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prog = useMotionValue(0);
+  const total = scenes.length;
 
   useEffect(() => {
     function update() {
@@ -153,31 +184,31 @@ export default function ScrollStory() {
       if (!el) return;
       const range = el.offsetHeight - window.innerHeight;
       if (range <= 0) return;
-      prog.set(Math.min(1, Math.max(0, (window.scrollY - el.offsetTop) / range)));
+      const raw = (window.scrollY - el.offsetTop) / range;
+      prog.set(Math.min(1, Math.max(0, raw)));
     }
     window.addEventListener("scroll", update, { passive: true });
     update();
     return () => window.removeEventListener("scroll", update);
   }, [prog]);
 
-  const total = scenes.length;
-
   return (
-    <div ref={containerRef} style={{ height: `${total * 100}vh`, position: "relative" }}>
+    // tall container — scroll height = 100vh per scene
+    <div ref={containerRef} style={{ height: `${total * 100}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         {scenes.map((scene, i) => (
           <Scene key={scene.label} scene={scene} index={i} total={total} prog={prog} />
         ))}
 
-        {/* Side progress dots */}
-        <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
-          {Array.from({ length: total }).map((_, i) => (
+        {/* Side dots */}
+        <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3">
+          {scenes.map((_, i) => (
             <Dot key={i} index={i} total={total} prog={prog} />
           ))}
         </div>
 
         {/* Top progress bars */}
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
           {scenes.map((_, i) => (
             <Bar key={i} index={i} total={total} prog={prog} />
           ))}

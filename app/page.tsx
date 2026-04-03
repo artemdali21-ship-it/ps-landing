@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/sections/Hero";
+import { ScrollStory, ThreeLevels } from "@/components/ClientSections";
 import WhatWeDo from "@/components/sections/WhatWeDo";
-import ThreeLevels from "@/components/sections/ThreeLevels";
 import Examples from "@/components/sections/Examples";
 import Process from "@/components/sections/Process";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -11,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />
+      <ScrollStory />
       <WhatWeDo />
       <ThreeLevels />
       <Examples />

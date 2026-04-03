@@ -87,7 +87,8 @@ function Scene({
       const ty = 30 - local * 60;
       textRef.current.style.transform = `translateY(${ty}px)`;
     });
-  }, [prog, start, end, total]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prog, start, end]);
 
   return (
     <motion.div

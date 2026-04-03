@@ -26,7 +26,6 @@ export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Track window scroll — no target needed, avoids "non-static position" warning
   const { scrollY } = useScroll();
   const bgColor = useTransform(scrollY, [0, 600], ["#FAF6F0", "#F2E8D4"]);
 

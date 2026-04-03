@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshDistortMaterial, Float, Environment } from "@react-three/drei";
+import { MeshDistortMaterial, Float } from "@react-three/drei";
 import type { Mesh } from "three";
 
 function KineticShape({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
@@ -49,10 +49,10 @@ export default function HeroObject({
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.8} />
         <pointLight position={[10, 10, 10]} intensity={2} color="#FAF6F0" />
-        <pointLight position={[-10, -5, -5]} intensity={1} color="#C41230" />
-        <Environment preset="city" />
+        <pointLight position={[-10, -5, -5]} intensity={1.5} color="#C41230" />
+        <pointLight position={[0, -10, 5]} intensity={0.8} color="#F3ECE2" />
         <KineticShape mouseX={mouseX} mouseY={mouseY} />
       </Canvas>
     </div>

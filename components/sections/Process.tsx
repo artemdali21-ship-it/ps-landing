@@ -29,7 +29,7 @@ export default function Process() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="процесс" className="section-padding" ref={ref}>
+    <section id="process" className="section-padding" ref={ref}>
       <div className="max-w-7xl mx-auto">
 
         {/* Progress connector — desktop only */}

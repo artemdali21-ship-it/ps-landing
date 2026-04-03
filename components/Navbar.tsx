@@ -24,13 +24,17 @@ export default function Navbar() {
 
         {/* Nav links */}
         <div className="hidden md:flex items-center gap-8">
-          {["Услуги", "Примеры", "Процесс"].map((item) => (
+          {[
+            { label: "Услуги", id: "services" },
+            { label: "Примеры", id: "examples" },
+            { label: "Процесс", id: "process" },
+          ].map(({ label, id }) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={id}
+              href={`#${id}`}
               className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200"
             >
-              {item}
+              {label}
             </a>
           ))}
         </div>

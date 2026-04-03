@@ -9,7 +9,7 @@ export default function WhatWeDo() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="услуги" className="section-padding bg-sand" ref={ref}>
+    <section id="services" className="section-padding bg-sand" ref={ref}>
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

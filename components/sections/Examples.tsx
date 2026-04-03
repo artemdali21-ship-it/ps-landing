@@ -65,7 +65,7 @@ const cases = [
 
 export default function Examples() {
   return (
-    <section id="примеры" className="section-padding bg-sand">
+    <section id="examples" className="section-padding bg-sand">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="h2 mb-14"

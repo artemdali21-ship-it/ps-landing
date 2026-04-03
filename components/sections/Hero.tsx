@@ -29,6 +29,7 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
+    layoutEffect: false,
   });
 
   // Scroll-triggered warm background: beige (#FAF6F0) → warmer sand (#F5EDD8)

@@ -22,12 +22,13 @@ export default function Navbar() {
 
   return (
     <motion.nav
+      suppressHydrationWarning
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
       style={{ backgroundColor, borderBottom }}
     >
       <div className="flex items-center justify-between px-5 md:px-20 py-5">
         {/* Logo */}
-        <Link href="/" className="font-outfit font-black text-xl text-espresso">
+        <Link href="/" className="font-sans font-black text-xl text-espresso">
           Polishchuk<span className="text-crimson">.</span>
         </Link>
 
@@ -41,7 +42,7 @@ export default function Navbar() {
             <a
               key={id}
               href={`#${id}`}
-              className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200"
+              className="hidden md:flex items-center gap-8 font-sans font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200"
             >
               {label}
             </a>
@@ -51,7 +52,7 @@ export default function Navbar() {
         {/* CTA */}
         <a
           href="#cta"
-          className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
+          className="bg-crimson text-beige font-sans font-semibold uppercase text-xs tracking-widest px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
           style={{ letterSpacing: "0.12em" }}
         >
           Разобрать кейс

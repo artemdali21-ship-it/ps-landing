@@ -96,10 +96,10 @@ export default function Examples() {
 
               {/* Before */}
               <div>
-                <p className="font-space-grotesk font-medium text-xs uppercase tracking-widest mb-2" style={{ color: "#8A7B6B" }}>
+                <p className="font-sans font-medium text-xs uppercase tracking-widest mb-2" style={{ color: "#8A7B6B" }}>
                   Было
                 </p>
-                <p className="font-inter font-light text-base leading-relaxed" style={{ color: "#8A7B6B" }}>
+                <p className="font-sans font-light text-base leading-relaxed" style={{ color: "#8A7B6B" }}>
                   {c.before}
                 </p>
               </div>
@@ -113,10 +113,10 @@ export default function Examples() {
 
               {/* After */}
               <div>
-                <p className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-crimson mb-2">
+                <p className="font-sans font-medium text-xs uppercase tracking-widest text-crimson mb-2">
                   Стало
                 </p>
-                <p className="font-inter font-light text-espresso text-base leading-relaxed">
+                <p className="font-sans font-light text-espresso text-base leading-relaxed">
                   {c.after}
                 </p>
               </div>

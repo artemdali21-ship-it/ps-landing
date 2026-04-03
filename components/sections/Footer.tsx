@@ -16,13 +16,13 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-inter font-light text-taupe text-sm hover:text-charcoal transition-colors"
+              className="font-sans font-light text-taupe text-sm hover:text-espresso transition-colors"
             >
               {link.label}
             </Link>
           ))}
         </nav>
-        <p className="font-inter font-light text-taupe text-sm text-center">
+        <p className="font-sans font-light text-taupe text-sm text-center">
           Polishchuk Systems · 2026
         </p>
       </div>

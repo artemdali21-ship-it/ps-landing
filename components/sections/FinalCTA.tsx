@@ -55,7 +55,7 @@ export default function FinalCTA() {
         </h2>
 
         <motion.p
-          className="font-inter font-light text-taupe text-lg leading-relaxed"
+          className="font-sans font-light text-taupe text-lg leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -94,7 +94,7 @@ export default function FinalCTA() {
         </motion.div>
 
         <motion.p
-          className="font-inter font-light text-taupe text-sm"
+          className="font-sans font-light text-taupe text-sm"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}

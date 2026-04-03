@@ -21,7 +21,7 @@ export default function WhatWeDo() {
             Убираем рутину. Снижаем шум. Делаем процесс управляемым.
           </h2>
 
-          <div className="flex flex-col gap-5 font-inter font-light text-taupe text-lg leading-relaxed">
+          <div className="flex flex-col gap-5 font-sans font-light text-taupe text-lg leading-relaxed">
             <p>
               Повторяющиеся задачи работают сами. Люди занимаются тем, для чего
               нужны люди.

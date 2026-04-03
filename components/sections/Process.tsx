@@ -83,7 +83,7 @@ export default function Process() {
               </span>
 
               {/* Title */}
-              <h3 className="font-outfit font-bold text-2xl text-espresso">
+              <h3 className="font-sans font-bold text-2xl text-espresso">
                 {step.title}
               </h3>
 

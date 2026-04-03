@@ -11,8 +11,11 @@
   --color-crimson-light: #D42040;
 
   --font-sans: "Satoshi", system-ui, sans-serif;
-  --font-space-grotesk: var(--font-space-grotesk-var), sans-serif;
-  --font-space-mono: var(--font-space-mono-var), monospace;
+  --font-mono: "Space Mono", monospace;
+  --font-space-grotesk: "Satoshi", system-ui, sans-serif;
+  --font-space-mono: "Space Mono", monospace;
+  --font-inter: "Satoshi", system-ui, sans-serif;
+  --font-outfit: "Satoshi", system-ui, sans-serif;
 
   --spacing-18: 72px;
   --spacing-22: 88px;

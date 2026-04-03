@@ -1,4 +1,5 @@
 "use client";
+// v6 — no useScroll, pure useMotionValue + scroll listener
 
 import { useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";

@@ -1,13 +1,5 @@
-@import "tailwindcss";
-
-/* Satoshi via Fontshare CDN */
-@font-face {
-  font-family: "Satoshi";
-  src: url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap");
-  font-display: swap;
-}
-
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap");
+@import "tailwindcss";
 
 @theme {
   --color-beige: #FAF6F0;

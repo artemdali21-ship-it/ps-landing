@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 
 const fadeUp: Variants = {
@@ -13,17 +12,14 @@ const fadeUp: Variants = {
   }),
 };
 
-// Dynamic import with ssr:false — useScroll only runs on the client
+// ssr: false — ParallaxHeadline uses client-only scroll APIs.
+// No mounted gate needed: dynamic ssr:false renders null on server,
+// so server and client HTML both agree (no hydration mismatch).
 const ParallaxHeadline = dynamic(() => import("@/components/ParallaxHeadline"), { ssr: false });
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  useEffect(() => setMounted(true), []);
-
   return (
     <section
-      ref={sectionRef}
       className="relative min-h-screen pt-32 pb-24 px-5 md:px-20 flex items-center overflow-hidden"
       style={{ backgroundColor: "#FAF6F0" }}
     >
@@ -33,19 +29,7 @@ export default function Hero() {
           AI Systems Consultancy
         </motion.p>
 
-        {mounted ? (
-          <ParallaxHeadline />
-        ) : (
-          <h1
-            className="font-outfit font-black uppercase tracking-tight leading-none"
-            style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
-          >
-            {"ОСВОБОЖДАЕМ ВРЕМЯ"}<br />
-            {"ДЛЯ ТОГО, ЧТО"}<br />
-            {"ДЕЙСТВИТЕЛЬНО"}<br />
-            <span className="text-crimson">{"ВАЖНО."}</span>
-          </h1>
-        )}
+        <ParallaxHeadline />
 
         <motion.div className="flex flex-col gap-5" custom={2} variants={fadeUp} initial="hidden" animate="show">
           <p className="font-inter font-light text-taupe text-xl leading-relaxed max-w-2xl">

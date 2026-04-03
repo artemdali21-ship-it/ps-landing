@@ -1,9 +1,20 @@
 "use client";
 
-// Direct client-component imports — no dynamic() needed since each component
-// already has "use client" and handles its own SSR concerns via useEffect.
-// This eliminates stale chunk references from previous dynamic() registrations.
+import dynamic from "next/dynamic";
 
-export { default as ScrollStory } from "@/components/sections/ScrollStory";
-export { default as ThreeLevels } from "@/components/sections/ThreeLevels";
-export { default as FloatingObjects } from "@/components/Objects3D";
+// All three components use client-only scroll APIs.
+// ssr: false prevents SSR hydration mismatches and "non-static position" warnings.
+export const ScrollStory = dynamic(
+  () => import("@/components/sections/ScrollStory"),
+  { ssr: false }
+);
+
+export const ThreeLevels = dynamic(
+  () => import("@/components/sections/ThreeLevels"),
+  { ssr: false }
+);
+
+export const FloatingObjects = dynamic(
+  () => import("@/components/Objects3D"),
+  { ssr: false }
+);

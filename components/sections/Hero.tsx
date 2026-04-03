@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { useRef } from "react";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -13,7 +12,6 @@ const fadeUp: Variants = {
 };
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
 
   // Background warms on scroll
@@ -30,7 +28,6 @@ export default function Hero() {
 
   return (
     <motion.section
-      ref={sectionRef}
       className="relative min-h-screen pt-32 pb-24 px-5 md:px-20 flex items-center overflow-hidden"
       style={{ backgroundColor: bgColor }}
     >
@@ -65,9 +62,9 @@ export default function Hero() {
             initial="hidden"
             animate="show"
           >
-            ОСВОБОЖДАЕМ ВРЕМЯ<br />
-            ДЛЯ ТОГО, ЧТО<br />
-            ДЕЙСТВИТЕЛЬНО<br />
+            {"ОСВОБОЖДАЕМ ВРЕМЯ"}<br />
+            {"ДЛЯ ТОГО, ЧТО"}<br />
+            {"ДЕЙСТВИТЕЛЬНО"}<br />
             {/* Breathing accent on the key word */}
             <motion.span
               className="text-crimson inline-block"

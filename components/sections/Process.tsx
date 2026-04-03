@@ -78,12 +78,12 @@ export default function Process() {
               transition={{ duration: 0.6, delay: 0.2 + i * 0.2, ease: "easeOut" }}
             >
               {/* Number */}
-              <span className="font-sans font-bold text-[64px] leading-none text-espresso/10">
+              <span className="font-space-mono font-bold text-[64px] leading-none text-espresso/10">
                 {step.number}
               </span>
 
               {/* Title */}
-              <h3 className="font-sans font-bold text-2xl text-espresso">
+              <h3 className="font-outfit font-bold text-2xl text-espresso">
                 {step.title}
               </h3>
 
@@ -91,12 +91,12 @@ export default function Process() {
               <div className="h-px bg-stone w-12" />
 
               {/* Body */}
-              <p className="font-sans font-light text-taupe text-base leading-relaxed">
+              <p className="font-inter font-light text-taupe text-base leading-relaxed">
                 {step.body}
               </p>
 
               {step.detail && (
-                <p className="font-sans font-medium text-sm text-espresso">
+                <p className="font-space-grotesk font-medium text-sm text-espresso">
                   {step.detail}
                 </p>
               )}
@@ -105,7 +105,7 @@ export default function Process() {
         </div>
 
         <motion.p
-          className="font-sans font-medium text-taupe text-sm tracking-wide mt-16 text-center"
+          className="font-space-grotesk font-medium text-taupe text-sm tracking-wide mt-16 text-center"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.9 }}

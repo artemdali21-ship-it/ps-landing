@@ -80,7 +80,7 @@ function PriceCounter({
   const count = useCountUp(value, inView, 1.4);
 
   return (
-    <p ref={ref} className="font-sans font-bold text-2xl text-espresso mb-1">
+    <p ref={ref} className="font-space-mono font-bold text-2xl text-espresso mb-1">
       {label}&nbsp;{count.toLocaleString("ru-RU")}
       {suffix}
     </p>
@@ -111,11 +111,11 @@ export default function ThreeLevels() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <h2 className="h2 mb-4">{"Три уровня AI-систем"}</h2>
-          <p className="font-sans font-light text-taupe text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="font-inter font-light text-taupe text-lg max-w-xl mx-auto leading-relaxed">
             {"Одни закрывают одну задачу. Другие становятся частью процесса. Третьи — основой экспертной системы."}
           </p>
           <motion.p
-            className="font-sans font-medium text-crimson mt-4"
+            className="font-space-grotesk font-medium text-crimson mt-4"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -153,7 +153,7 @@ export default function ThreeLevels() {
               />
 
               {/* Ghost number */}
-              <span className="absolute top-4 right-6 font-mono font-bold text-7xl text-espresso/[0.06] select-none leading-none">
+              <span className="absolute top-4 right-6 font-space-mono font-bold text-7xl text-espresso/[0.06] select-none leading-none">
                 {level.number}
               </span>
 
@@ -165,13 +165,13 @@ export default function ThreeLevels() {
                 suffix={level.priceSuffix}
               />
 
-          <p className="font-sans font-light text-taupe text-sm mb-4">
+              <p className="font-inter font-light text-taupe text-sm mb-4">
                 {level.timeline}
               </p>
 
               <div className="h-px bg-stone mb-4" />
 
-              <p className="font-sans font-light text-espresso text-base mb-5 leading-relaxed">
+              <p className="font-inter font-light text-espresso text-base mb-5 leading-relaxed">
                 {level.description}
               </p>
 
@@ -179,7 +179,7 @@ export default function ThreeLevels() {
                 {level.items.map((item) => (
                   <li
                     key={item}
-                    className="font-sans font-light text-taupe text-sm flex gap-2 leading-snug"
+                    className="font-inter font-light text-taupe text-sm flex gap-2 leading-snug"
                     suppressHydrationWarning
                   >
                     <span className="text-crimson mt-0.5 flex-shrink-0" aria-hidden>{"·"}</span>

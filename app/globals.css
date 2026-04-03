@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Design tokens */
 @theme {
   --color-beige: #FAF6F0;
   --color-sand: #F3ECE2;
@@ -12,25 +11,19 @@
 
   --font-sans: "Satoshi", system-ui, sans-serif;
   --font-mono: "Space Mono", monospace;
+  --font-outfit: "Satoshi", system-ui, sans-serif;
+  --font-inter: "Satoshi", system-ui, sans-serif;
+  --font-space-grotesk: "Satoshi", system-ui, sans-serif;
+  --font-space-mono: "Space Mono", monospace;
 
   --spacing-18: 72px;
   --spacing-22: 88px;
 }
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: #FAF6F0;
-    color: #1F1410;
-  }
-
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background-color: #FAF6F0; color: #1F1410; }
   body::before {
     content: "";
     position: fixed;
@@ -63,7 +56,6 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(196, 18, 48, 0.25);
   }
-
   .btn-ghost {
     display: inline-block;
     border: 1px solid #D4C8B8;
@@ -82,7 +74,6 @@
     color: #C41230;
     transform: translateY(-2px);
   }
-
   .card {
     background-color: #F3ECE2;
     border-radius: 10px;
@@ -93,11 +84,9 @@
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   }
-
   .section-padding {
     @apply px-5 md:px-20 py-24 md:py-32;
   }
-
   .eyebrow {
     font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 500;
@@ -106,7 +95,6 @@
     color: #C41230;
     font-size: 0.875rem;
   }
-
   .h1 {
     font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 900;
@@ -116,7 +104,6 @@
     letter-spacing: -0.02em;
     text-transform: uppercase;
   }
-
   .h2 {
     font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 800;
@@ -126,7 +113,6 @@
     letter-spacing: -0.015em;
     text-transform: uppercase;
   }
-
   .h3 {
     font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 700;
@@ -135,7 +121,6 @@
     line-height: 1.2;
     text-transform: uppercase;
   }
-
   .micro-phrase {
     font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 500;

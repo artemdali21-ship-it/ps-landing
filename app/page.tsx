@@ -1,3 +1,4 @@
+// Server Component — no dynamic() here, ssr:false lives in ClientSections.tsx
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import WhatWeDo from "@/components/sections/WhatWeDo";

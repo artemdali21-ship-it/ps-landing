@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import dynamic from "next/dynamic";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -11,12 +10,6 @@ const fadeUp: Variants = {
     transition: { delay: i * 0.12, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
   }),
 };
-
-// ssr:false — ParallaxHeadline uses useEffect/ref for scroll, client-only
-const ParallaxHeadline = dynamic(
-  () => import("@/components/HeroHeadline"),
-  { ssr: false }
-);
 
 export default function Hero() {
   return (
@@ -30,13 +23,24 @@ export default function Hero() {
           AI Systems Consultancy
         </motion.p>
 
-        <ParallaxHeadline />
+        <motion.h1
+          className="h1"
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
+          {"ОСВОБОЖДАЕМ ВРЕМЯ"}<br />
+          {"ДЛЯ ТОГО, ЧТО"}<br />
+          {"ДЕЙСТВИТЕЛЬНО"}<br />
+          <span className="text-crimson">{"ВАЖНО."}</span>
+        </motion.h1>
 
         <motion.div className="flex flex-col gap-5" custom={2} variants={fadeUp} initial="hidden" animate="show">
-          <p className="font-inter font-light text-taupe text-xl leading-relaxed max-w-2xl">
+          <p className="font-sans font-light text-taupe text-xl leading-relaxed max-w-2xl">
             {"AI-системы, которые работают."}
           </p>
-          <p className="font-space-grotesk font-medium text-crimson text-base">
+          <p className="font-sans font-medium text-crimson text-base">
             {"Не начинайте с решения. Начните с результата."}
           </p>
         </motion.div>
@@ -45,7 +49,7 @@ export default function Hero() {
           <a href="#cta" className="btn-primary text-center w-fit">
             {"Разобрать кейс"}
           </a>
-          <p className="font-inter font-light text-taupe text-sm leading-relaxed max-w-sm">
+          <p className="font-sans font-light text-taupe text-sm leading-relaxed max-w-sm">
             {"Покажите 2–3 реальных задачи — мы скажем что можно собрать, сколько стоит и с чего начать."}
           </p>
         </motion.div>

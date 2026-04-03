@@ -6,12 +6,11 @@ import Examples from "@/components/sections/Examples";
 import Process from "@/components/sections/Process";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
-import { ScrollStory, ThreeLevels, FloatingObjects } from "@/components/ClientSections";
+import { ScrollStory, ThreeLevels } from "@/components/ClientSections";
 
 export default function Home() {
   return (
     <main>
-      <FloatingObjects />
       <Navbar />
       <Hero />
       <ScrollStory />

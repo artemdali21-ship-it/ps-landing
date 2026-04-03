@@ -61,7 +61,17 @@ function Scene({
 
   const opacity = useTransform(prog, [start, start + 0.04, end - 0.04, end], [0, 1, 1, 0]);
   const scale = useTransform(prog, [start, end], [1.06, 1.0]);
-  const ty = useTransform(prog, [start, end], [24, -24]);
+  const textRef = useRef<HTMLDivElement>(null);
+
+  // Write y directly to DOM to avoid Framer Motion scroll detection warning
+  useEffect(() => {
+    return prog.on("change", (v) => {
+      if (!textRef.current) return;
+      const local = total > 0 ? (v - start) / (end - start) : 0;
+      const ty = 24 - local * 48;
+      textRef.current.style.transform = `translateY(${ty}px)`;
+    });
+  }, [prog, start, end, total]);
 
   return (
     <motion.div className="absolute inset-0 flex items-end" style={{ opacity }}>
@@ -70,9 +80,10 @@ function Scene({
         style={{ backgroundImage: `url("${scene.img}")`, scale }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-      <motion.div
+      <div
+        ref={textRef}
         className="relative z-10 w-full px-6 md:px-20 pb-16 md:pb-24 max-w-3xl"
-        style={{ y: ty }}
+        style={{ transform: "translateY(24px)", willChange: "transform" }}
       >
         <p
           className="text-xs tracking-widest uppercase mb-3"
@@ -107,7 +118,7 @@ function Scene({
             {"Разобрать кейс"}
           </a>
         )}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-
 const levels = [
   {
     number: "01",
@@ -100,13 +99,10 @@ export default function ThreeLevels() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
-  // Scroll-driven parallax on the section heading
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start start"],
-  });
-  const headerY = useTransform(scrollYProgress, [0, 1], [40, 0]);
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  // Window-level scroll — no target needed, avoids non-static position warning
+  const { scrollY } = useScroll();
+  const headerY = useTransform(scrollY, [200, 600], [40, 0]);
+  const headerOpacity = useTransform(scrollY, [200, 500], [0, 1]);
 
   return (
     <section className="section-padding relative" ref={sectionRef}>

@@ -24,34 +24,34 @@ type ObjCfg = {
 };
 
 const OBJECTS: ObjCfg[] = [
-  // Scene 1 — crumpled paper objects (appear 0-15%)
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4774-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
-    enter:0.00, end:0.03, exitS:0.09, exit:0.14, w:95,
-    pos:{top:"10%",right:"9%"}, py:-120, fy:14, fd:3.2, fdl:0.0 },
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4791-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
-    enter:0.01, end:0.04, exitS:0.10, exit:0.14, w:70,
-    pos:{bottom:"22%",left:"5%"}, py:-90, fy:9, fd:4.8, fdl:1.0 },
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4780-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
-    enter:0.01, end:0.04, exitS:0.10, exit:0.14, w:55,
-    pos:{bottom:"9%",right:"25%"}, py:-70, fy:7, fd:5.6, fdl:2.0 },
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4500-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
-    enter:0.02, end:0.05, exitS:0.11, exit:0.15, w:82,
-    pos:{top:"56%",right:"21%"}, py:-105, fy:11, fd:4.2, fdl:3.0 },
-  // Scene 2 — marble head + coral (appear 12-35%)
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4774-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
-    enter:0.12, end:0.18, exitS:0.28, exit:0.35, w:150,
-    pos:{top:"10%",right:"7%"}, py:-120, fy:13, fd:4.5, fdl:0.2 },
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4791-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
-    enter:0.14, end:0.20, exitS:0.30, exit:0.36, w:110,
-    pos:{bottom:"14%",left:"7%"}, py:-100, fy:18, fd:3.6, fdl:1.1 },
-  // Scene 4 — robot hand (appear 48-68%)
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4780-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
-    enter:0.48, end:0.54, exitS:0.63, exit:0.68, w:140,
-    pos:{bottom:"11%",right:"8%"}, py:-110, fy:15, fd:4.0, fdl:0.4 },
-  // Scene 5 — butterfly (appear 64-85%)
-  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4500-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
-    enter:0.64, end:0.70, exitS:0.80, exit:0.85, w:165,
-    pos:{top:"20%",right:"9%"}, py:-55, fy:22, fd:3.4, fdl:0.8 },
+  // Scene 1 — crumpled papers, varied sizes: small bg → mid foreground
+  { src: "/images/objects/--------------2026-04-03---10-43-02.webp",
+    enter:0.00, end:0.03, exitS:0.09, exit:0.14, w:48,
+    pos:{top:"14%",right:"22%"}, py:-60, fy:8, fd:3.8, fdl:0.0 },
+  { src: "/images/objects/--------------2026-04-03---10-43-22.webp",
+    enter:0.01, end:0.04, exitS:0.09, exit:0.14, w:62,
+    pos:{bottom:"24%",left:"8%"}, py:-80, fy:11, fd:4.6, fdl:0.8 },
+  { src: "/images/objects/--------------2026-04-03---10-43-44.webp",
+    enter:0.01, end:0.04, exitS:0.10, exit:0.14, w:38,
+    pos:{bottom:"14%",right:"30%"}, py:-50, fy:6, fd:5.2, fdl:1.6 },
+  { src: "/images/objects/--------------2026-04-03---10-43-19.webp",
+    enter:0.02, end:0.06, exitS:0.10, exit:0.14, w:88,
+    pos:{top:"52%",right:"7%"}, py:-110, fy:13, fd:3.4, fdl:2.4 },
+  // Scene 2 — marble head (left, mid) + coral (right, small bg)
+  { src: "/images/objects/img-4774.webp",
+    enter:0.12, end:0.19, exitS:0.28, exit:0.34, w:118,
+    pos:{top:"12%",right:"8%"}, py:-100, fy:12, fd:4.2, fdl:0.3 },
+  { src: "/images/objects/img-4791.webp",
+    enter:0.14, end:0.21, exitS:0.30, exit:0.35, w:72,
+    pos:{bottom:"16%",left:"10%"}, py:-70, fy:16, fd:3.6, fdl:1.2 },
+  // Scene 4 — robot hand (bottom right, foreground)
+  { src: "/images/objects/img-4780.webp",
+    enter:0.49, end:0.55, exitS:0.63, exit:0.68, w:125,
+    pos:{bottom:"10%",right:"9%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
+  // Scene 5 — butterfly (top right, largest — foreground accent)
+  { src: "/images/objects/img-4500.webp",
+    enter:0.65, end:0.71, exitS:0.80, exit:0.85, w:148,
+    pos:{top:"18%",right:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
 // ─── SCENE COMPONENT ─────────────────────────────────────────────────────────
@@ -209,18 +209,27 @@ export default function Home() {
             <Obj key={i} cfg={cfg} p={p} />
           ))}
 
-          {/* Hero text — scene 1 */}
+          {/* Hero text — scene 1, all WHITE */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
             style={{ opacity: heroOp, y: heroY }}
           >
-            <p className="eyebrow mb-6">AI Systems Consultancy</p>
-            <h1 className="h1 mb-8 max-w-3xl">
+            <p className="eyebrow mb-6" style={{ color: "rgba(255,255,255,0.65)" }}>
+              AI Systems Consultancy
+            </p>
+            <h1
+              className="h1 mb-8 max-w-3xl"
+              style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}
+            >
               Освобождаем время<br />
               для того, что<br />
-              действительно важно.
+              действительно{" "}
+              <span style={{ color: "#C41230" }}>важно.</span>
             </h1>
-            <p className="font-outfit font-light text-taupe text-xl leading-relaxed max-w-xl mb-4">
+            <p
+              className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
+              style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
+            >
               AI-системы, которые работают.
             </p>
             <p className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10">
@@ -248,28 +257,28 @@ export default function Home() {
 
           {/* Content overlays */}
 
-          {/* Scene 2 → WhatWeDo */}
-          <SectionOverlay p={p} enter={0.14} show={0.20} hide={0.28} exit={0.35}>
+          {/* Scene 2 → WhatWeDo: 15-31%, gap до 34% */}
+          <SectionOverlay p={p} enter={0.15} show={0.21} hide={0.27} exit={0.32}>
             <WhatWeDo />
           </SectionOverlay>
 
-          {/* Scene 3 → ThreeLevels */}
-          <SectionOverlay p={p} enter={0.31} show={0.37} hide={0.46} exit={0.52}>
+          {/* Scene 3 → ThreeLevels: 34-50%, gap до 53% */}
+          <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
             <ThreeLevels />
           </SectionOverlay>
 
-          {/* Scene 4 → Examples */}
-          <SectionOverlay p={p} enter={0.48} show={0.54} hide={0.63} exit={0.68}>
+          {/* Scene 4 → Examples: 53-68%, gap до 71% */}
+          <SectionOverlay p={p} enter={0.53} show={0.58} hide={0.64} exit={0.69}>
             <Examples />
           </SectionOverlay>
 
-          {/* Scene 5 → Process */}
-          <SectionOverlay p={p} enter={0.64} show={0.70} hide={0.79} exit={0.84}>
+          {/* Scene 5 → Process: 71-85%, gap до 87% */}
+          <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
             <Process />
           </SectionOverlay>
 
-          {/* Scene 6 → FinalCTA — stays */}
-          <FinalOverlay p={p} enter={0.81} show={0.88}>
+          {/* Scene 6 → FinalCTA: 87%→ stays */}
+          <FinalOverlay p={p} enter={0.87} show={0.93}>
             <div id="cta">
               <FinalCTA />
             </div>

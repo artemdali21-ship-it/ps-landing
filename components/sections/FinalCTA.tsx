@@ -33,14 +33,14 @@ export default function FinalCTA() {
       id="cta"
       ref={sectionRef}
       className="section-padding text-center relative overflow-hidden"
-      style={{ backgroundColor: "#EDE5D5" }}
+      style={{ background: "transparent" }}
     >
-      {/* Breathing background glow */}
+      {/* Subtle crimson breathing glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: [0, 0.04, 0] }}
+        animate={{ opacity: [0, 0.07, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        style={{ background: "radial-gradient(circle at 50% 50%, #C41230 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle at 50% 40%, #C41230 0%, transparent 65%)" }}
       />
 
       <motion.div
@@ -49,13 +49,19 @@ export default function FinalCTA() {
         <h2
           ref={headlineRef}
           className="h2"
-          style={{ transform: "translateY(40px)", opacity: 0, willChange: "transform, opacity" }}
+          style={{
+            transform: "translateY(40px)", opacity: 0,
+            willChange: "transform, opacity",
+            color: "#ffffff",
+            textShadow: "0 2px 40px rgba(0,0,0,0.4)",
+          }}
         >
           Начнём с результата.
         </h2>
 
         <motion.p
-          className="font-inter font-light text-taupe text-lg leading-relaxed"
+          className="font-inter font-light text-lg leading-relaxed"
+          style={{ color: "rgba(255,255,255,0.68)" }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -94,7 +100,8 @@ export default function FinalCTA() {
         </motion.div>
 
         <motion.p
-          className="font-inter font-light text-taupe text-sm"
+          className="font-inter font-light text-sm"
+          style={{ color: "rgba(255,255,255,0.42)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}

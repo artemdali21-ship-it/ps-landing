@@ -1,17 +1,27 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export default function FinalCTA() {
   const sectionRef = useRef<HTMLElement>(null);
+  const prog = useMotionValue(0);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end end"],
-  });
-  const headlineY = useTransform(scrollYProgress, [0, 1], [40, 0]);
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  useEffect(() => {
+    function onScroll() {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, 1 - rect.bottom / (window.innerHeight + el.offsetHeight)));
+      prog.set(progress);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [prog]);
+
+  const headlineY = useTransform(prog, [0, 0.5], [40, 0]);
+  const headlineOpacity = useTransform(prog, [0, 0.5], [0, 1]);
 
   return (
     <section

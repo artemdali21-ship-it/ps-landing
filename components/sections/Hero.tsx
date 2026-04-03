@@ -14,7 +14,7 @@ const fadeUp: Variants = {
 
 // ssr:false — ParallaxHeadline uses useEffect/ref for scroll, client-only
 const ParallaxHeadline = dynamic(
-  () => import("@/components/ParallaxHeadline"),
+  () => import("@/components/HeroHeadline"),
   { ssr: false }
 );
 

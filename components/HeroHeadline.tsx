@@ -3,16 +3,17 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-// Parallax via native scroll listener + ref.style.transform
-// No MotionValue in style prop → Framer Motion never checks container position
-// → eliminates "non-static position" warning completely.
-export default function ParallaxHeadline() {
+// Parallax via native scroll listener writing directly to ref.style.transform.
+// No useScroll(), no MotionValue in style prop — Framer Motion never runs
+// its scroll-offset detection, so "non-static position" warning is impossible.
+export default function HeroHeadline() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onScroll() {
-      if (!ref.current) return;
-      ref.current.style.transform = `translateY(${-(window.scrollY * 0.09)}px)`;
+      if (ref.current) {
+        ref.current.style.transform = `translateY(${-(window.scrollY * 0.09)}px)`;
+      }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

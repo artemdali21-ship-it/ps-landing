@@ -1,10 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useTransform, useMotionTemplate } from "framer-motion";
+import { useEffect } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
-  const { scrollY } = useScroll();
+  const scrollY = useMotionValue(0);
+
+  useEffect(() => {
+    function onScroll() { scrollY.set(window.scrollY); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollY]);
+
   const borderOpacity = useTransform(scrollY, [0, 60], [0, 1]);
   const bgOpacity = useTransform(scrollY, [0, 60], [0.82, 0.97]);
 

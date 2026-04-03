@@ -27,7 +27,7 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-5 md:px-20 py-5">
         {/* Logo */}
-        <Link href="/" className="font-outfit font-black text-xl text-espresso">
+        <Link href="/" className="font-outfit font-black text-xl text-espresso" style={{ fontFamily: "Satoshi, system-ui, sans-serif", fontWeight: 900 }}>
           Polishchuk<span className="text-crimson">.</span>
         </Link>
 

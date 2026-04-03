@@ -75,9 +75,11 @@ function FloatItem({
     [enterAt, fadeIn, fadeOut, exitAt],
     [0, 1, 1, 0]
   );
+  // Parallax on outer div — scroll-driven
   const py = useTransform(scrollProgress, [enterAt, exitAt], [50, -50]);
 
   return (
+    // Outer: handles position + opacity + scroll parallax (no animate)
     <motion.div
       className="absolute pointer-events-none select-none"
       style={{
@@ -87,17 +89,23 @@ function FloatItem({
         opacity,
         y: py,
         rotate: rot,
-        filter: blur > 0
-          ? `drop-shadow(0 24px 48px rgba(0,0,0,0.2)) blur(${blur}px)`
-          : "drop-shadow(0 24px 48px rgba(0,0,0,0.2))",
-      }}
-      animate={{ y: [0, -fy, 0] }}
-      transition={{
-        y: { duration: dur, repeat: Infinity, ease: "easeInOut", delay },
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} width={size} height={size} className="w-full h-auto" draggable={false} />
+      {/* Inner: handles only the float loop animation (no style.y conflict) */}
+      <motion.div
+        style={{
+          filter: blur > 0
+            ? `drop-shadow(0 24px 48px rgba(0,0,0,0.2)) blur(${blur}px)`
+            : "drop-shadow(0 24px 48px rgba(0,0,0,0.2))",
+        }}
+        animate={{ y: [0, -fy, 0] }}
+        transition={{
+          y: { duration: dur, repeat: Infinity, ease: "easeInOut", delay },
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={alt} width={size} height={size} className="w-full h-auto" draggable={false} />
+      </motion.div>
     </motion.div>
   );
 }

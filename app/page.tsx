@@ -37,21 +37,25 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/--------------2026-04-03---10-43-19.webp",
     enter:0.02, end:0.06, exitS:0.10, exit:0.14, w:88,
     pos:{top:"52%",right:"7%"}, py:-110, fy:13, fd:3.4, fdl:2.4 },
-  // Scene 2 — marble head (left, mid) + coral (right, small bg)
+  // Scene 2 — marble head +30% bigger, closer + coral
   { src: "/images/objects/img-4774.webp",
-    enter:0.12, end:0.19, exitS:0.28, exit:0.34, w:118,
-    pos:{top:"12%",right:"8%"}, py:-100, fy:12, fd:4.2, fdl:0.3 },
+    enter:0.12, end:0.19, exitS:0.28, exit:0.34, w:153,
+    pos:{top:"10%",right:"6%"}, py:-100, fy:12, fd:4.2, fdl:0.3 },
   { src: "/images/objects/img-4791.webp",
     enter:0.14, end:0.21, exitS:0.30, exit:0.35, w:72,
     pos:{bottom:"16%",left:"10%"}, py:-70, fy:16, fd:3.6, fdl:1.2 },
-  // Scene 4 — robot hand (bottom right, foreground)
+  // Scene 3 (ThreeLevels) — heart with flowers, left side
+  { src: "/images/objects/img-4792.webp",
+    enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
+    pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
+  // Scene 4 — robot hand ×2 bigger, higher
   { src: "/images/objects/img-4780.webp",
-    enter:0.49, end:0.55, exitS:0.63, exit:0.68, w:125,
-    pos:{bottom:"10%",right:"9%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
-  // Scene 5 — butterfly (top right, largest — foreground accent)
+    enter:0.49, end:0.55, exitS:0.63, exit:0.68, w:250,
+    pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
+  // Scene 5 — butterfly moved to LEFT side
   { src: "/images/objects/img-4500.webp",
     enter:0.65, end:0.71, exitS:0.80, exit:0.85, w:148,
-    pos:{top:"18%",right:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
+    pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
 // ─── SCENE COMPONENT ─────────────────────────────────────────────────────────
@@ -214,8 +218,8 @@ export default function Home() {
             className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
             style={{ opacity: heroOp, y: heroY }}
           >
-            <p className="eyebrow mb-6" style={{ color: "rgba(255,255,255,0.65)" }}>
-              AI Systems Consultancy
+            <p className="eyebrow mb-6" style={{ color: "#C41230" }}>
+              AI systems creating
             </p>
             <h1
               className="h1 mb-8 max-w-3xl"

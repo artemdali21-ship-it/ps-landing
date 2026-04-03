@@ -1,5 +1,5 @@
 "use client";
-// hero-v5
+
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef } from "react";
 
@@ -14,7 +14,6 @@ const fadeUp: Variants = {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-
   const { scrollY } = useScroll();
   const bgColor = useTransform(scrollY, [0, 600], ["#FAF6F0", "#F2E8D4"]);
 
@@ -45,6 +44,7 @@ export default function Hero() {
         >
           ОСВОБОЖДАЕМ ВРЕМЯ<br />
           ДЛЯ ТОГО, ЧТО<br />
+          ДЕЙСТВИТЕЛЬНО<br />
           <span className="text-crimson">ВАЖНО.</span>
         </motion.h1>
 

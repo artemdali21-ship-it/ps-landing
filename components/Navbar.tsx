@@ -38,7 +38,7 @@ export default function Navbar() {
         {/* CTA */}
         <a
           href="#cta"
-          className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] hover:bg-crimson-light transition-all duration-200"
+          className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
           style={{ letterSpacing: "0.12em" }}
         >
           Разобрать кейс

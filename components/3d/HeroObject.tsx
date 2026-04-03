@@ -7,10 +7,12 @@ import * as THREE from "three";
 
 function KineticShape({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((_state, delta) => {
     if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime();
+    elapsedRef.current += delta;
+    const t = elapsedRef.current;
     meshRef.current.rotation.y = t * 0.2;
     meshRef.current.rotation.x = Math.sin(t * 0.15) * 0.1 + mouseY * 0.3;
     meshRef.current.rotation.z = Math.cos(t * 0.1) * 0.05 + mouseX * 0.2;

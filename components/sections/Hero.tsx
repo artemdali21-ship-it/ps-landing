@@ -49,7 +49,7 @@ export default function Hero() {
   return (
     <motion.section
       ref={sectionRef}
-      className="min-h-screen pt-24 pb-20 px-5 md:px-20 flex items-start"
+      className="relative min-h-screen pt-24 pb-20 px-5 md:px-20 flex items-start"
       style={{ backgroundColor: bgColor }}
       onMouseMove={handleMouseMove}
     >

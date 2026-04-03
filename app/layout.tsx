@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import ScrollInertia from "@/components/ScrollInertia";
-import CustomCursor from "@/components/CustomCursor";
 
 // Satoshi loaded via @import in globals.css (Fontshare CDN)
 
@@ -60,10 +59,9 @@ export default function RootLayout({
       </head>
       <body
         className={`${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable} antialiased`}
-        style={{ fontFamily: "Satoshi, system-ui, sans-serif", backgroundColor: "#FAF6F0", color: "#1F1410", cursor: "none" }}
+        style={{ fontFamily: "Satoshi, system-ui, sans-serif", backgroundColor: "#FAF6F0", color: "#1F1410" }}
       >
         <ScrollInertia>
-          <CustomCursor />
           {children}
         </ScrollInertia>
       </body>

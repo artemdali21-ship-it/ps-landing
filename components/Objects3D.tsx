@@ -1,7 +1,7 @@
 "use client";
 // v3 — proper spatial distribution, depth, no useScroll
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
 // Papers — scattered chaos, appear in first 35% of page scroll
@@ -67,6 +67,8 @@ function FloatItem({
   exitAt: number;
   scrollProgress: ReturnType<typeof useMotionValue<number>>;
 }) {
+  const outerRef = useRef<HTMLDivElement>(null);
+
   const fadeIn = Math.min(enterAt + 0.05, exitAt);
   const fadeOut = Math.max(exitAt - 0.05, enterAt);
 
@@ -75,23 +77,32 @@ function FloatItem({
     [enterAt, fadeIn, fadeOut, exitAt],
     [0, 1, 1, 0]
   );
-  // Parallax on outer div — scroll-driven
-  const py = useTransform(scrollProgress, [enterAt, exitAt], [50, -50]);
+
+  // Write parallax directly to DOM — no MotionValue in style prop,
+  // so Framer Motion never runs its scroll-detection/container check.
+  useEffect(() => {
+    return scrollProgress.on("change", (v) => {
+      if (!outerRef.current) return;
+      const range = exitAt - enterAt;
+      const local = range > 0 ? (v - enterAt) / range : 0;
+      const py = local * -80 + 20;
+      outerRef.current.style.transform = `translateY(${py}px) rotate(${rot}deg)`;
+    });
+  }, [scrollProgress, enterAt, exitAt, rot]);
 
   return (
-    // Outer: handles position + opacity + scroll parallax (no animate)
     <motion.div
+      ref={outerRef}
       className="absolute pointer-events-none select-none"
       style={{
         left: x,
         top: y,
         width: size,
         opacity,
-        y: py,
         rotate: rot,
+        transform: `translateY(20px) rotate(${rot}deg)`,
       }}
     >
-      {/* Inner: handles only the float loop animation (no style.y conflict) */}
       <motion.div
         style={{
           filter: blur > 0

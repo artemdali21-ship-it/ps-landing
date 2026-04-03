@@ -114,23 +114,38 @@ function Scene({
   );
 }
 
-// Progress indicator dots
+// Progress indicator — isolated component so useTransform is not called in a loop
+function Dot({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const start = index / total;
+  const end = (index + 1) / total;
+  const mid = (start + end) / 2;
+  const opacity = useTransform(scrollYProgress, [start, mid, end], [0.3, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [start, mid, end], [0.7, 1, 0.7]);
+  return (
+    <motion.div
+      className="w-1.5 h-1.5 rounded-full bg-white"
+      style={{ opacity, scale }}
+    />
+  );
+}
+
+function ProgressBar({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const start = index / total;
+  const end = (index + 1) / total;
+  const scaleX = useTransform(scrollYProgress, [start, end], [0, 1]);
+  return (
+    <div className="w-8 h-0.5 bg-white/20 overflow-hidden">
+      <motion.div className="h-full bg-white origin-left" style={{ scaleX }} />
+    </div>
+  );
+}
+
 function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
   return (
     <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
-      {Array.from({ length: total }).map((_, i) => {
-        const start = i / total;
-        const end = (i + 1) / total;
-        const opacity = useTransform(scrollYProgress, [start, (start + end) / 2, end], [0.3, 1, 0.3]);
-        const scale = useTransform(scrollYProgress, [start, (start + end) / 2, end], [0.7, 1, 0.7]);
-        return (
-          <motion.div
-            key={i}
-            className="w-1.5 h-1.5 rounded-full bg-white"
-            style={{ opacity, scale }}
-          />
-        );
-      })}
+      {Array.from({ length: total }).map((_, i) => (
+        <Dot key={i} index={i} total={total} scrollYProgress={scrollYProgress} />
+      ))}
     </div>
   );
 }
@@ -149,8 +164,7 @@ export default function ScrollStory() {
     // Tall scroll container — height = 100vh × scenes
     <div
       ref={containerRef}
-      style={{ height: `${total * 100}vh` }}
-      className="relative"
+      style={{ height: `${total * 100}vh`, position: "relative" }}
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden">
@@ -169,19 +183,12 @@ export default function ScrollStory() {
         {/* Progress dots */}
         <Dots total={total} scrollYProgress={scrollYProgress} />
 
-        {/* Scene counter */}
+        {/* Scene progress bars */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
           <div className="flex gap-1.5">
-            {scenes.map((_, i) => {
-              const start = i / total;
-              const end = (i + 1) / total;
-              const scaleX = useTransform(scrollYProgress, [start, end], [0, 1]);
-              return (
-                <div key={i} className="w-8 h-0.5 bg-white/20 overflow-hidden">
-                  <motion.div className="h-full bg-white origin-left" style={{ scaleX }} />
-                </div>
-              );
-            })}
+            {scenes.map((_, i) => (
+              <ProgressBar key={i} index={i} total={total} scrollYProgress={scrollYProgress} />
+            ))}
           </div>
         </div>
 

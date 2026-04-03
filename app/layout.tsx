@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
-import "./main.css";
+import "./globals.css";
 import ScrollInertia from "@/components/ScrollInertia";
 import CustomCursor from "@/components/CustomCursor";
 

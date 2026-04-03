@@ -1,6 +1,6 @@
 "use client";
-
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+// v2
+import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 const levels = [
   {
@@ -95,37 +95,31 @@ const cardVariants = [
 ];
 
 export default function ThreeLevels() {
-  const sectionRef = useRef(null);
   const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-
-  // Window-level scroll — no target needed, avoids non-static position warning
-  const { scrollY } = useScroll();
-  const headerY = useTransform(scrollY, [200, 600], [40, 0]);
-  const headerOpacity = useTransform(scrollY, [200, 500], [0, 1]);
 
   return (
-    <section className="section-padding relative" ref={sectionRef}>
+    <section className="section-padding relative">
       <div className="max-w-7xl mx-auto">
 
-        {/* Header with scroll-driven entrance */}
+        {/* Header with whileInView entrance — no scroll container needed */}
         <motion.div
           ref={headerRef}
           className="text-center mb-16"
-          style={{ y: headerY, opacity: headerOpacity }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h2 className="h2 mb-4">Три уровня AI-систем</h2>
+          <h2 className="h2 mb-4">{"Три уровня AI-систем"}</h2>
           <p className="font-inter font-light text-taupe text-lg max-w-xl mx-auto leading-relaxed">
-            Одни закрывают одну задачу. Другие становятся частью процесса.
-            Третьи — основой экспертной системы.
+            {"Одни закрывают одну задачу. Другие становятся частью процесса. Третьи — основой экспертной системы."}
           </p>
-          {/* Breathing accent phrase */}
           <motion.p
             className="font-space-grotesk font-medium text-crimson mt-4"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            Уровень определяется масштабом результата, не бюджетом.
+            {"Уровень определяется масштабом результата, не бюджетом."}
           </motion.p>
         </motion.div>
 
@@ -187,7 +181,7 @@ export default function ThreeLevels() {
                     key={item}
                     className="font-inter font-light text-taupe text-sm flex gap-2 leading-snug"
                   >
-                    <span className="text-crimson mt-0.5 flex-shrink-0">·</span>
+                    <span className="text-crimson mt-0.5 flex-shrink-0" aria-hidden>{"·"}</span>
                     {item}
                   </li>
                 ))}

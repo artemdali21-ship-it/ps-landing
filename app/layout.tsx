@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk, Space_Mono, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import ScrollInertia from "@/components/ScrollInertia";
 import CustomCursor from "@/components/CustomCursor";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit-var",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
+// Satoshi loaded via @import in globals.css (Fontshare CDN)
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -56,8 +52,8 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${outfit.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable} antialiased`}
-        style={{ backgroundColor: "#FAF6F0", color: "#1F1410", cursor: "none" }}
+        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable} antialiased`}
+        style={{ fontFamily: "Satoshi, system-ui, sans-serif", backgroundColor: "#FAF6F0", color: "#1F1410", cursor: "none" }}
       >
         <ScrollInertia>
           <CustomCursor />

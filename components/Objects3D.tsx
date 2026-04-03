@@ -1,96 +1,81 @@
 "use client";
+// v3 — proper spatial distribution, depth, no useScroll
 
 import { useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
-// Object catalogue — three phases
+// Papers — scattered chaos, appear in first 35% of page scroll
+// Each has a distinct position: left/right/top/bottom, varying sizes for depth illusion
 const PAPERS = [
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.44-d7LWc5xENHhM617BOTPsFN8BB6dUW0.png",
-    alt: "Crumpled brown paper",
-    size: 180, x: "8%", y: "18%", delay: 0, duration: 6, rotate: -12, floatY: 18,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.33-tOrYpKo8TrXLpxrZrSKgpj744woPri.png",
-    alt: "Yellow crumpled paper ball",
-    size: 140, x: "78%", y: "12%", delay: 0.8, duration: 7, rotate: 20, floatY: 14,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.22-MOn01q5QVnHwn4ju1WTipr7FSP4s8t.png",
-    alt: "Yellow lined crumpled paper",
-    size: 160, x: "60%", y: "72%", delay: 1.4, duration: 8, rotate: -8, floatY: 20,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.02-80Y7YzQy4lc4jZEmbvwA7MOiinlBtE.png",
-    alt: "Crumpled notebook page",
-    size: 150, x: "22%", y: "65%", delay: 2, duration: 6.5, rotate: 15, floatY: 16,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.19-wKwiyxuK56gn5DdtvUxltkappZvNXf.png",
-    alt: "Crumpled newspaper",
-    size: 170, x: "45%", y: "30%", delay: 0.5, duration: 9, rotate: -18, floatY: 22,
-  },
+  // Far-left, high — large, blurry (feels close)
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.44-d7LWc5xENHhM617BOTPsFN8BB6dUW0.png",
+    alt: "Crumpled brown paper", size: 220, x: "4%", y: "8%", delay: 0, dur: 7, rot: -14, fy: 22, blur: 0 },
+  // Right side, mid-height — medium
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.33-tOrYpKo8TrXLpxrZrSKgpj744woPri.png",
+    alt: "Yellow paper ball", size: 160, x: "80%", y: "10%", delay: 0.9, dur: 8, rot: 22, fy: 16, blur: 0 },
+  // Centre-right, below fold — small (distance)
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.22-MOn01q5QVnHwn4ju1WTipr7FSP4s8t.png",
+    alt: "Lined crumpled paper", size: 110, x: "58%", y: "68%", delay: 1.5, dur: 9, rot: -7, fy: 12, blur: 1 },
+  // Left, lower — medium
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.02-80Y7YzQy4lc4jZEmbvwA7MOiinlBtE.png",
+    alt: "Notebook page", size: 145, x: "18%", y: "62%", delay: 2.1, dur: 6.5, rot: 17, fy: 18, blur: 0 },
+  // Far right, very small (deep background)
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-03%20%D0%B2%2010.43.19-wKwiyxuK56gn5DdtvUxltkappZvNXf.png",
+    alt: "Newspaper ball", size: 85, x: "88%", y: "52%", delay: 0.4, dur: 11, rot: -20, fy: 10, blur: 2 },
 ];
 
+// Marble head — centrepiece at 28–55% scroll, right side, large
 const HEAD = {
   src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4774-8Q2F0adp4ZFgZU7fYabeenn8h8omqk.png",
-  alt: "Marble fragmented head sculpture",
-  size: 340, x: "72%", y: "20%", delay: 0, duration: 10, rotate: 6, floatY: 24,
+  alt: "Marble fragmented head", size: 420, x: "64%", y: "8%", delay: 0, dur: 12, rot: 5, fy: 28, blur: 0,
 };
 
+// Robots — spread across full screen in final 50% of scroll
 const ROBOTS = [
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4500-z6ecRxAWAL3Qs5yWulSSpAXYNjczo3.png",
-    alt: "Chrome robotic butterfly",
-    size: 260, x: "82%", y: "10%", delay: 0, duration: 9, rotate: -10, floatY: 30,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4781-zhqumx5nwXXHXxvyo8QEJfWKDfdWDd.png",
-    alt: "Robotic heart with cherry blossoms",
-    size: 220, x: "5%", y: "25%", delay: 1.2, duration: 11, rotate: 8, floatY: 26,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4780-xGf99NqLPRpYQbgWEXPDQElR1rzyOx.png",
-    alt: "Robot hand holding flower",
-    size: 200, x: "48%", y: "55%", delay: 0.6, duration: 8, rotate: -5, floatY: 20,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4793-RuToXTbYuhAzDcnci9hP2NDeqEBPGb.png",
-    alt: "Metallic cube matrix",
-    size: 240, x: "70%", y: "60%", delay: 1.8, duration: 12, rotate: 14, floatY: 28,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4792-3yG2hF2y89XtcmP3UzMAGGOzoSJW7s.png",
-    alt: "Green crystal tree cube",
-    size: 200, x: "20%", y: "70%", delay: 2.2, duration: 10, rotate: -12, floatY: 22,
-  },
-  {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4791-puETQVQVOw0ERcszFP2hmHxoXIHkER.png",
-    alt: "Crystal flower rock island",
-    size: 220, x: "88%", y: "40%", delay: 0.9, duration: 9.5, rotate: 18, floatY: 25,
-  },
+  // Top-left, large — butterfly
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4500-z6ecRxAWAL3Qs5yWulSSpAXYNjczo3.png",
+    alt: "Chrome butterfly", size: 300, x: "2%", y: "5%", delay: 0, dur: 10, rot: -8, fy: 32, blur: 0 },
+  // Right, upper-mid — robotic heart, medium
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4781-zhqumx5nwXXHXxvyo8QEJfWKDfdWDd.png",
+    alt: "Robotic heart cherry blossom", size: 200, x: "78%", y: "8%", delay: 1.3, dur: 13, rot: 10, fy: 24, blur: 0 },
+  // Centre-bottom, small (distance)
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4780-xGf99NqLPRpYQbgWEXPDQElR1rzyOx.png",
+    alt: "Robot hand flower", size: 130, x: "42%", y: "62%", delay: 0.7, dur: 9, rot: -4, fy: 16, blur: 1 },
+  // Right-lower, large cube
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4793-RuToXTbYuhAzDcnci9hP2NDeqEBPGb.png",
+    alt: "Metallic cube", size: 280, x: "68%", y: "50%", delay: 2.0, dur: 14, rot: 16, fy: 30, blur: 0 },
+  // Left-mid, medium
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4792-3yG2hF2y89XtcmP3UzMAGGOzoSJW7s.png",
+    alt: "Green crystal cube", size: 180, x: "12%", y: "42%", delay: 2.5, dur: 11, rot: -13, fy: 20, blur: 0 },
+  // Far-right bottom, tiny (deepest background)
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4791-puETQVQVOw0ERcszFP2hmHxoXIHkER.png",
+    alt: "Crystal flower island", size: 95, x: "85%", y: "72%", delay: 1.0, dur: 10, rot: 20, fy: 12, blur: 2 },
 ];
 
 type ObjData = {
   src: string; alt: string; size: number;
-  x: string; y: string; delay: number; duration: number;
-  rotate: number; floatY: number;
+  x: string; y: string; delay: number; dur: number;
+  rot: number; fy: number; blur: number;
 };
 
 function FloatItem({
-  src, alt, size, x, y, delay, duration, rotate, floatY,
-  enterAt, exitAt, scrollProgress,
+  src, alt, size, x, y, delay, dur, rot, fy, blur,
+  enterAt, exitAt,
+  scrollProgress,
 }: ObjData & {
   enterAt: number;
   exitAt: number;
   scrollProgress: ReturnType<typeof useMotionValue<number>>;
 }) {
+  const fadeIn = Math.min(enterAt + 0.05, exitAt);
+  const fadeOut = Math.max(exitAt - 0.05, enterAt);
+
   const opacity = useTransform(
     scrollProgress,
-    [enterAt, Math.min(enterAt + 0.04, exitAt), Math.max(exitAt - 0.04, enterAt), exitAt],
+    [enterAt, fadeIn, fadeOut, exitAt],
     [0, 1, 1, 0]
   );
-  const parallaxY = useTransform(scrollProgress, [enterAt, exitAt], [40, -40]);
+  const py = useTransform(scrollProgress, [enterAt, exitAt], [50, -50]);
 
   return (
     <motion.div
@@ -100,30 +85,31 @@ function FloatItem({
         top: y,
         width: size,
         opacity,
-        y: parallaxY,
-        rotate,
-        filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.18))",
+        y: py,
+        rotate: rot,
+        filter: blur > 0
+          ? `drop-shadow(0 24px 48px rgba(0,0,0,0.2)) blur(${blur}px)`
+          : "drop-shadow(0 24px 48px rgba(0,0,0,0.2))",
       }}
-      animate={{ y: [0, -floatY, 0] }}
+      animate={{ y: [0, -fy, 0] }}
       transition={{
-        y: { duration, repeat: Infinity, ease: "easeInOut", delay },
+        y: { duration: dur, repeat: Infinity, ease: "easeInOut", delay },
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} width={size} height={size} className="w-full h-auto" />
+      <img src={src} alt={alt} width={size} height={size} className="w-full h-auto" draggable={false} />
     </motion.div>
   );
 }
 
-export default function FloatingObjects() {
-  // Manual scroll progress — avoids useScroll() "non-static container" Framer Motion warning
+export default function Objects3D() {
   const scrollProgress = useMotionValue(0);
 
   useEffect(() => {
     function onScroll() {
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
-      scrollProgress.set(window.scrollY / maxScroll);
+      const max = document.body.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      scrollProgress.set(window.scrollY / max);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -131,32 +117,21 @@ export default function FloatingObjects() {
   }, [scrollProgress]);
 
   return (
-    <div
-      className="fixed inset-0 z-10 overflow-hidden pointer-events-none"
-      aria-hidden="true"
-    >
+    <div className="fixed inset-0 z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+      {/* Phase 1: Papers (0 – 35%) */}
       {PAPERS.map((obj, i) => (
-        <FloatItem
-          key={`paper-${i}`}
-          {...obj}
-          enterAt={0}
-          exitAt={0.32}
-          scrollProgress={scrollProgress}
-        />
+        <FloatItem key={`p${i}`} {...obj} enterAt={0} exitAt={0.35} scrollProgress={scrollProgress} />
       ))}
 
-      <FloatItem
-        {...HEAD}
-        enterAt={0.28}
-        exitAt={0.55}
-        scrollProgress={scrollProgress}
-      />
+      {/* Phase 2: Marble Head (28 – 58%) */}
+      <FloatItem {...HEAD} enterAt={0.28} exitAt={0.58} scrollProgress={scrollProgress} />
 
+      {/* Phase 3: Robots (50 – 100%), staggered entry */}
       {ROBOTS.map((obj, i) => (
         <FloatItem
-          key={`robot-${i}`}
+          key={`r${i}`}
           {...obj}
-          enterAt={0.50 + i * 0.02}
+          enterAt={0.50 + i * 0.03}
           exitAt={1.0}
           scrollProgress={scrollProgress}
         />

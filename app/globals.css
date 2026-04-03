@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Satoshi via Fontshare CDN */
+@font-face {
+  font-family: "Satoshi";
+  src: url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap");
+  font-display: swap;
+}
+
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap");
+
 @theme {
   --color-beige: #FAF6F0;
   --color-sand: #F3ECE2;
@@ -9,10 +18,11 @@
   --color-crimson: #C41230;
   --color-crimson-light: #D42040;
 
-  --font-outfit: var(--font-outfit-var), sans-serif;
+  --font-sans: "Satoshi", system-ui, sans-serif;
+  --font-outfit: "Satoshi", system-ui, sans-serif;
   --font-space-grotesk: var(--font-space-grotesk-var), sans-serif;
   --font-space-mono: var(--font-space-mono-var), monospace;
-  --font-inter: var(--font-inter-var), sans-serif;
+  --font-inter: "Satoshi", system-ui, sans-serif;
 
   --spacing-18: 72px;
   --spacing-22: 88px;
@@ -110,29 +120,32 @@
   }
 
   .h1 {
-    font-family: var(--font-outfit-var), sans-serif;
+    font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 900;
     color: #1F1410;
     font-size: clamp(42px, 7vw, 72px);
     line-height: 1.1;
     letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
 
   .h2 {
-    font-family: var(--font-outfit-var), sans-serif;
+    font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 800;
     color: #1F1410;
     font-size: clamp(32px, 5vw, 54px);
     line-height: 1.15;
     letter-spacing: -0.015em;
+    text-transform: uppercase;
   }
 
   .h3 {
-    font-family: var(--font-outfit-var), sans-serif;
+    font-family: "Satoshi", system-ui, sans-serif;
     font-weight: 700;
     color: #1F1410;
     font-size: clamp(24px, 3vw, 36px);
     line-height: 1.2;
+    text-transform: uppercase;
   }
 
   .micro-phrase {

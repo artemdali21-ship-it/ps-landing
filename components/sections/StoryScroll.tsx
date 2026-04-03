@@ -1,5 +1,5 @@
 "use client";
-// scrollstory-v5-nomv
+// v3 — no useScroll, pure useMotionValue + scroll listener
 
 import { useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
@@ -36,84 +36,75 @@ const scenes = [
   {
     img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6g.png-jTDmESN0LahUgylbruygyn43c9l1yj.jpeg",
     label: "РЕЗУЛЬТАТ",
-    headline: "ОСВОБОЖДАЕМ ВРЕМЯ ДЛЯ ГЛАВНОГО.",
+    headline: "ОСВОБОЖДАЕМ ВРЕМЯ ДЛЯ ТОГО, ЧТО ВАЖНО.",
     sub: "Не начинайте с решения. Начните с результата.",
     alt: "Человек медитирует в цветочном поле, цифровые схемы растворяются",
     isFinal: true,
   },
 ];
 
-type MV = ReturnType<typeof useMotionValue<number>>;
-
+// Each scene fades in/out based on scroll progress
 function Scene({
   scene,
   index,
   total,
-  scrollYProgress,
+  progress,
 }: {
   scene: (typeof scenes)[0];
   index: number;
   total: number;
-  scrollYProgress: MV;
+  progress: ReturnType<typeof useMotionValue<number>>;
 }) {
   const start = index / total;
   const end = (index + 1) / total;
 
   const opacity = useTransform(
-    scrollYProgress,
-    [start, start + 0.04, end - 0.04, end],
+    progress,
+    [
+      Math.max(0, start - 0.01),
+      start + 0.04,
+      end - 0.04,
+      Math.min(1, end + 0.01),
+    ],
     [0, 1, 1, 0]
   );
-  const scale = useTransform(scrollYProgress, [start, end], [1.06, 1.0]);
-  const textY = useTransform(scrollYProgress, [start, end], [24, -24]);
+  const scale = useTransform(progress, [start, end], [1.06, 1.0]);
+  const textY = useTransform(progress, [start, end], [24, -24]);
 
   return (
     <motion.div
       className="absolute inset-0 flex items-end"
       style={{ opacity }}
     >
+      {/* Background image with subtle Ken Burns */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url("${scene.img}")`, scale }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      {/* Dark gradient bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/20 to-transparent" />
+      {/* Text */}
       <motion.div
-        className="relative z-10 w-full px-6 md:px-20 pb-16 md:pb-24 max-w-3xl"
+        className="relative z-10 w-full px-6 md:px-20 pb-16 md:pb-20 max-w-3xl"
         style={{ y: textY }}
       >
-        <p
-          className="text-xs tracking-widest uppercase text-crimson mb-3"
-          style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 500 }}
-        >
+        <p className="font-space-grotesk font-medium text-xs tracking-widest uppercase text-crimson mb-3">
           {scene.label}
         </p>
         <h2
-          className="text-white leading-tight mb-4"
-          style={{
-            fontFamily: "'Satoshi', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(2rem, 5vw, 4rem)",
-            textTransform: "uppercase",
-            letterSpacing: "-0.02em",
-          }}
+          className="font-sans font-black text-white leading-tight mb-4 uppercase"
+          style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)", letterSpacing: "-0.02em" }}
         >
           {scene.headline}
         </h2>
-        <p
-          className="text-white/80 text-lg leading-relaxed max-w-xl"
-          style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 300 }}
-        >
+        <p className="font-sans font-light text-white/80 text-lg leading-relaxed max-w-xl">
           {scene.sub}
         </p>
         {scene.isFinal && (
           <a
             href="#services"
-            className="mt-8 inline-block text-sm uppercase tracking-widest px-8 py-3 bg-crimson text-white hover:bg-crimson/90 transition-colors"
-            style={{
-              fontFamily: "'Satoshi', sans-serif",
-              fontWeight: 700,
-              borderRadius: "2px",
-            }}
+            className="mt-8 inline-block font-space-grotesk font-medium text-sm uppercase tracking-widest px-8 py-3 bg-crimson text-white hover:bg-crimson/90 transition-colors"
+            style={{ borderRadius: "2px" }}
           >
             {"Разобрать кейс"}
           </a>
@@ -123,83 +114,88 @@ function Scene({
   );
 }
 
-function Dot({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: MV }) {
+function Dot({
+  index,
+  total,
+  progress,
+}: {
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useMotionValue<number>>;
+}) {
   const start = index / total;
   const end = (index + 1) / total;
   const mid = (start + end) / 2;
-  const opacity = useTransform(scrollYProgress, [start, mid, end], [0.3, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [start, mid, end], [0.7, 1.3, 0.7]);
+  const dotOpacity = useTransform(progress, [start, mid, end], [0.3, 1, 0.3]);
+  const dotScale = useTransform(progress, [start, mid, end], [0.7, 1.2, 0.7]);
   return (
     <motion.div
       className="w-1.5 h-1.5 rounded-full bg-white"
-      style={{ opacity, scale }}
+      style={{ opacity: dotOpacity, scale: dotScale }}
     />
   );
 }
 
-function ProgressBar({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: MV }) {
+function Bar({
+  index,
+  total,
+  progress,
+}: {
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useMotionValue<number>>;
+}) {
   const start = index / total;
   const end = (index + 1) / total;
-  const scaleX = useTransform(scrollYProgress, [start, end], [0, 1]);
+  const scaleX = useTransform(progress, [start, end], [0, 1]);
   return (
-    <div className="w-8 h-px bg-white/20 overflow-hidden">
+    <div className="w-8 h-px bg-white/25 overflow-hidden">
       <motion.div className="h-full bg-white origin-left" style={{ scaleX }} />
-    </div>
-  );
-}
-
-function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: MV }) {
-  return (
-    <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
-      {Array.from({ length: total }).map((_, i) => (
-        <Dot key={i} index={i} total={total} scrollYProgress={scrollYProgress} />
-      ))}
     </div>
   );
 }
 
 export default function ScrollStory() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollYProgress = useMotionValue(0);
+  const progress = useMotionValue(0);
+  const total = scenes.length;
 
   useEffect(() => {
-    function update() {
+    function onScroll() {
       const el = containerRef.current;
       if (!el) return;
-      const containerTop = el.offsetTop;
-      const range = el.offsetHeight - window.innerHeight;
-      if (range <= 0) return;
-      scrollYProgress.set(
-        Math.min(1, Math.max(0, (window.scrollY - containerTop) / range))
-      );
+      const top = el.offsetTop;
+      const height = el.offsetHeight - window.innerHeight;
+      if (height <= 0) return;
+      progress.set(Math.min(1, Math.max(0, (window.scrollY - top) / height)));
     }
-    window.addEventListener("scroll", update, { passive: true });
-    update();
-    return () => window.removeEventListener("scroll", update);
-  }, [scrollYProgress]);
-
-  const total = scenes.length;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [progress]);
 
   return (
     <div ref={containerRef} style={{ height: `${total * 100}vh`, position: "relative" }}>
       <div className="sticky top-0 h-screen overflow-hidden">
+
         {scenes.map((scene, i) => (
-          <Scene
-            key={scene.label}
-            scene={scene}
-            index={i}
-            total={total}
-            scrollYProgress={scrollYProgress}
-          />
+          <Scene key={scene.label} scene={scene} index={i} total={total} progress={progress} />
         ))}
 
-        <Dots total={total} scrollYProgress={scrollYProgress} />
-
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
+        {/* Nav dots — right side */}
+        <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
           {scenes.map((_, i) => (
-            <ProgressBar key={i} index={i} total={total} scrollYProgress={scrollYProgress} />
+            <Dot key={i} index={i} total={total} progress={progress} />
           ))}
         </div>
+
+        {/* Progress bars — top center */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
+          {scenes.map((_, i) => (
+            <Bar key={i} index={i} total={total} progress={progress} />
+          ))}
+        </div>
+
       </div>
     </div>
   );

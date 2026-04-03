@@ -40,7 +40,7 @@ const levels = [
     priceValue: 700000,
     priceSuffix: " ₽",
     timeline: "4–12 недель",
-    description: "Там где ошибка стоит дороже чем система.",
+    description: "\u0422\u0430\u043c \u0433\u0434\u0435 \u043e\u0448\u0438\u0431\u043a\u0430 \u0441\u0442\u043e\u0438\u0442 \u0434\u043e\u0440\u043e\u0436\u0435 \u0447\u0435\u043c \u0441\u0438\u0441\u0442\u0435\u043c\u0430.",
     items: [
       "Сметы и расчёты с десятками переменных",
       "Системы принятия решений с памятью",
@@ -171,7 +171,7 @@ export default function ThreeLevels() {
 
               <div className="h-px bg-stone mb-4" />
 
-              <p className="font-inter font-light text-espresso text-base mb-5 leading-relaxed">
+              <p suppressHydrationWarning className="font-inter font-light text-espresso text-base mb-5 leading-relaxed">
                 {level.description}
               </p>
 

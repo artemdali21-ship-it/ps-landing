@@ -25,31 +25,31 @@ type ObjCfg = {
 
 const OBJECTS: ObjCfg[] = [
   // Scene 1 — crumpled paper objects (appear 0-15%)
-  { src: "/images/objects/--------------2026-04-03---10-43-02.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4774-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
     enter:0.00, end:0.03, exitS:0.09, exit:0.14, w:95,
     pos:{top:"10%",right:"9%"}, py:-120, fy:14, fd:3.2, fdl:0.0 },
-  { src: "/images/objects/--------------2026-04-03---10-43-22.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4791-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
     enter:0.01, end:0.04, exitS:0.10, exit:0.14, w:70,
     pos:{bottom:"22%",left:"5%"}, py:-90, fy:9, fd:4.8, fdl:1.0 },
-  { src: "/images/objects/--------------2026-04-03---10-43-44.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4780-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
     enter:0.01, end:0.04, exitS:0.10, exit:0.14, w:55,
     pos:{bottom:"9%",right:"25%"}, py:-70, fy:7, fd:5.6, fdl:2.0 },
-  { src: "/images/objects/--------------2026-04-03---10-43-19.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4500-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
     enter:0.02, end:0.05, exitS:0.11, exit:0.15, w:82,
     pos:{top:"56%",right:"21%"}, py:-105, fy:11, fd:4.2, fdl:3.0 },
   // Scene 2 — marble head + coral (appear 12-35%)
-  { src: "/images/objects/img-4774.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4774-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
     enter:0.12, end:0.18, exitS:0.28, exit:0.35, w:150,
     pos:{top:"10%",right:"7%"}, py:-120, fy:13, fd:4.5, fdl:0.2 },
-  { src: "/images/objects/img-4791.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4791-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
     enter:0.14, end:0.20, exitS:0.30, exit:0.36, w:110,
     pos:{bottom:"14%",left:"7%"}, py:-100, fy:18, fd:3.6, fdl:1.1 },
   // Scene 4 — robot hand (appear 48-68%)
-  { src: "/images/objects/img-4780.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4780-oBMuMFCVCHTaUTFBz0gD9GKcBIqJnO.webp",
     enter:0.48, end:0.54, exitS:0.63, exit:0.68, w:140,
     pos:{bottom:"11%",right:"8%"}, py:-110, fy:15, fd:4.0, fdl:0.4 },
   // Scene 5 — butterfly (appear 64-85%)
-  { src: "/images/objects/img-4500.webp",
+  { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/img-4500-xKbzMXSBl8AJbnuFjRKiW4Nf7dSLZY.webp",
     enter:0.64, end:0.70, exitS:0.80, exit:0.85, w:165,
     pos:{top:"20%",right:"9%"}, py:-55, fy:22, fd:3.4, fdl:0.8 },
 ];
@@ -197,12 +197,12 @@ export default function Home() {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
           {/* Scenes */}
-          <Scene src="/images/scenes/1.png" opacity={s1Op} scale={s1Sc} first />
-          <Scene src="/images/scenes/2.png" opacity={s2Op} scale={s2Sc} />
-          <Scene src="/images/scenes/3.png" opacity={s3Op} scale={s3Sc} />
-          <Scene src="/images/scenes/4.png" opacity={s4Op} scale={s4Sc} />
-          <Scene src="/images/scenes/5.png" opacity={s5Op} scale={s5Sc} />
-          <Scene src="/images/scenes/6g.png" opacity={s6Op} scale={s6Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.png-1hL8GTC70jCdoMKljCmmsPNQO5KOft.jpeg" opacity={s1Op} scale={s1Sc} first />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2.png-Cdo7NfQE9XwFcXQpws6zDSyA5kHUT7.jpeg" opacity={s2Op} scale={s2Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3.png-Q9FSmlZXt6GTnmYvhT0NFEh6N9X30K.jpeg" opacity={s3Op} scale={s3Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/4.png-Wd0lFYmU4OQ8m6e5Y7YfPalfPl5ADo.jpeg" opacity={s4Op} scale={s4Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5.png-w4ends69OL62yTe6SSjC9DbJkqRGqx.jpeg" opacity={s5Op} scale={s5Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6g.png-jTDmESN0LahUgylbruygyn43c9l1yj.jpeg" opacity={s6Op} scale={s6Sc} />
 
           {/* 3D floating objects */}
           {OBJECTS.map((cfg, i) => (

@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import { ScrollStory, ThreeLevels } from "@/components/ClientSections";
+import { ScrollStory, ThreeLevels, FloatingObjects } from "@/components/ClientSections";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import Examples from "@/components/sections/Examples";
 import Process from "@/components/sections/Process";
@@ -9,6 +9,7 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main>
+      <FloatingObjects />
       <Navbar />
       <ScrollStory />
       <WhatWeDo />

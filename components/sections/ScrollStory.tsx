@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
 const scenes = [
   {
     img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.png-1hL8GTC70jCdoMKljCmmsPNQO5KOft.jpeg",
@@ -153,9 +152,16 @@ function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: Retu
 export default function ScrollStory() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+  // useScroll without target tracks window scroll — avoids "non-static position" warning.
+  // We normalize it ourselves against the container's scroll range.
+  const { scrollY } = useScroll();
+  const scrollYProgress = useTransform(scrollY, () => {
+    if (!containerRef.current) return 0;
+    const rect = containerRef.current.getBoundingClientRect();
+    const containerTop = window.scrollY + rect.top;
+    const containerHeight = containerRef.current.offsetHeight - window.innerHeight;
+    if (containerHeight <= 0) return 0;
+    return Math.min(1, Math.max(0, (window.scrollY - containerTop) / containerHeight));
   });
 
   const total = scenes.length;

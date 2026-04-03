@@ -175,14 +175,15 @@ export default function ThreeLevels() {
                 {level.description}
               </p>
 
-              <ul className="flex flex-col gap-2.5">
+              <ul className="flex flex-col gap-2.5" suppressHydrationWarning>
                 {level.items.map((item) => (
                   <li
                     key={item}
                     className="font-inter font-light text-taupe text-sm flex gap-2 leading-snug"
+                    suppressHydrationWarning
                   >
                     <span className="text-crimson mt-0.5 flex-shrink-0" aria-hidden>{"·"}</span>
-                    {item}
+                    <span suppressHydrationWarning>{String(item)}</span>
                   </li>
                 ))}
               </ul>

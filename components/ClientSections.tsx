@@ -12,3 +12,8 @@ export const ThreeLevels = dynamic(
   () => import("@/components/sections/ThreeLevels"),
   { ssr: false, loading: () => <div style={{ minHeight: "600px" }} /> }
 );
+
+export const FloatingObjects = dynamic(
+  () => import("@/components/FloatingObjects"),
+  { ssr: false }
+);

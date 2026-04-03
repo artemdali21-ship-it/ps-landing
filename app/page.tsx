@@ -48,9 +48,9 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4793.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 4 — robot hand ×2 bigger, higher — stays to the very end
+  // Scene 4 — robot hand ×2 bigger, higher — exits before meditation scene
   { src: "/images/objects/img-4780.webp",
-    enter:0.49, end:0.55, exitS:0.99, exit:1.00, w:250,
+    enter:0.49, end:0.55, exitS:0.73, exit:0.80, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   // Scene 5 — butterfly moved to LEFT side
   { src: "/images/objects/img-4500.webp",

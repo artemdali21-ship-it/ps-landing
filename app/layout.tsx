@@ -51,6 +51,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable} antialiased`}
         style={{ fontFamily: "Satoshi, system-ui, sans-serif", backgroundColor: "#FAF6F0", color: "#1F1410", cursor: "none" }}

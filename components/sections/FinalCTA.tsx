@@ -1,24 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 export default function FinalCTA() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section
       id="cta"
       className="section-padding bg-sand text-center"
-      ref={ref}
     >
       <motion.div
         className="max-w-2xl mx-auto flex flex-col items-center gap-8"
         initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7 }}
       >
         <h2 className="h2">Начнём с результата.</h2>
 

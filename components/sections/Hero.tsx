@@ -35,7 +35,7 @@ export default function Hero() {
 
   return (
     <section
-      className="min-h-screen pt-28 pb-20 px-5 md:px-20 flex items-center"
+      className="min-h-screen pt-24 pb-20 px-5 md:px-20 flex items-start"
       onMouseMove={handleMouseMove}
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">

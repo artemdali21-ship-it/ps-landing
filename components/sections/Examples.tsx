@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 const cases = [
   {
@@ -28,16 +26,14 @@ const cases = [
 ];
 
 export default function Examples() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="примеры" className="section-padding bg-sand" ref={ref}>
+    <section id="примеры" className="section-padding bg-sand">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="h2 mb-14"
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
           Как это выглядит
@@ -49,7 +45,8 @@ export default function Examples() {
               key={c.title}
               className="card flex flex-col gap-5"
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.12 }}
             >
               <p className="eyebrow">{c.title}</p>
@@ -87,8 +84,9 @@ export default function Examples() {
         <motion.p
           className="micro-phrase text-center mt-12"
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           Работает в процессе, а не в презентации.
         </motion.p>

@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 const steps = [
   {
@@ -26,11 +24,8 @@ const steps = [
 ];
 
 export default function Process() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="процесс" className="section-padding" ref={ref}>
+    <section id="процесс" className="section-padding">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {steps.map((step, i) => (
@@ -38,7 +33,8 @@ export default function Process() {
               key={step.number}
               className="flex flex-col gap-4"
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
             >
               {/* Number */}
@@ -71,8 +67,9 @@ export default function Process() {
         <motion.p
           className="font-space-grotesk font-medium text-taupe text-sm tracking-wide mt-16 text-center"
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
           Проектируем под процесс. Не продаём шаблон.
         </motion.p>

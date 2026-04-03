@@ -45,7 +45,7 @@ const OBJECTS: ObjCfg[] = [
     enter:0.14, end:0.21, exitS:0.30, exit:0.35, w:72,
     pos:{bottom:"16%",left:"10%"}, py:-70, fy:16, fd:3.6, fdl:1.2 },
   // Scene 3 (ThreeLevels) — heart with flowers, left side
-  { src: "/images/objects/img-4792.webp",
+  { src: "/images/objects/img-4793.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
   // Scene 4 — robot hand ×2 bigger, higher — stays to the very end

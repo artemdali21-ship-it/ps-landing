@@ -74,7 +74,7 @@ export default function WhatWeDo() {
             transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
           >
             <motion.img
-              src="/images/objects/img-4793.webp"
+              src="/images/objects/img-4781.webp"
               alt=""
               style={{
                 width: "88%",

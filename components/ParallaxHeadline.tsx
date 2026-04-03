@@ -1,32 +1,25 @@
 "use client";
-// v2 — no MotionValue in style prop, no useScroll, no Framer scroll detection
+
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-/**
- * ParallaxHeadline — scroll-driven parallax WITHOUT MotionValue in style prop.
- *
- * Framer Motion triggers "non-static position" warning when a MotionValue
- * is passed as style.y — it internally checks the container's CSS position.
- *
- * Fix: read scrollY manually in useEffect and write to the DOM element
- * directly via ref, bypassing Framer Motion's scroll detection entirely.
- */
+// Parallax via native scroll listener + ref.style.transform
+// No MotionValue in style prop → Framer Motion never checks container position
+// → eliminates "non-static position" warning completely.
 export default function ParallaxHeadline() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onScroll() {
-      if (!wrapperRef.current) return;
-      const y = -(window.scrollY * 0.09);
-      wrapperRef.current.style.transform = `translateY(${y}px)`;
+      if (!ref.current) return;
+      ref.current.style.transform = `translateY(${-(window.scrollY * 0.09)}px)`;
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ willChange: "transform" }}>
+    <div ref={ref} style={{ willChange: "transform" }}>
       <motion.h1
         className="font-outfit font-black uppercase tracking-tight leading-none"
         style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}

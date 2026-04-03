@@ -12,10 +12,11 @@ const fadeUp: Variants = {
   }),
 };
 
-// ssr: false — ParallaxHeadline uses client-only scroll APIs.
-// No mounted gate needed: dynamic ssr:false renders null on server,
-// so server and client HTML both agree (no hydration mismatch).
-const ParallaxHeadline = dynamic(() => import("@/components/ParallaxHeadline"), { ssr: false });
+// ssr:false — ParallaxHeadline uses useEffect/ref for scroll, client-only
+const ParallaxHeadline = dynamic(
+  () => import("@/components/ParallaxHeadline"),
+  { ssr: false }
+);
 
 export default function Hero() {
   return (

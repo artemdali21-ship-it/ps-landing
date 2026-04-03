@@ -1,19 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
+// Direct client-component imports — no dynamic() needed since each component
+// already has "use client" and handles its own SSR concerns via useEffect.
+// This eliminates stale chunk references from previous dynamic() registrations.
 
-// ssr: false is only allowed inside Client Components — never in Server Components (page.tsx)
-export const ScrollStory = dynamic(
-  () => import("@/components/sections/ScrollStory"),
-  { ssr: false, loading: () => <div style={{ height: "100vh" }} /> }
-);
-
-export const ThreeLevels = dynamic(
-  () => import("@/components/sections/ThreeLevels"),
-  { ssr: false, loading: () => <div style={{ minHeight: "600px" }} /> }
-);
-
-export const FloatingObjects = dynamic(
-  () => import("@/components/Objects3D"),
-  { ssr: false }
-);
+export { default as ScrollStory } from "@/components/sections/ScrollStory";
+export { default as ThreeLevels } from "@/components/sections/ThreeLevels";
+export { default as FloatingObjects } from "@/components/Objects3D";

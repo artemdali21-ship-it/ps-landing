@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 const scenes = [
   {
     img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.png-1hL8GTC70jCdoMKljCmmsPNQO5KOft.jpeg",
@@ -50,7 +50,7 @@ function Scene({
   scene: (typeof scenes)[0];
   index: number;
   total: number;
-  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+  scrollYProgress: ReturnType<typeof useMotionValue<number>>;
 }) {
   const start = index / total;
   const end = (index + 1) / total;
@@ -114,7 +114,7 @@ function Scene({
 }
 
 // Progress indicator — isolated component so useTransform is not called in a loop
-function Dot({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+function Dot({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useMotionValue<number>> }) {
   const start = index / total;
   const end = (index + 1) / total;
   const mid = (start + end) / 2;
@@ -128,7 +128,7 @@ function Dot({ index, total, scrollYProgress }: { index: number; total: number; 
   );
 }
 
-function ProgressBar({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+function ProgressBar({ index, total, scrollYProgress }: { index: number; total: number; scrollYProgress: ReturnType<typeof useMotionValue<number>> }) {
   const start = index / total;
   const end = (index + 1) / total;
   const scaleX = useTransform(scrollYProgress, [start, end], [0, 1]);
@@ -139,7 +139,7 @@ function ProgressBar({ index, total, scrollYProgress }: { index: number; total: 
   );
 }
 
-function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: ReturnType<typeof useMotionValue<number>> }) {
   return (
     <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
       {Array.from({ length: total }).map((_, i) => (
@@ -152,17 +152,24 @@ function Dots({ total, scrollYProgress }: { total: number; scrollYProgress: Retu
 export default function ScrollStory() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // useScroll without target tracks window scroll — avoids "non-static position" warning.
-  // We normalize it ourselves against the container's scroll range.
-  const { scrollY } = useScroll();
-  const scrollYProgress = useTransform(scrollY, () => {
-    if (!containerRef.current) return 0;
-    const rect = containerRef.current.getBoundingClientRect();
-    const containerTop = window.scrollY + rect.top;
-    const containerHeight = containerRef.current.offsetHeight - window.innerHeight;
-    if (containerHeight <= 0) return 0;
-    return Math.min(1, Math.max(0, (window.scrollY - containerTop) / containerHeight));
-  });
+  // Manual scroll normalization via MotionValue — never calls useScroll({ target })
+  // which triggers the "non-static position" Framer Motion warning.
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    function update() {
+      const el = containerRef.current;
+      if (!el) return;
+      const containerTop = el.offsetTop;
+      const containerHeight = el.offsetHeight - window.innerHeight;
+      if (containerHeight <= 0) return;
+      const progress = Math.min(1, Math.max(0, (window.scrollY - containerTop) / containerHeight));
+      scrollYProgress.set(progress);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, [scrollYProgress]);
 
   const total = scenes.length;
 

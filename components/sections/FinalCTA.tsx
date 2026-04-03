@@ -29,14 +29,14 @@ export default function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row gap-4 pt-2">
           <a
-            href="https://t.me/polishchuk_systems"
+            href="https://t.me/spaces_love"
             className="btn-primary text-center"
             target="_blank"
             rel="noopener noreferrer"
           >
             Telegram
           </a>
-          <a href="mailto:hi@polishchuk.systems" className="btn-ghost text-center">
+          <a href="mailto:a.polishchuk21@yandex.com" className="btn-ghost text-center">
             Email
           </a>
         </div>

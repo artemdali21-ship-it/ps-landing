@@ -1,16 +1,20 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import Link from "next/link";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
-  const borderOpacity = useTransform(scrollY, [0, 50], [0, 1]);
+  const borderOpacity = useTransform(scrollY, [0, 60], [0, 1]);
+  const bgOpacity = useTransform(scrollY, [0, 60], [0.82, 0.97]);
+
+  const backgroundColor = useMotionTemplate`rgba(250, 246, 240, ${bgOpacity})`;
+  const borderBottom = useMotionTemplate`1px solid rgba(212, 200, 184, ${borderOpacity})`;
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-beige/90 backdrop-blur-md"
-      style={{ borderBottom: "1px solid #EDE5D8" }}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
+      style={{ backgroundColor, borderBottom }}
     >
       <div className="flex items-center justify-between px-5 md:px-20 py-5">
         {/* Logo */}

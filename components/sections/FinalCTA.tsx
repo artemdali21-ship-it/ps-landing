@@ -6,7 +6,8 @@ export default function FinalCTA() {
   return (
     <section
       id="cta"
-      className="section-padding bg-sand text-center"
+      className="section-padding text-center"
+      style={{ backgroundColor: "#EDE5D5" }}
     >
       <motion.div
         className="max-w-2xl mx-auto flex flex-col items-center gap-8"
@@ -22,15 +23,29 @@ export default function FinalCTA() {
           и что можно проверить пилотом.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 pt-2">
-          <a
+        {/* Buttons row */}
+        <div className="flex flex-row gap-4 pt-2">
+          {/* Primary CTA with pulse */}
+          <motion.a
             href="https://t.me/spaces_love"
-            className="btn-primary text-center"
             target="_blank"
             rel="noopener noreferrer"
+            className="btn-primary relative overflow-visible"
+            animate={{
+              boxShadow: [
+                "0 0 0 0 rgba(196,18,48,0)",
+                "0 0 0 10px rgba(196,18,48,0.12)",
+                "0 0 0 20px rgba(196,18,48,0)",
+              ],
+            }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
           >
             Telegram
-          </a>
+          </motion.a>
           <a href="mailto:a.polishchuk21@yandex.com" className="btn-ghost text-center">
             Email
           </a>

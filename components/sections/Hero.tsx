@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { useState } from "react";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 const HeroObject = dynamic(() => import("@/components/3d/HeroObject"), {
@@ -14,16 +14,29 @@ const HeroObject = dynamic(() => import("@/components/3d/HeroObject"), {
 });
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { delay: i * 0.1, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
   }),
 };
 
 export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Scroll-triggered warm background: beige (#FAF6F0) → warmer sand (#F5EDD8)
+  const bgColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#FAF6F0", "#F2E8D4"]
+  );
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -34,8 +47,10 @@ export default function Hero() {
   };
 
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       className="min-h-screen pt-24 pb-20 px-5 md:px-20 flex items-start"
+      style={{ backgroundColor: bgColor }}
       onMouseMove={handleMouseMove}
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -115,6 +130,6 @@ export default function Hero() {
           <HeroObject mouseX={mouse.x} mouseY={mouse.y} />
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

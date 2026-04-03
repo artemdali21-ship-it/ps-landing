@@ -109,7 +109,7 @@ export default function ThreeLevels() {
   const headerOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
 
   return (
-    <section className="section-padding" ref={sectionRef}>
+    <section className="section-padding relative" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
 
         {/* Header with scroll-driven entrance */}

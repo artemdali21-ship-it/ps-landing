@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import ScrollInertia from "@/components/ScrollInertia";
 import CustomCursor from "@/components/CustomCursor";
 
 const outfit = Outfit({
@@ -59,10 +59,10 @@ export default function RootLayout({
         className={`${outfit.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable} antialiased`}
         style={{ backgroundColor: "#FAF6F0", color: "#1F1410", cursor: "none" }}
       >
-        <SmoothScrollProvider>
+        <ScrollInertia>
           <CustomCursor />
           {children}
-        </SmoothScrollProvider>
+        </ScrollInertia>
       </body>
     </html>
   );

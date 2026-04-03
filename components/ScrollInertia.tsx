@@ -2,9 +2,7 @@
 
 import { useEffect } from "react";
 
-// Native smooth scroll — no external deps, lerp-based inertia
-// v2 — force cache invalidation
-export default function SmoothScrollProvider({
+export default function ScrollInertia({
   children,
 }: {
   children: React.ReactNode;
@@ -13,17 +11,18 @@ export default function SmoothScrollProvider({
     let current = window.scrollY;
     let target = window.scrollY;
     let rafId: number;
-    let ticking = false;
-
-    const ease = 0.1;
+    let running = false;
 
     function onWheel(e: WheelEvent) {
       e.preventDefault();
       target += e.deltaY;
-      target = Math.max(0, Math.min(target, document.body.scrollHeight - window.innerHeight));
-      if (!ticking) {
+      target = Math.max(
+        0,
+        Math.min(target, document.body.scrollHeight - window.innerHeight)
+      );
+      if (!running) {
+        running = true;
         rafId = requestAnimationFrame(loop);
-        ticking = true;
       }
     }
 
@@ -31,16 +30,15 @@ export default function SmoothScrollProvider({
       const diff = target - current;
       if (Math.abs(diff) < 0.5) {
         current = target;
-        ticking = false;
+        running = false;
         return;
       }
-      current += diff * ease;
+      current += diff * 0.1;
       window.scrollTo(0, current);
       rafId = requestAnimationFrame(loop);
     }
 
     window.addEventListener("wheel", onWheel, { passive: false });
-
     return () => {
       window.removeEventListener("wheel", onWheel);
       cancelAnimationFrame(rafId);

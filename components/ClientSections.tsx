@@ -14,6 +14,6 @@ export const ThreeLevels = dynamic(
 );
 
 export const FloatingObjects = dynamic(
-  () => import("@/components/FloatingObjects"),
+  () => import("@/components/Objects3D"),
   { ssr: false }
 );

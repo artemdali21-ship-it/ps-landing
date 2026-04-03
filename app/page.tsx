@@ -60,12 +60,13 @@ const OBJECTS: ObjCfg[] = [
 ];
 
 // ─── SCENE COMPONENT ─────────────────────────────────────────────────────────
-function Scene({ src, opacity, scale, first }: {
-  src: string; opacity: MotionValue<number>; scale: MotionValue<number>; first?: boolean;
+function Scene({ src, opacity, scale, first, className = "" }: {
+  src: string; opacity: MotionValue<number>; scale: MotionValue<number>;
+  first?: boolean; className?: string;
 }) {
   return (
     <motion.div
-      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      className={`absolute inset-0 bg-cover bg-center bg-no-repeat ${className}`}
       style={{ backgroundImage: `url(${src})`, opacity, scale }}
       initial={first ? { opacity: 1 } : { opacity: 0 }}
     />
@@ -207,7 +208,7 @@ export default function Home() {
           <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3.png-Q9FSmlZXt6GTnmYvhT0NFEh6N9X30K.jpeg" opacity={s3Op} scale={s3Sc} />
           <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/4.png-Wd0lFYmU4OQ8m6e5Y7YfPalfPl5ADo.jpeg" opacity={s4Op} scale={s4Sc} />
           <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5.png-w4ends69OL62yTe6SSjC9DbJkqRGqx.jpeg" opacity={s5Op} scale={s5Sc} />
-          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6g.png-jTDmESN0LahUgylbruygyn43c9l1yj.jpeg" opacity={s6Op} scale={s6Sc} />
+          <Scene src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6g.png-jTDmESN0LahUgylbruygyn43c9l1yj.jpeg" opacity={s6Op} scale={s6Sc} className="scene-meditation" />
 
           {/* 3D floating objects */}
           {OBJECTS.map((cfg, i) => (

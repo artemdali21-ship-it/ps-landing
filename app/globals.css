@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Scene 6 (meditation) — recentre on mobile so the figure stays in frame */
+@media (max-width: 767px) {
+  .scene-meditation {
+    background-position: 62% center !important;
+  }
+}
+
 @theme {
   --color-beige: #FAF6F0;
   --color-surface: #F3ECE2;

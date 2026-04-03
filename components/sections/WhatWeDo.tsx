@@ -32,13 +32,20 @@ export default function WhatWeDo() {
             </p>
           </div>
 
-          {/* Accent block */}
+          {/* Accent block with breathing border */}
           <motion.div
-            className="mt-4 p-8 md:p-12 border-l-4 border-crimson bg-beige rounded-r-[10px] text-left"
+            className="mt-4 p-8 md:p-12 border-l-4 bg-beige rounded-r-[10px] text-left"
+            style={{ borderColor: "#C41230" }}
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
+            {/* Breathing left accent dot */}
+            <motion.span
+              className="inline-block w-2 h-2 rounded-full bg-crimson mb-4"
+              animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            />
             <p className="h3 text-espresso">
               Вам не нужно понимать как устроена система.{" "}
               <span className="text-crimson">Вам нужно чтобы она работала.</span>

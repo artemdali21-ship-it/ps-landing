@@ -26,18 +26,9 @@ export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-    layoutEffect: false,
-  });
-
-  // Scroll-triggered warm background: beige (#FAF6F0) → warmer sand (#F5EDD8)
-  const bgColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#FAF6F0", "#F2E8D4"]
-  );
+  // Track window scroll — no target needed, avoids "non-static position" warning
+  const { scrollY } = useScroll();
+  const bgColor = useTransform(scrollY, [0, 600], ["#FAF6F0", "#F2E8D4"]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();

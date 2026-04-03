@@ -3,10 +3,10 @@
 import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Float, Environment } from "@react-three/drei";
-import * as THREE from "three";
+import type { Mesh } from "three";
 
 function KineticShape({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<Mesh>(null);
   const elapsedRef = useRef(0);
 
   useFrame((_state, delta) => {

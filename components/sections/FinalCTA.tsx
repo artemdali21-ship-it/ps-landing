@@ -1,39 +1,13 @@
 "use client";
 
-import { motion, useMotionValue } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function FinalCTA() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const prog = useMotionValue(0);
-
-  useEffect(() => {
-    function onScroll() {
-      const el = sectionRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, 1 - rect.bottom / (window.innerHeight + el.offsetHeight)));
-      prog.set(progress);
-
-      // Write headline parallax directly to DOM — no MotionValue in style prop
-      if (headlineRef.current) {
-        const p = Math.min(1, Math.max(0, progress / 0.5));
-        headlineRef.current.style.transform = `translateY(${40 - p * 40}px)`;
-        headlineRef.current.style.opacity = String(p);
-      }
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [prog]);
-
   return (
     <section
       id="cta"
-      ref={sectionRef}
       className="text-center relative overflow-hidden"
-      style={{ background: "transparent", paddingTop: "9vh", paddingBottom: "26vh" }}
+      style={{ background: "transparent", paddingTop: "12vh", paddingBottom: "10vh" }}
     >
       {/* Subtle crimson breathing glow */}
       <motion.div
@@ -46,18 +20,16 @@ export default function FinalCTA() {
       <motion.div
         className="max-w-2xl mx-auto flex flex-col items-center gap-8 relative z-10"
       >
-        <h2
-          ref={headlineRef}
+        <motion.h2
           className="h2"
-          style={{
-            transform: "translateY(40px)", opacity: 0,
-            willChange: "transform, opacity",
-            color: "#ffffff",
-            textShadow: "0 2px 40px rgba(0,0,0,0.4)",
-          }}
+          style={{ color: "#ffffff", textShadow: "0 2px 40px rgba(0,0,0,0.4)" }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
         >
           Начнём с результата.
-        </h2>
+        </motion.h2>
 
         <motion.p
           className="font-inter font-light text-lg leading-relaxed"

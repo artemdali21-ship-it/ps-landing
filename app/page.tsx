@@ -205,8 +205,6 @@ export default function Home() {
   const s5Op = useTransform(p, [0.63, 0.70, 0.79, 0.84], [0, 1, 1, 0]);
   const s5Sc = useTransform(p, [0.63, 0.84], [1.00, 1.04]);
 
-  const s6Op = useTransform(p, [0.80, 0.88], [0, 1]);
-  const s6Sc = useTransform(p, [0.80, 1.00], [1.02, 1.00]);
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
   const heroOp = useTransform(p, [0.00, 0.06, 0.11], [1, 1, 0]);
@@ -228,7 +226,6 @@ export default function Home() {
           <Scene src="/images/scenes/3-desktop.webp" opacity={s3Op} scale={s3Sc} />
           <Scene src="/images/scenes/4-desktop.webp" opacity={s4Op} scale={s4Sc} />
           <Scene src="/images/scenes/5-desktop.webp" opacity={s5Op} scale={s5Sc} />
-          <Scene src="/images/scenes/6g-desktop.webp" opacity={s6Op} scale={s6Sc} className="scene-meditation" />
 
           {/* 3D floating objects */}
           {OBJECTS.map((cfg, i) => (

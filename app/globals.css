@@ -41,10 +41,10 @@
     background-position: center 55% !important;
   }
 }
-/* Mobile: fit full width, let top/bottom clip — person stays crisp */
+/* Mobile: cover fills the screen, position focuses on the figure */
 @media (max-width: 767px) {
   .scene-meditation {
-    background-size: 100% auto !important;
-    background-position: center 30% !important;
+    background-size: cover !important;
+    background-position: 58% center !important;
   }
 }

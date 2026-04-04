@@ -297,7 +297,7 @@ export default function Home() {
       {/* ── SCROLL SPACER — creates 1200vh of scrollable space ────────────────── */}
       <div ref={ref} style={{ height: "1200vh" }} />
 
-      {/* ── FINAL SCREEN — covers fixed layer as it scrolls in ───────────────── */}
+      {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
       <div
         id="cta"
         style={{
@@ -305,15 +305,11 @@ export default function Home() {
           zIndex: 1,
           marginTop: "-100vh",
           minHeight: "100vh",
-          backgroundImage: "url('/images/scenes/6g-desktop.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "center",
         }}
       >
-        <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.35)" }} />
         <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
           <FinalCTA />
         </div>

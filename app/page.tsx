@@ -199,8 +199,8 @@ export default function Home() {
   const s3Op = useTransform(p, [0.30, 0.37, 0.46, 0.52], [0, 1, 1, 0]);
   const s3Sc = useTransform(p, [0.30, 0.52], [1.00, 1.06]);
 
-  const s4Op = useTransform(p, [0.47, 0.54, 0.63, 0.68], [0, 1, 1, 0]);
-  const s4Sc = useTransform(p, [0.47, 0.68], [1.00, 1.05]);
+  const s4Op = useTransform(p, [0.47, 0.54, 0.70, 0.75], [0, 1, 1, 0]);
+  const s4Sc = useTransform(p, [0.47, 0.75], [1.00, 1.06]);
 
   const s5Op = useTransform(p, [0.57, 0.64, 0.88, 0.93], [0, 1, 1, 0]);
   const s5Sc = useTransform(p, [0.57, 0.93], [1.00, 1.08]);
@@ -286,7 +286,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
           <ThreeLevels />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.53} show={0.53} hide={0.665} exit={0.69} snap>
+        <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75} snap>
           <Examples />
         </SectionOverlay>
         <SectionOverlay p={p} enter={0.74} show={0.79} hide={0.89} exit={0.94}>

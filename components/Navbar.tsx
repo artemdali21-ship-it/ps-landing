@@ -27,8 +27,13 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-5 md:px-20 py-5">
         {/* Logo */}
-        <Link href="/" className="font-outfit font-black text-xl text-espresso" style={{ fontFamily: "Satoshi, system-ui, sans-serif", fontWeight: 900 }}>
-          Polishchuk<span className="text-crimson">.</span>
+        <Link href="/" className="flex flex-col leading-none" style={{ textDecoration: "none" }}>
+          <span className="font-outfit font-black text-xl text-espresso" style={{ fontFamily: "Satoshi, system-ui, sans-serif", fontWeight: 900 }}>
+            Polishchuk<span className="text-crimson">.</span>
+          </span>
+          <span className="text-crimson font-space-grotesk font-semibold text-xs tracking-widest uppercase" style={{ letterSpacing: "0.18em", marginTop: 1 }}>
+            Ai Systems
+          </span>
         </Link>
 
         {/* Nav links */}

@@ -8,8 +8,8 @@ export default function WhatWeDo() {
       <div className="w-full max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
 
-          {/* ── LEFT: text ─────────────────────────────────────────────── */}
-          <div>
+          {/* ── LEFT: text (+ mobile heart behind) ────────────────────── */}
+          <div style={{ position: "relative" }}>
             <motion.p
               className="eyebrow mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -50,8 +50,32 @@ export default function WhatWeDo() {
               </motion.p>
             </div>
 
+            {/* Mobile heart — behind text, only on mobile */}
+            <motion.img
+              src="/images/objects/img-4781.webp"
+              alt=""
+              className="md:hidden"
+              style={{
+                position: "absolute",
+                right: -30,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: "55%",
+                maxWidth: 240,
+                height: "auto",
+                opacity: 0.18,
+                mixBlendMode: "multiply",
+                filter: "blur(1px)",
+                pointerEvents: "none",
+                zIndex: 0,
+              }}
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
+
             <motion.div
               className="mt-12 pt-10 border-t border-stone"
+              style={{ position: "relative", zIndex: 1 }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

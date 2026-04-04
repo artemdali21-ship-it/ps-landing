@@ -23,7 +23,7 @@ export default function Footer() {
           ))}
         </nav>
         <p className="font-inter font-light text-taupe text-sm text-center">
-          Polishchuk Systems · 2026
+          Polishchuk Ai Systems · © 2026
         </p>
       </div>
     </footer>

@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-/* Scene 6 (meditation) — recentre on mobile so the figure stays in frame */
-@media (max-width: 767px) {
-  .scene-meditation {
-    background-position: 62% center !important;
-  }
-}
-
 @theme {
   --color-beige: #FAF6F0;
   --color-surface: #F3ECE2;
@@ -25,4 +18,11 @@
   --font-space-grotesk: var(--font-space-grotesk-var), sans-serif;
   --font-space-mono: var(--font-space-mono-var), monospace;
   --font-inter: var(--font-inter-var), sans-serif;
+}
+
+/* Scene 6 (meditation) — recentre on mobile so the figure stays in frame */
+@media (max-width: 767px) {
+  .scene-meditation {
+    background-position: 62% center !important;
+  }
 }

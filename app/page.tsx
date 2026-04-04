@@ -219,9 +219,9 @@ export default function Home() {
       <Navbar />
       <div className="grain-overlay" />
 
-      {/* STORY ZONE — 1200vh */}
-      <div ref={ref} style={{ height: "1200vh" }}>
-        <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ zIndex: 10 }}>
+      {/* STORY ZONE — 1200vh, dark forest bg hides de-stick gap */}
+      <div ref={ref} style={{ height: "1200vh", background: "#0d1a07" }}>
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
 
           {/* Scenes */}
           <Scene src="/images/scenes/1-desktop.webp" opacity={s1Op} scale={s1Sc} first />
@@ -304,13 +304,11 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Static final screen — slides up behind sticky scene ─────────────── */}
+      {/* ── Static final screen ───────────────────────────────────────────────── */}
       <div
         id="cta"
         style={{
           position: "relative",
-          zIndex: 1,
-          marginTop: "-100vh",
           minHeight: "100vh",
           backgroundImage: "url('/images/scenes/6g-desktop.webp')",
           backgroundSize: "cover",

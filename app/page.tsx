@@ -219,9 +219,6 @@ export default function Home() {
             className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
             style={{ opacity: heroOp, y: heroY }}
           >
-            <p className="eyebrow mb-6" style={{ color: "#C41230" }}>
-              AI systems creating
-            </p>
             <h1
               className="h1 mb-8 max-w-3xl"
               style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}

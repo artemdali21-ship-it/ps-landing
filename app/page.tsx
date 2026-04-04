@@ -214,12 +214,15 @@ export default function Home() {
   const heroY  = useTransform(p, [0.00, 0.11], [0, -50]);
   const hintOp = useTransform(p, [0.00, 0.03], [1, 0]);
 
+  // ─── FIXED LAYER FADE — dissolves before static screen appears ───────────
+  const fixedLayerOp = useTransform(p, [0.92, 1.00], [1, 0]);
+
   return (
     <>
       <Navbar />
 
-      {/* ── FIXED SCENE LAYER — always behind content ──────────────────────────── */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden" }}>
+      {/* ── FIXED SCENE LAYER — fades out as static screen approaches ───────── */}
+      <motion.div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", opacity: fixedLayerOp }}>
         <div className="grain-overlay" />
 
         {/* Scenes */}
@@ -291,7 +294,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
           <Process />
         </SectionOverlay>
-      </div>
+      </motion.div>
 
       {/* ── SCROLL SPACER — creates 1200vh of scrollable space ────────────────── */}
       <div ref={ref} style={{ height: "1200vh" }} />

@@ -140,112 +140,92 @@ function FlowPath({ d, color, show, delay = 0 }: { d: string; color: string; sho
 function DashLink({ x1, y1, x2, y2, show }: { x1: number; y1: number; x2: number; y2: number; show: boolean }) {
   return (
     <motion.line x1={x1} y1={y1} x2={x2} y2={y2}
-      stroke="rgba(0,0,0,0.15)" strokeWidth="1" strokeDasharray="4 6"
+      stroke="rgba(255,255,255,0.22)" strokeWidth="1" strokeDasharray="4 6"
       initial={{ opacity: 0 }} animate={{ opacity: show ? 1 : 0 }} transition={{ duration: 0.3 }} />
   );
 }
 
-// ─── 3D STACKED CORE ─────────────────────────────────────────────────────────
-const CARD_W    = 216;
-const CARD_H    = 44;
-const CARD_STEP = 42;
-const CARD_DEPTH = 15;
-const N = LAYERS.length;
+// ─── LIQUID GLASS CORE ───────────────────────────────────────────────────────
+const CARD_W = 216;
+const CARD_H = 44;
+const CARD_GAP = 5;
 
 function Core3D({ level }: { level: number }) {
   const lv = (n: number) => level >= n;
   return (
     <div style={{ position: "absolute", left: CORE_X, top: CORE_Y, width: CORE_W, height: CORE_H, overflow: "visible" }}>
       {/* Header */}
-      <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: C.taupe, fontFamily: "Inter,sans-serif", marginBottom: 8, paddingTop: 4 }}>
+      <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: "rgba(255,255,255,0.65)", fontFamily: "Inter,sans-serif", marginBottom: 8, paddingTop: 4 }}>
         ЯДРО СИСТЕМЫ
       </div>
 
-      {/* 3D perspective wrapper */}
-      <div style={{ perspective: "720px", perspectiveOrigin: "50% -40%", overflow: "visible" }}>
-        {/* Rotating stack */}
-        <div style={{
-          position: "relative",
-          width: CARD_W,
-          height: (N - 1) * CARD_STEP + CARD_H,
-          margin: "0 auto",
-          transformStyle: "preserve-3d",
-          transform: "rotateX(24deg) rotateY(-6deg)",
-        }}>
-          {LAYERS.map((layer, i) => (
-            <motion.div key={i}
-              style={{
-                position: "absolute",
-                top: i * CARD_STEP,
-                left: 0,
-                width: CARD_W,
-                height: CARD_H,
-                transform: `translateZ(${(N - 1 - i) * CARD_DEPTH}px)`,
-                background: i === N - 1
-                  ? `linear-gradient(135deg, rgba(31,20,16,0.06) 0%, rgba(31,20,16,0.02) 100%)`
-                  : "rgba(255,255,255,0.92)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                border: `1px solid ${i === N - 1 ? "rgba(31,20,16,0.12)" : "rgba(255,255,255,0.95)"}`,
-                borderRadius: 8,
-                boxShadow: `0 ${2 + (N - 1 - i)}px ${8 + (N - 1 - i) * 4}px rgba(0,0,0,${0.06 + (N - 1 - i) * 0.012})`,
-                display: "flex",
-                alignItems: "center",
-                gap: 7,
-                padding: "0 9px 0 10px",
-                cursor: "pointer",
-              }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{
-                background: "rgba(255,255,255,0.99)",
-                boxShadow: `0 6px 28px rgba(0,0,0,0.13), 0 0 0 1.5px ${layer.color}55`,
-                scale: 1.02,
-              }}
-              transition={{ duration: 0.35, delay: i * 0.06 }}
-            >
-              {/* Colour strip */}
-              <div style={{ width: 4, borderRadius: 2, background: layer.color, opacity: 0.9, alignSelf: "stretch", margin: "8px 0", flexShrink: 0 }} />
-              {/* Icon */}
-              <div style={{ flexShrink: 0 }}>
-                <LayerIconSvg idx={i} color={layer.color} />
-              </div>
-              {/* Text */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {layer.label}
-                </div>
-                <div style={{ fontSize: 7.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 1, lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {layer.sub}
-                </div>
-              </div>
-              {/* Human review badge */}
-              {i === 4 && lv(3) && (
-                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: 0.3 }}
-                  style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 7, color: C.crimson, whiteSpace: "nowrap", flexShrink: 0, fontFamily: "Inter,sans-serif" }}>
-                  Human review
-                </motion.div>
-              )}
-            </motion.div>
-          ))}
-
-          {/* Inter-layer arrows */}
-          {LAYERS.slice(0, -1).map((_, i) => (
-            <div key={`arr${i}`} style={{
-              position: "absolute",
-              top: i * CARD_STEP + CARD_H + 1,
-              left: 14,
-              height: CARD_STEP - CARD_H - 2,
+      {/* Flat Liquid Glass stack */}
+      <div style={{ display: "flex", flexDirection: "column", gap: CARD_GAP, width: CARD_W, margin: "0 auto" }}>
+        {LAYERS.map((layer, i) => (
+          <motion.div key={i}
+            style={{
+              width: CARD_W,
+              height: CARD_H,
+              /* Liquid Glass base */
+              background: "rgba(255,255,255,0.13)",
+              backdropFilter: "blur(22px) saturate(160%)",
+              WebkitBackdropFilter: "blur(22px) saturate(160%)",
+              border: "1px solid rgba(255,255,255,0.42)",
+              borderTop: "1px solid rgba(255,255,255,0.68)",
+              borderRadius: 11,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)",
               display: "flex",
               alignItems: "center",
-              transform: `translateZ(${(N - 2 - i) * CARD_DEPTH + CARD_DEPTH / 2}px)`,
-              color: LAYERS[i + 1].color,
-              fontSize: 9,
-              opacity: 0.45,
-              lineHeight: 1,
-            }}>↓</div>
-          ))}
-        </div>
+              gap: 7,
+              padding: "0 9px 0 10px",
+              cursor: "pointer",
+              position: "relative",
+              overflow: "hidden",
+            }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{
+              background: "rgba(255,255,255,0.24)",
+              boxShadow: `0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px ${layer.color}66`,
+              scale: 1.025,
+            }}
+            transition={{ duration: 0.32, delay: i * 0.055 }}
+          >
+            {/* Top-half shimmer highlight */}
+            <div style={{
+              position: "absolute", inset: 0, bottom: "50%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%)",
+              borderRadius: "11px 11px 0 0",
+              pointerEvents: "none",
+            }} />
+
+            {/* Colour strip */}
+            <div style={{ width: 3, borderRadius: 2, background: layer.color, opacity: 0.95, alignSelf: "stretch", margin: "9px 0", flexShrink: 0 }} />
+
+            {/* Icon */}
+            <div style={{ flexShrink: 0 }}>
+              <LayerIconSvg idx={i} color={layer.color} />
+            </div>
+
+            {/* Text */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.93)", fontFamily: "Inter,sans-serif", lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+                {layer.label}
+              </div>
+              <div style={{ fontSize: 7.5, color: "rgba(255,255,255,0.58)", fontFamily: "Inter,sans-serif", marginTop: 1, lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {layer.sub}
+              </div>
+            </div>
+
+            {/* Human review badge */}
+            {i === 4 && lv(3) && (
+              <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: 0.3 }}
+                style={{ border: "0.8px solid rgba(255,255,255,0.55)", borderRadius: 99, padding: "1px 5px", fontSize: 7, color: "rgba(255,255,255,0.85)", whiteSpace: "nowrap", flexShrink: 0, fontFamily: "Inter,sans-serif", background: "rgba(255,255,255,0.12)" }}>
+                Human review
+              </motion.div>
+            )}
+          </motion.div>
+        ))}
       </div>
     </div>
   );
@@ -256,9 +236,20 @@ function InNode({ i, show }: { i: number; show: boolean }) {
   const { color, label, sub } = INPUTS[i];
   return (
     <motion.div
-      style={{ position: "absolute", left: 0, top: nodeY(i), width: INP_W, height: NODE_H, background: "white", border: `1.2px solid ${color}88`, borderLeft: `3px solid ${color}`, borderRadius: 7, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 10px 0 12px", cursor: "pointer" }}
+      style={{
+        position: "absolute", left: 0, top: nodeY(i), width: INP_W, height: NODE_H,
+        background: "rgba(255,255,255,0.72)",
+        backdropFilter: "blur(18px) saturate(140%)",
+        WebkitBackdropFilter: "blur(18px) saturate(140%)",
+        border: `1px solid rgba(255,255,255,0.7)`,
+        borderLeft: `3px solid ${color}`,
+        borderRadius: 9,
+        boxShadow: `0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)`,
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "0 10px 0 12px", cursor: "pointer", overflow: "hidden",
+      }}
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : -10 }}
-      whileHover={{ boxShadow: `0 0 0 2px ${color}55, 0 4px 18px ${color}25` }}
+      whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
       transition={{ duration: 0.3, delay: i * 0.06 }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.2 }}>{label}</div>
       <div style={{ fontSize: 9.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
@@ -271,9 +262,20 @@ function OutNode({ i, show }: { i: number; show: boolean }) {
   const multi = lines.length > 1;
   return (
     <motion.div
-      style={{ position: "absolute", left: OUT_X, top: nodeY(i), width: OUT_W, height: NODE_H, background: "white", border: `1.2px solid ${color}88`, borderRight: `3px solid ${color}`, borderRadius: 7, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 12px 0 10px", cursor: "pointer" }}
+      style={{
+        position: "absolute", left: OUT_X, top: nodeY(i), width: OUT_W, height: NODE_H,
+        background: "rgba(255,255,255,0.72)",
+        backdropFilter: "blur(18px) saturate(140%)",
+        WebkitBackdropFilter: "blur(18px) saturate(140%)",
+        border: `1px solid rgba(255,255,255,0.7)`,
+        borderRight: `3px solid ${color}`,
+        borderRadius: 9,
+        boxShadow: `0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)`,
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "0 12px 0 10px", cursor: "pointer", overflow: "hidden",
+      }}
       initial={{ opacity: 0, x: 10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : 10 }}
-      whileHover={{ boxShadow: `0 0 0 2px ${color}55, 0 4px 18px ${color}25` }}
+      whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
       transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}>
       {lines.map((line, li) => (
         <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.25 }}>{line}</div>
@@ -285,9 +287,20 @@ function OutNode({ i, show }: { i: number; show: boolean }) {
 function LPanel({ yi, label, sub, accent, show, delay = 0 }: { yi: number; label: string; sub: string; accent?: string; show: boolean; delay?: number }) {
   return (
     <motion.div
-      style={{ position: "absolute", left: LPAN_X, top: lpanY(yi), width: LPAN_W, height: PANEL_H, background: "white", border: `${accent ? "1.5px" : "0.8px"} solid ${accent ?? "rgba(0,0,0,0.12)"}`, borderRadius: 6, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer" }}
+      style={{
+        position: "absolute", left: LPAN_X, top: lpanY(yi), width: LPAN_W, height: PANEL_H,
+        background: "rgba(255,255,255,0.65)",
+        backdropFilter: "blur(16px) saturate(140%)",
+        WebkitBackdropFilter: "blur(16px) saturate(140%)",
+        border: accent ? `1.5px solid ${accent}88` : "1px solid rgba(255,255,255,0.65)",
+        borderTop: "1px solid rgba(255,255,255,0.75)",
+        borderRadius: 8,
+        boxShadow: `0 3px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8)`,
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer", overflow: "hidden",
+      }}
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-      whileHover={{ boxShadow: `0 0 0 1.5px ${accent ?? "rgba(0,0,0,0.2)"}` }}
+      whileHover={{ background: "rgba(255,255,255,0.82)", boxShadow: `0 0 0 1.5px ${accent ?? "rgba(255,255,255,0.9)"}` }}
       transition={{ duration: 0.3, delay }}>
       <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
       <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
@@ -298,8 +311,20 @@ function LPanel({ yi, label, sub, accent, show, delay = 0 }: { yi: number; label
 function RPanel({ i, label, sub, show, delay = 0 }: { i: number; label: string; sub: string; show: boolean; delay?: number }) {
   return (
     <motion.div
-      style={{ position: "absolute", left: RPAN_X, top: rpanY(i), width: RPAN_W, height: PANEL_H, background: "white", border: "0.8px solid rgba(0,0,0,0.12)", borderRadius: 6, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer" }}
+      style={{
+        position: "absolute", left: RPAN_X, top: rpanY(i), width: RPAN_W, height: PANEL_H,
+        background: "rgba(255,255,255,0.65)",
+        backdropFilter: "blur(16px) saturate(140%)",
+        WebkitBackdropFilter: "blur(16px) saturate(140%)",
+        border: "1px solid rgba(255,255,255,0.65)",
+        borderTop: "1px solid rgba(255,255,255,0.75)",
+        borderRadius: 8,
+        boxShadow: `0 3px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8)`,
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer", overflow: "hidden",
+      }}
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
+      whileHover={{ background: "rgba(255,255,255,0.82)" }}
       transition={{ duration: 0.3, delay }}>
       <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
       <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
@@ -341,18 +366,18 @@ function DesktopDiagram({ level }: { level: number }) {
           <motion.path d={loopPath} fill="none" stroke={C.crimson} strokeWidth="2" strokeLinecap="round" strokeDasharray="4 18"
             initial={{ strokeDashoffset: 0, opacity: 0 }} animate={{ strokeDashoffset: -22, opacity: 0.55 }}
             transition={{ strokeDashoffset: { duration: 2, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.4 } }} />
-          <text x={(loopSX + loopEX) / 2} y={H - 6} fill={C.crimson} fontSize="9" fontFamily="Inter,sans-serif" textAnchor="middle" opacity="0.55">петля обучения</text>
+          <text x={(loopSX + loopEX) / 2} y={H - 6} fill={C.crimson} fontSize="9" fontFamily="Inter,sans-serif" textAnchor="middle" opacity="0.75">петля обучения</text>
         </>}
 
         {/* Port dots */}
         {INPUTS.map((inp, i)  => lv(inp.minLevel)  && <circle key={`pdi${i}`} cx={INP_W}         cy={nodeCY(i)}  r={4} fill={inp.color} />)}
         {OUTPUTS.map((out, i) => lv(out.minLevel)  && <circle key={`pdo${i}`} cx={OUT_X}          cy={nodeCY(i)}  r={4} fill={out.color} />)}
-        {lv(2) && <><circle cx={LPAN_X+LPAN_W} cy={lpanCY(0)} r={3} fill="rgba(0,0,0,0.18)" /><circle cx={LPAN_X+LPAN_W} cy={lpanCY(1)} r={3} fill="rgba(0,0,0,0.18)" /></>}
-        {lv(3) && <circle cx={LPAN_X+LPAN_W} cy={lpanCY(2)} r={3} fill={C.crimson} opacity={0.5} />}
-        {lv(2) && <><circle cx={RPAN_X} cy={rpanCY(0)} r={3} fill="rgba(0,0,0,0.18)" /><circle cx={RPAN_X} cy={rpanCY(1)} r={3} fill="rgba(0,0,0,0.18)" /></>}
+        {lv(2) && <><circle cx={LPAN_X+LPAN_W} cy={lpanCY(0)} r={3} fill="rgba(255,255,255,0.35)" /><circle cx={LPAN_X+LPAN_W} cy={lpanCY(1)} r={3} fill="rgba(255,255,255,0.35)" /></>}
+        {lv(3) && <circle cx={LPAN_X+LPAN_W} cy={lpanCY(2)} r={3} fill={C.crimson} opacity={0.75} />}
+        {lv(2) && <><circle cx={RPAN_X} cy={rpanCY(0)} r={3} fill="rgba(255,255,255,0.35)" /><circle cx={RPAN_X} cy={rpanCY(1)} r={3} fill="rgba(255,255,255,0.35)" /></>}
 
         {/* Channels label */}
-        {lv(2) && <motion.text x={2} y={H - 4} fill={C.taupe} fontSize="8" fontFamily="Inter,sans-serif"
+        {lv(2) && <motion.text x={2} y={H - 4} fill="rgba(255,255,255,0.45)" fontSize="8" fontFamily="Inter,sans-serif"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
           Каналы: TG · VK · Max · Email · Сайт
         </motion.text>}
@@ -481,7 +506,20 @@ export default function Examples() {
 
         {/* DIAGRAM */}
         <motion.div layout transition={{ duration: 0.4 }}
-          style={{ background: "white", border: "1px solid rgba(0,0,0,0.06)", borderRadius: 16, padding: "28px 20px 20px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", overflowX: "auto" }}>
+          style={{
+            /* ─ Background image slot ─────────────────────────────────────────
+               Replace the gradient with your image:
+               backgroundImage: "url('/images/diagram-bg.jpg')"
+               ─────────────────────────────────────────────────────────────── */
+            backgroundImage: "url('/images/diagram-bg.jpg'), linear-gradient(135deg, #1a1035 0%, #0d2a4a 40%, #1a2810 70%, #2a1010 100%)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: 18,
+            padding: "28px 20px 20px",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
+            overflowX: "auto",
+            position: "relative",
+          }}>
           <div className="hidden md:block">
             <DesktopDiagram level={level} />
           </div>

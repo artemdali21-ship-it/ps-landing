@@ -202,8 +202,8 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.63, 0.68], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.68], [1.00, 1.05]);
 
-  const s5Op = useTransform(p, [0.63, 0.70, 0.88, 0.93], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.63, 0.93], [1.00, 1.04]);
+  const s5Op = useTransform(p, [0.57, 0.64, 0.88, 0.93], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.57, 0.93], [1.00, 1.08]);
 
   const s6Op = useTransform(p, [0.88, 0.95], [0, 1]);
   const s6Sc = useTransform(p, [0.88, 1.00], [1.02, 1.00]);

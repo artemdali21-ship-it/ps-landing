@@ -26,7 +26,10 @@ const CORE_H = 300;
 const RPAN_W = 108;
 const OUT_W  = 150;
 
-const LPAN_X = INP_W + 10;
+// Total content width = 150+10+108+10+234+10+108+10+150 = 790
+// Center in W=900 → offset = (900-790)/2 = 55
+const INP_X  = 55;
+const LPAN_X = INP_X + INP_W + 10;
 const CORE_X = LPAN_X + LPAN_W + 10;
 const RPAN_X = CORE_X + CORE_W + 10;
 const OUT_X  = RPAN_X + RPAN_W + 10;
@@ -58,7 +61,7 @@ function rpanY(i: number) {
 function rpanCY(i: number) { return rpanY(i) + PANEL_H / 2; }
 
 function pathIn(ni: number) {
-  const x1 = INP_W; const y1 = nodeCY(ni);
+  const x1 = INP_X + INP_W; const y1 = nodeCY(ni);
   const x2 = CORE_X; const y2 = FAN_Y[ni];
   const mx = (x1 + x2) / 2;
   return `M ${x1} ${y1} C ${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`;
@@ -155,7 +158,7 @@ function Core3D({ level }: { level: number }) {
   return (
     <div style={{ position: "absolute", left: CORE_X, top: CORE_Y, width: CORE_W, height: CORE_H, overflow: "visible" }}>
       {/* Header */}
-      <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: "rgba(255,255,255,0.65)", fontFamily: "Inter,sans-serif", marginBottom: 8, paddingTop: 4 }}>
+      <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: "rgba(255,255,255,0.65)", fontFamily: "Space Grotesk,sans-serif", marginBottom: 8, paddingTop: 4 }}>
         ЯДРО СИСТЕМЫ
       </div>
 
@@ -209,7 +212,7 @@ function Core3D({ level }: { level: number }) {
 
             {/* Text */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.93)", fontFamily: "Inter,sans-serif", lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.93)", fontFamily: "Space Grotesk,sans-serif", lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
                 {layer.label}
               </div>
               <div style={{ fontSize: 7.5, color: "rgba(255,255,255,0.58)", fontFamily: "Inter,sans-serif", marginTop: 1, lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -237,7 +240,7 @@ function InNode({ i, show }: { i: number; show: boolean }) {
   return (
     <motion.div
       style={{
-        position: "absolute", left: 0, top: nodeY(i), width: INP_W, height: NODE_H,
+        position: "absolute", left: INP_X, top: nodeY(i), width: INP_W, height: NODE_H,
         background: "rgba(255,255,255,0.72)",
         backdropFilter: "blur(18px) saturate(140%)",
         WebkitBackdropFilter: "blur(18px) saturate(140%)",
@@ -251,7 +254,7 @@ function InNode({ i, show }: { i: number; show: boolean }) {
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : -10 }}
       whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
       transition={{ duration: 0.3, delay: i * 0.06 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.2 }}>{label}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif", lineHeight: 1.2 }}>{label}</div>
       <div style={{ fontSize: 9.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
@@ -278,7 +281,7 @@ function OutNode({ i, show }: { i: number; show: boolean }) {
       whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
       transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}>
       {lines.map((line, li) => (
-        <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.25 }}>{line}</div>
+        <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk, sans-serif", lineHeight: 1.25 }}>{line}</div>
       ))}
     </motion.div>
   );
@@ -302,7 +305,7 @@ function LPanel({ yi, label, sub, accent, show, delay = 0 }: { yi: number; label
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
       whileHover={{ background: "rgba(255,255,255,0.82)", boxShadow: `0 0 0 1.5px ${accent ?? "rgba(255,255,255,0.9)"}` }}
       transition={{ duration: 0.3, delay }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{label}</div>
       <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
@@ -326,7 +329,7 @@ function RPanel({ i, label, sub, show, delay = 0 }: { i: number; label: string; 
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
       whileHover={{ background: "rgba(255,255,255,0.82)" }}
       transition={{ duration: 0.3, delay }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{label}</div>
       <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
@@ -370,7 +373,7 @@ function DesktopDiagram({ level }: { level: number }) {
         </>}
 
         {/* Port dots */}
-        {INPUTS.map((inp, i)  => lv(inp.minLevel)  && <circle key={`pdi${i}`} cx={INP_W}         cy={nodeCY(i)}  r={4} fill={inp.color} />)}
+        {INPUTS.map((inp, i)  => lv(inp.minLevel)  && <circle key={`pdi${i}`} cx={INP_X + INP_W} cy={nodeCY(i)}  r={4} fill={inp.color} />)}
         {OUTPUTS.map((out, i) => lv(out.minLevel)  && <circle key={`pdo${i}`} cx={OUT_X}          cy={nodeCY(i)}  r={4} fill={out.color} />)}
         {lv(2) && <><circle cx={LPAN_X+LPAN_W} cy={lpanCY(0)} r={3} fill="rgba(255,255,255,0.35)" /><circle cx={LPAN_X+LPAN_W} cy={lpanCY(1)} r={3} fill="rgba(255,255,255,0.35)" /></>}
         {lv(3) && <circle cx={LPAN_X+LPAN_W} cy={lpanCY(2)} r={3} fill={C.crimson} opacity={0.75} />}
@@ -410,7 +413,7 @@ function MobileDiagram({ level }: { level: number }) {
       {INPUTS.map((inp, i) => lv(inp.minLevel) && (
         <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
           style={{ border: `1px solid ${inp.color}55`, borderLeft: `3px solid ${inp.color}`, borderRadius: 7, padding: "8px 12px", background: "white" }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{inp.label}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{inp.label}</div>
           <div style={{ fontSize: 10, color: C.taupe, fontFamily: "Inter,sans-serif" }}>{inp.sub}</div>
         </motion.div>
       ))}
@@ -423,7 +426,7 @@ function MobileDiagram({ level }: { level: number }) {
               <div style={{ width: 4, height: 18, borderRadius: 2, background: layer.color, flexShrink: 0 }} />
               <LayerIconSvg idx={i} color={layer.color} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10.5, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{layer.label}</div>
+                <div style={{ fontSize: 10.5, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{layer.label}</div>
                 {i === 4 && lv(3) && <span style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 7.5, color: C.crimson, marginLeft: 4 }}>Human review</span>}
               </div>
             </div>
@@ -442,7 +445,7 @@ function MobileDiagram({ level }: { level: number }) {
       {OUTPUTS.map((out, i) => lv(out.minLevel) && (
         <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
           style={{ border: `1px solid ${out.color}55`, borderRight: `3px solid ${out.color}`, borderRadius: 7, padding: "8px 12px", background: "white", textAlign: "right" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{out.lines.join(" ")}</div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{out.lines.join(" ")}</div>
         </motion.div>
       ))}
     </div>

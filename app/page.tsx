@@ -217,98 +217,91 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="grain-overlay" />
 
-      {/* STORY ZONE — 1200vh, dark forest bg hides de-stick gap */}
-      <div ref={ref} style={{ height: "1200vh", background: "#0d1a07" }}>
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* ── FIXED SCENE LAYER — always behind content ──────────────────────────── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden" }}>
+        <div className="grain-overlay" />
 
-          {/* Scenes */}
-          <Scene src="/images/scenes/1-desktop.webp" opacity={s1Op} scale={s1Sc} first />
-          <Scene src="/images/scenes/2-desktop.webp" opacity={s2Op} scale={s2Sc} />
-          <Scene src="/images/scenes/3-desktop.webp" opacity={s3Op} scale={s3Sc} />
-          <Scene src="/images/scenes/4-desktop.webp" opacity={s4Op} scale={s4Sc} />
-          <Scene src="/images/scenes/5-desktop.webp" opacity={s5Op} scale={s5Sc} />
-          <Scene src="/images/scenes/6g-desktop.webp" opacity={s6Op} scale={s6Sc} className="scene-meditation" />
+        {/* Scenes */}
+        <Scene src="/images/scenes/1-desktop.webp" opacity={s1Op} scale={s1Sc} first />
+        <Scene src="/images/scenes/2-desktop.webp" opacity={s2Op} scale={s2Sc} />
+        <Scene src="/images/scenes/3-desktop.webp" opacity={s3Op} scale={s3Sc} />
+        <Scene src="/images/scenes/4-desktop.webp" opacity={s4Op} scale={s4Sc} />
+        <Scene src="/images/scenes/5-desktop.webp" opacity={s5Op} scale={s5Sc} />
+        <Scene src="/images/scenes/6g-desktop.webp" opacity={s6Op} scale={s6Sc} className="scene-meditation" />
 
-          {/* 3D floating objects */}
-          {OBJECTS.map((cfg, i) => (
-            <Obj key={i} cfg={cfg} p={p} />
-          ))}
+        {/* 3D floating objects */}
+        {OBJECTS.map((cfg, i) => (
+          <Obj key={i} cfg={cfg} p={p} />
+        ))}
 
-          {/* Hero text — scene 1, all WHITE */}
-          <motion.div
-            className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
-            style={{ opacity: heroOp, y: heroY }}
+        {/* Hero text — scene 1 */}
+        <motion.div
+          className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
+          style={{ opacity: heroOp, y: heroY }}
+        >
+          <h1
+            className="h1 mb-8 max-w-3xl"
+            style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}
           >
-            <h1
-              className="h1 mb-8 max-w-3xl"
-              style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}
-            >
-              Освобождаем время<br />
-              для того, что<br />
-              действительно{" "}
-              <span style={{ color: "#C41230" }}>важно.</span>
-            </h1>
-            <p
-              className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
-              style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
-            >
-              AI-системы, которые работают.
-            </p>
-            <p className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10">
-              Не начинайте с решения. Начните с результата.
-            </p>
-            <div className="pointer-events-auto">
-              <a href="#cta" className="btn-primary">
-                Разобрать кейс
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Scroll hint */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
-            style={{ opacity: hintOp }}
+            Освобождаем время<br />
+            для того, что<br />
+            действительно{" "}
+            <span style={{ color: "#C41230" }}>важно.</span>
+          </h1>
+          <p
+            className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
+            style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
           >
-            <span className="eyebrow">scroll</span>
-            <motion.div
-              className="w-px h-10 bg-taupe/40"
-              animate={{ scaleY: [0, 1, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
+            AI-системы, которые работают.
+          </p>
+          <p className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10">
+            Не начинайте с решения. Начните с результата.
+          </p>
+          <div className="pointer-events-auto">
+            <a href="#cta" className="btn-primary">
+              Разобрать кейс
+            </a>
+          </div>
+        </motion.div>
 
-          {/* Content overlays */}
+        {/* Scroll hint */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+          style={{ opacity: hintOp }}
+        >
+          <span className="eyebrow">scroll</span>
+          <motion.div
+            className="w-px h-10 bg-taupe/40"
+            animate={{ scaleY: [0, 1, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
 
-          {/* Scene 2 → WhatWeDo: 15-31%, gap до 34% */}
-          <SectionOverlay p={p} enter={0.15} show={0.21} hide={0.27} exit={0.32}>
-            <WhatWeDo />
-          </SectionOverlay>
-
-          {/* Scene 3 → ThreeLevels: 34-50%, gap до 53% */}
-          <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
-            <ThreeLevels />
-          </SectionOverlay>
-
-          {/* Scene 4 → Examples: hard snap, no opacity fade */}
-          <SectionOverlay p={p} enter={0.53} show={0.53} hide={0.665} exit={0.69} snap>
-            <Examples />
-          </SectionOverlay>
-
-          {/* Scene 5 → Process: 71-85%, gap до 87% */}
-          <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
-            <Process />
-          </SectionOverlay>
-
-        </div>
+        {/* Content overlays */}
+        <SectionOverlay p={p} enter={0.15} show={0.21} hide={0.27} exit={0.32}>
+          <WhatWeDo />
+        </SectionOverlay>
+        <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
+          <ThreeLevels />
+        </SectionOverlay>
+        <SectionOverlay p={p} enter={0.53} show={0.53} hide={0.665} exit={0.69} snap>
+          <Examples />
+        </SectionOverlay>
+        <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
+          <Process />
+        </SectionOverlay>
       </div>
 
-      {/* ── Static final screen ───────────────────────────────────────────────── */}
+      {/* ── SCROLL SPACER — creates 1200vh of scrollable space ────────────────── */}
+      <div ref={ref} style={{ height: "1200vh" }} />
+
+      {/* ── FINAL SCREEN — scrolls on top of fixed scenes (z-index > 0) ────────── */}
       <div
         id="cta"
         style={{
           position: "relative",
+          zIndex: 1,
           minHeight: "100vh",
           backgroundImage: "url('/images/scenes/6g-desktop.webp')",
           backgroundSize: "cover",

@@ -32,8 +32,8 @@ export default function FinalCTA() {
     <section
       id="cta"
       ref={sectionRef}
-      className="section-padding text-center relative overflow-hidden"
-      style={{ background: "transparent" }}
+      className="text-center relative overflow-hidden"
+      style={{ background: "transparent", paddingTop: "9vh", paddingBottom: "26vh" }}
     >
       {/* Subtle crimson breathing glow */}
       <motion.div

@@ -22,7 +22,7 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
-        <p className="font-inter font-light text-taupe text-sm text-center">
+        <p className="font-inter font-light text-crimson text-sm text-center">
           Polishchuk Ai Systems · © 2026
         </p>
       </div>

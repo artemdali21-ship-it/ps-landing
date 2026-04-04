@@ -408,48 +408,89 @@ function DesktopDiagram({ level }: { level: number }) {
 }
 
 // ─── MOBILE DIAGRAM ───────────────────────────────────────────────────────────
+const SMOKED: React.CSSProperties = {
+  background: "rgba(100,110,125,0.38)",
+  backdropFilter: "blur(18px) saturate(80%)",
+  WebkitBackdropFilter: "blur(18px) saturate(80%)",
+  border: "1px solid rgba(255,255,255,0.22)",
+  borderTop: "1px solid rgba(255,255,255,0.30)",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.16)",
+};
+const LIQUID: React.CSSProperties = {
+  background: "rgba(255,255,255,0.13)",
+  backdropFilter: "blur(22px) saturate(160%)",
+  WebkitBackdropFilter: "blur(22px) saturate(160%)",
+  border: "1px solid rgba(255,255,255,0.42)",
+  borderTop: "1px solid rgba(255,255,255,0.68)",
+  boxShadow: "0 4px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)",
+};
+
 function MobileDiagram({ level }: { level: number }) {
   const lv = (n: number) => level >= n;
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+
+      {/* ── INPUTS ── */}
       {INPUTS.map((inp, i) => lv(inp.minLevel) && (
-        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-          style={{ border: `1px solid ${inp.color}55`, borderLeft: `3px solid ${inp.color}`, borderRadius: 7, padding: "8px 12px", background: "white" }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{inp.label}</div>
-          <div style={{ fontSize: 10, color: C.taupe, fontFamily: "Inter,sans-serif" }}>{inp.sub}</div>
+        <motion.div key={i}
+          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+          style={{ ...SMOKED, borderLeft: `3px solid ${inp.color}`, borderRadius: 9, padding: "8px 12px", overflow: "hidden" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{inp.label}</div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.50)", fontFamily: "Inter,sans-serif", marginTop: 1 }}>{inp.sub}</div>
         </motion.div>
       ))}
-      <div style={{ textAlign: "center", color: C.taupe, fontSize: 16 }}>↓</div>
-      <div style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 10, padding: "10px", background: "white", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
-        <div style={{ textAlign: "center", color: C.taupe, fontSize: 9, letterSpacing: 2, marginBottom: 8 }}>ЯДРО СИСТЕМЫ</div>
+
+      <div style={{ textAlign: "center", color: "rgba(255,255,255,0.38)", fontSize: 15 }}>↓</div>
+
+      {/* ── CORE (liquid glass wrapper) ── */}
+      <div style={{ ...LIQUID, borderRadius: 14, padding: "12px 10px", overflow: "hidden" }}>
+        <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: "rgba(255,255,255,0.60)", fontFamily: "Space Grotesk,sans-serif", marginBottom: 10 }}>
+          ЯДРО СИСТЕМЫ
+        </div>
         {LAYERS.map((layer, i) => (
           <div key={i}>
-            <div style={{ display: "flex", alignItems: "center", gap: 7, background: i === 5 ? "rgba(31,20,16,0.04)" : "rgba(0,0,0,0.01)", borderRadius: 5, padding: "5px 8px", border: "0.5px solid rgba(0,0,0,0.06)" }}>
-              <div style={{ width: 4, height: 18, borderRadius: 2, background: layer.color, flexShrink: 0 }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 7, ...LIQUID, borderRadius: 8, padding: "6px 9px", overflow: "hidden", position: "relative" }}>
+              {/* Shimmer */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(180deg,rgba(255,255,255,0.22) 0%,transparent 100%)", borderRadius: "8px 8px 0 0", pointerEvents: "none" }} />
+              <div style={{ width: 3, height: 20, borderRadius: 2, background: layer.color, flexShrink: 0 }} />
               <LayerIconSvg idx={i} color={layer.color} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10.5, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{layer.label}</div>
-                {i === 4 && lv(3) && <span style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 7.5, color: C.crimson, marginLeft: 4 }}>Human review</span>}
+                <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.93)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>{layer.label}</div>
+                {i === 4 && lv(3) && (
+                  <span style={{ border: "0.8px solid rgba(255,255,255,0.50)", borderRadius: 99, padding: "1px 5px", fontSize: 7.5, color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.12)", marginLeft: 4 }}>Human review</span>
+                )}
               </div>
             </div>
-            {i < 5 && <div style={{ textAlign: "left", paddingLeft: 12, color: LAYERS[i+1].color, fontSize: 10, opacity: 0.45 }}>↓</div>}
+            {i < 5 && <div style={{ textAlign: "left", paddingLeft: 12, color: LAYERS[i + 1].color, fontSize: 10, opacity: 0.5 }}>↓</div>}
           </div>
         ))}
       </div>
+
+      {/* ── CONTEXT PILLS (L2+) ── */}
       {lv(2) && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {["Память", "Знания", ...(lv(3) ? ["Обучение"] : [])].map(label => (
-            <div key={label} style={{ border: `1px solid ${label === "Обучение" ? C.crimson + "88" : "rgba(0,0,0,0.15)"}`, borderRadius: 6, padding: "5px 10px", fontSize: 10, color: C.espresso, background: "white" }}>{label}</div>
+            <div key={label} style={{
+              ...SMOKED,
+              border: `1px solid ${label === "Обучение" ? C.crimson + "99" : "rgba(255,255,255,0.22)"}`,
+              borderRadius: 6, padding: "5px 10px", fontSize: 10,
+              color: "rgba(255,255,255,0.82)", overflow: "hidden",
+            }}>{label}</div>
           ))}
         </motion.div>
       )}
-      <div style={{ textAlign: "center", color: C.taupe, fontSize: 16 }}>↓</div>
+
+      <div style={{ textAlign: "center", color: "rgba(255,255,255,0.38)", fontSize: 15 }}>↓</div>
+
+      {/* ── OUTPUTS ── */}
       {OUTPUTS.map((out, i) => lv(out.minLevel) && (
-        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-          style={{ border: `1px solid ${out.color}55`, borderRight: `3px solid ${out.color}`, borderRadius: 7, padding: "8px 12px", background: "white", textAlign: "right" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{out.lines.join(" ")}</div>
+        <motion.div key={i}
+          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+          style={{ ...SMOKED, borderRight: `3px solid ${out.color}`, borderRadius: 9, padding: "8px 12px", textAlign: "right", overflow: "hidden" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{out.lines.join(" ")}</div>
         </motion.div>
       ))}
+
     </div>
   );
 }

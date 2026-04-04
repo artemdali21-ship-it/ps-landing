@@ -219,8 +219,14 @@ export default function Home() {
       <Navbar />
       <div className="grain-overlay" />
 
-      {/* STORY ZONE — 1200vh */}
-      <div ref={ref} style={{ height: "1200vh" }}>
+      {/* STORY ZONE — 1200vh (forest bg fills the de-stick tail) */}
+      <div ref={ref} style={{
+        height: "1200vh",
+        backgroundImage: "url('/images/scenes/6g-desktop.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center 40%",
+        backgroundAttachment: "scroll",
+      }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
           {/* Scenes */}

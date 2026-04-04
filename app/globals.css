@@ -33,9 +33,18 @@
 .sphere-float { animation: sphere-float 6s ease-in-out infinite; }
 .sphere-glow  { animation: sphere-glow 3s ease-in-out infinite; }
 
-/* Scene 6 (meditation) — recentre on mobile so the figure stays in frame */
+/* Scene 6 (meditation) — wide landscape image, avoid upscaling */
+/* Desktop: fit by width (no upscale), person appears small/distant, crisp */
+@media (min-width: 768px) {
+  .scene-meditation {
+    background-size: 100% auto !important;
+    background-position: center 55% !important;
+  }
+}
+/* Mobile: cover by height is unavoidable for portrait, centre on figure */
 @media (max-width: 767px) {
   .scene-meditation {
-    background-position: 62% center !important;
+    background-size: cover !important;
+    background-position: 52% 35% !important;
   }
 }

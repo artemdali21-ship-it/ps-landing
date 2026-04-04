@@ -300,13 +300,26 @@ export default function Home() {
             <Process />
           </SectionOverlay>
 
-          {/* Scene 6 → FinalCTA: 87%→ stays */}
-          <FinalOverlay p={p} enter={0.87} show={0.93}>
-            <div id="cta">
-              <FinalCTA />
-            </div>
-          </FinalOverlay>
+        </div>
+      </div>
 
+      {/* ── Static final screen — forest + FinalCTA ──────────────────────────── */}
+      <div
+        id="cta"
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          backgroundImage: "url('/images/scenes/6g-desktop.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.35)" }} />
+        <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
+          <FinalCTA />
         </div>
       </div>
 

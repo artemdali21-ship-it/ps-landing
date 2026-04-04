@@ -1,47 +1,185 @@
 "use client";
-// v2
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-const levels = [
+// v3 — Folders UI
+import { useState, useEffect, ReactElement } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// ─── Inline SVG Icons ────────────────────────────────────────────────────────
+
+const ICONS: Record<string, ReactElement> = {
+  Filter: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+    </svg>
+  ),
+  FileCheck: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <polyline points="9 15 11 17 15 13" />
+    </svg>
+  ),
+  FileEdit: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="10" y1="12" x2="14" y2="12" />
+      <line x1="10" y1="16" x2="14" y2="16" />
+      <line x1="10" y1="8" x2="12" y2="8" />
+    </svg>
+  ),
+  ArrowUpDown: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="17 11 21 7 17 3" />
+      <line x1="21" y1="7" x2="9" y2="7" />
+      <polyline points="7 13 3 17 7 21" />
+      <line x1="3" y1="17" x2="15" y2="17" />
+    </svg>
+  ),
+  FileText: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="8" y1="13" x2="16" y2="13" />
+      <line x1="8" y1="17" x2="16" y2="17" />
+      <line x1="8" y1="9" x2="10" y2="9" />
+    </svg>
+  ),
+  TrendingUp: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+      <polyline points="17 6 23 6 23 12" />
+    </svg>
+  ),
+  Users: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  ),
+  ListChecks: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="10" y1="6" x2="21" y2="6" />
+      <line x1="10" y1="12" x2="21" y2="12" />
+      <line x1="10" y1="18" x2="21" y2="18" />
+      <polyline points="3 6 4 7 6 5" />
+      <polyline points="3 12 4 13 6 11" />
+      <polyline points="3 18 4 19 6 17" />
+    </svg>
+  ),
+  FolderOpen: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+    </svg>
+  ),
+  RefreshCw: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="23 4 23 10 17 10" />
+      <polyline points="1 20 1 14 7 14" />
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+    </svg>
+  ),
+  Award: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+    </svg>
+  ),
+  GitBranch: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" y1="3" x2="6" y2="15" />
+      <circle cx="18" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <path d="M18 9a9 9 0 0 1-9 9" />
+    </svg>
+  ),
+  LineChart: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="3" x2="3" y2="21" />
+      <line x1="3" y1="21" x2="21" y2="21" />
+      <polyline points="7 14 11 10 15 13 19 7" />
+    </svg>
+  ),
+  Brain: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+      <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+      <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+      <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
+      <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+    </svg>
+  ),
+  Layers: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </svg>
+  ),
+};
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const LEVELS = [
   {
-    number: "01",
-    tier: "МИКРОСИСТЕМЫ",
-    priceLabel: "от",
-    priceValue: 150000,
-    priceSuffix: " ₽",
+    title: "Микросистемы",
+    price: "от 150 000 ₽",
     timeline: "1–2 недели",
-    description: "Одна задача. Один понятный результат.",
-    items: [
+    description: "Одна задача. Один точный результат.",
+    number: "01",
+    accentColor: "#8A7B6B",
+    cards: [
+      { position: "center",  label: "Квалификация входящих", sublabel: "AI фильтр",    iconName: "Filter" },
+      { position: "left-1",  label: "Итоги встречи",         sublabel: "Авто-протокол", iconName: "FileCheck" },
+      { position: "left-2",  label: "Черновик КП",           sublabel: "Из брифа",      iconName: "FileEdit" },
+      { position: "right-1", label: "Сортировка входящих",   sublabel: "Приоритеты",    iconName: "ArrowUpDown" },
+      { position: "right-2", label: "Типовой документ",      sublabel: "Шаблон",        iconName: "FileText" },
+    ],
+    examples: [
       "Квалификация входящих",
-      "Summary встречи + next steps",
-      "Бриф → черновик КП",
+      "Итоги встречи + next steps",
+      "Черновик КП из брифа",
       "Генерация типового документа",
     ],
   },
   {
-    number: "02",
-    tier: "РАБОЧИЕ СИСТЕМЫ",
-    priceLabel: "от",
-    priceValue: 300000,
-    priceSuffix: " ₽",
+    title: "Рабочие системы",
+    price: "от 300 000 ₽",
     timeline: "2–4 недели",
-    description: "Система ведёт процесс от входа до результата.",
-    items: [
+    description: "Связанный процесс от входа до результата.",
+    number: "02",
+    accentColor: "#C41230",
+    cards: [
+      { position: "center",  label: "Система продаж",       sublabel: "CRM + AI",        iconName: "TrendingUp" },
+      { position: "left-1",  label: "HR-скрининг",          sublabel: "100 → shortlist",  iconName: "Users" },
+      { position: "left-2",  label: "Встреча → задачи",     sublabel: "Протокол",         iconName: "ListChecks" },
+      { position: "right-1", label: "Документооборот",      sublabel: "Авто-поток",       iconName: "FolderOpen" },
+      { position: "right-2", label: "Контур сопровождения", sublabel: "Follow-up",        iconName: "RefreshCw" },
+    ],
+    examples: [
       "Лид → квалификация → CRM → менеджер → отчёт",
       "Бриф → КП → follow-up → статус сделки",
       "100 резюме → shortlist → HR работает с релевантными",
-      "Встреча → Zoom → адженда → запись → summary",
+      "Встреча → повестка → запись → задачи",
     ],
   },
   {
-    number: "03",
-    tier: "ЭКСПЕРТНЫЕ СИСТЕМЫ",
-    priceLabel: "от",
-    priceValue: 700000,
-    priceSuffix: " ₽",
+    title: "Экспертные системы",
+    price: "от 700 000 ₽",
     timeline: "4–12 недель",
-    description: "\u0422\u0430\u043c \u0433\u0434\u0435 \u043e\u0448\u0438\u0431\u043a\u0430 \u0441\u0442\u043e\u0438\u0442 \u0434\u043e\u0440\u043e\u0436\u0435 \u0447\u0435\u043c \u0441\u0438\u0441\u0442\u0435\u043c\u0430.",
-    items: [
+    description: "Там, где важны контекст, проверка и цена ошибки.",
+    number: "03",
+    accentColor: "#D2B68A",
+    cards: [
+      { position: "center",  label: "Экспертная оценка",         sublabel: "Human-in-loop",   iconName: "Award" },
+      { position: "left-1",  label: "Система принятия решений",  sublabel: "С памятью",       iconName: "GitBranch" },
+      { position: "left-2",  label: "Аналитика с прогнозом",     sublabel: "Мультифакторная", iconName: "LineChart" },
+      { position: "right-1", label: "Контекстная система",       sublabel: "Под отрасль",     iconName: "Brain" },
+      { position: "right-2", label: "Вертикальная архитектура",  sublabel: "Полный цикл",     iconName: "Layers" },
+    ],
+    examples: [
       "Сметы и расчёты с десятками переменных",
       "Системы принятия решений с памятью",
       "Вертикальные архитектуры под отрасль",
@@ -49,61 +187,294 @@ const levels = [
   },
 ];
 
-function useCountUp(target: number, inView: boolean, duration = 1.2) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const startTime = performance.now();
-    const step = (now: number) => {
-      const elapsed = (now - startTime) / 1000;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, target, duration]);
-  return count;
+// ─── Card position configs ─────────────────────────────────────────────────────
+
+type CardState = {
+  rotate: number;
+  translateX: number;
+  translateY: number;
+  scale: number;
+  zIndex: number;
+};
+
+const COLLAPSED: CardState[] = [
+  { rotate:  0,   translateX:   0,  translateY: 0,  scale: 1.00, zIndex: 5 },
+  { rotate: -6,   translateX: -12,  translateY: 4,  scale: 0.94, zIndex: 4 },
+  { rotate: -12,  translateX: -22,  translateY: 8,  scale: 0.88, zIndex: 3 },
+  { rotate:  6,   translateX:  12,  translateY: 4,  scale: 0.94, zIndex: 4 },
+  { rotate:  12,  translateX:  22,  translateY: 8,  scale: 0.88, zIndex: 3 },
+];
+
+const EXPANDED: CardState[] = [
+  { rotate:  0,   translateX:    0,  translateY: -16, scale: 1.04, zIndex: 5 },
+  { rotate: -5,   translateX:  -88,  translateY:  -8, scale: 0.92, zIndex: 4 },
+  { rotate: -10,  translateX: -152,  translateY:   0, scale: 0.84, zIndex: 3 },
+  { rotate:  5,   translateX:   88,  translateY:  -8, scale: 0.92, zIndex: 4 },
+  { rotate:  10,  translateX:  152,  translateY:   0, scale: 0.84, zIndex: 3 },
+];
+
+// ─── MiniCard ─────────────────────────────────────────────────────────────────
+
+interface CardData {
+  position: string;
+  label: string;
+  sublabel: string;
+  iconName: string;
+  image?: string | null;
 }
 
-function PriceCounter({
-  value,
-  label,
-  suffix,
+function MiniCard({
+  card,
+  index,
+  isOpen,
+  accentColor,
 }: {
-  value: number;
-  label: string;
-  suffix: string;
+  card: CardData;
+  index: number;
+  isOpen: boolean;
+  accentColor: string;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const count = useCountUp(value, inView, 1.4);
+  const isCenter = index === 0;
+  const state = isOpen ? EXPANDED[index] : COLLAPSED[index];
 
   return (
-    <p ref={ref} className="font-space-mono font-bold text-2xl text-espresso mb-1">
-      {label}&nbsp;{count.toLocaleString("ru-RU")}
-      {suffix}
-    </p>
+    <motion.div
+      animate={{
+        rotate: state.rotate,
+        x: state.translateX,
+        y: state.translateY,
+        scale: state.scale,
+        zIndex: state.zIndex,
+      }}
+      transition={{ type: "spring", stiffness: 280, damping: 26 }}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        marginLeft: isCenter ? -80 : -60,
+        width: isCenter ? 160 : 120,
+        height: isCenter ? 200 : 160,
+        background: "rgba(31,20,16,0.95)",
+        borderRadius: 12,
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        padding: "12px 10px",
+        userSelect: "none",
+        zIndex: state.zIndex,
+        transformOrigin: "bottom center",
+      }}
+    >
+      {card.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={card.image}
+          alt={card.label}
+          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10 }}
+        />
+      ) : (
+        <>
+          <span style={{ color: accentColor, display: "flex", flexShrink: 0 }}>
+            {ICONS[card.iconName] ?? ICONS["FileText"]}
+          </span>
+          <span
+            style={{
+              fontSize: isCenter ? 11 : 9,
+              fontWeight: 700,
+              color: "#FFFFFF",
+              textAlign: "center",
+              lineHeight: 1.3,
+              letterSpacing: 0.2,
+            }}
+          >
+            {card.label}
+          </span>
+          <span
+            style={{
+              fontSize: isCenter ? 9 : 8,
+              color: "rgba(255,255,255,0.45)",
+              textAlign: "center",
+              lineHeight: 1.2,
+            }}
+          >
+            {card.sublabel}
+          </span>
+        </>
+      )}
+    </motion.div>
   );
 }
 
-// Entrance directions per card
-const cardVariants = [
-  { hidden: { opacity: 0, x: -50 }, show: { opacity: 1, x: 0 } },
-  { hidden: { opacity: 0, y: 50 },  show: { opacity: 1, y: 0 } },
-  { hidden: { opacity: 0, x: 50 },  show: { opacity: 1, x: 0 } },
-];
+// ─── FolderCard ───────────────────────────────────────────────────────────────
 
-export default function ThreeLevels() {
-  const headerRef = useRef(null);
+interface Level {
+  title: string;
+  price: string;
+  timeline: string;
+  description: string;
+  number: string;
+  accentColor: string;
+  cards: CardData[];
+  examples: string[];
+}
+
+function FolderCard({ level }: { level: Level }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
-    <section className="section-padding relative">
-      <div className="max-w-7xl mx-auto">
+    <motion.div
+      onMouseEnter={() => !isMobile && setIsOpen(true)}
+      onMouseLeave={() => !isMobile && setIsOpen(false)}
+      onClick={() => isMobile && setIsOpen((o) => !o)}
+      whileHover={!isMobile ? { y: -4 } : undefined}
+      style={{
+        background: "rgba(250,246,240,0.9)",
+        borderRadius: 20,
+        padding: 28,
+        border: "1px solid rgba(0,0,0,0.07)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+        cursor: "pointer",
+        position: "relative",
+        overflow: "visible",
+      }}
+    >
+      {/* Fan of 5 mini-cards */}
+      <div style={{ height: 220, position: "relative", marginBottom: 24 }}>
+        {level.cards.map((card, i) => (
+          <MiniCard
+            key={i}
+            card={card}
+            index={i}
+            isOpen={isOpen}
+            accentColor={level.accentColor}
+          />
+        ))}
+      </div>
 
-        {/* Header with whileInView entrance — no scroll container needed */}
+      {/* Folder info */}
+      <div>
+        <span
+          style={{
+            fontSize: 11,
+            color: "#8A7B6B",
+            letterSpacing: 2,
+            fontFamily: "monospace",
+            fontWeight: 600,
+          }}
+        >
+          {level.number}
+        </span>
+        <h3
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "#1F1410",
+            marginTop: 4,
+            lineHeight: 1.2,
+          }}
+        >
+          {level.title}
+        </h3>
+        <p
+          style={{
+            fontSize: 20,
+            fontWeight: 700,
+            color: "#C41230",
+            marginTop: 6,
+          }}
+        >
+          {level.price}
+        </p>
+        <p style={{ fontSize: 12, color: "#8A7B6B", marginTop: 2 }}>
+          {level.timeline}
+        </p>
+        <p
+          style={{
+            fontSize: 14,
+            color: "#1F1410",
+            marginTop: 12,
+            lineHeight: 1.6,
+            opacity: 0.85,
+          }}
+        >
+          {level.description}
+        </p>
+
+        {/* Examples — animate in/out */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.ul
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              style={{ marginTop: 16, listStyle: "none", padding: 0, overflow: "hidden" }}
+            >
+              {level.examples.map((ex, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06, duration: 0.2 }}
+                  style={{
+                    fontSize: 12,
+                    color: "#8A7B6B",
+                    padding: "3px 0",
+                    display: "flex",
+                    gap: 6,
+                    alignItems: "flex-start",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <span style={{ color: level.accentColor, flexShrink: 0 }}>—</span>
+                  {ex}
+                </motion.li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Subtle accent line at bottom */}
+      <motion.div
+        animate={{ scaleX: isOpen ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 28 }}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 28,
+          right: 28,
+          height: 2,
+          background: level.accentColor,
+          borderRadius: 1,
+          transformOrigin: "left center",
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── Section ──────────────────────────────────────────────────────────────────
+
+export default function ThreeLevels() {
+  return (
+    <section id="services" className="section-padding" style={{ background: "#FAF6F0" }}>
+      <div className="max-w-6xl mx-auto">
+
+        {/* Header — kept exactly as original */}
         <motion.div
-          ref={headerRef}
           className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -123,73 +494,13 @@ export default function ThreeLevels() {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {levels.map((level, i) => (
-            <motion.div
-              key={level.number}
-              className="relative overflow-hidden group"
-              style={{
-                backgroundColor: "#F3ECE2",
-                borderRadius: "10px",
-                padding: "32px",
-                border: "1px solid #D4C8B8",
-              }}
-              initial={cardVariants[i].hidden}
-              whileInView={cardVariants[i].show}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{
-                y: -6,
-                boxShadow: "0 20px 50px rgba(0,0,0,0.10)",
-              }}
-            >
-              {/* Hover accent border */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-0 w-[3px] bg-crimson"
-                initial={{ scaleY: 0 }}
-                whileHover={{ scaleY: 1 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                style={{ originY: 0 }}
-              />
-
-              {/* Ghost number */}
-              <span className="absolute top-4 right-6 font-space-mono font-bold text-7xl text-espresso/[0.06] select-none leading-none">
-                {level.number}
-              </span>
-
-              <p className="eyebrow mb-3">{level.tier}</p>
-
-              <PriceCounter
-                value={level.priceValue}
-                label={level.priceLabel}
-                suffix={level.priceSuffix}
-              />
-
-              <p className="font-inter font-light text-taupe text-sm mb-4">
-                {level.timeline}
-              </p>
-
-              <div className="h-px bg-stone mb-4" />
-
-              <p suppressHydrationWarning className="font-inter font-light text-espresso text-base mb-5 leading-relaxed">
-                {level.description}
-              </p>
-
-              <ul className="flex flex-col gap-2.5" suppressHydrationWarning>
-                {level.items.map((item) => (
-                  <li
-                    key={item}
-                    className="font-inter font-light text-taupe text-sm flex gap-2 leading-snug"
-                    suppressHydrationWarning
-                  >
-                    <span className="text-crimson mt-0.5 flex-shrink-0" aria-hidden>{"·"}</span>
-                    <span suppressHydrationWarning>{String(item)}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+        {/* Folders UI */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          {LEVELS.map((level, idx) => (
+            <FolderCard key={idx} level={level} />
           ))}
         </div>
+
       </div>
     </section>
   );

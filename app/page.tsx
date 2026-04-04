@@ -48,9 +48,9 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 4 — robot hand ×2 bigger, higher — exits before meditation scene
+  // Scene 5 — robot hand appears with butterfly (door/holes scene)
   { src: "/images/objects/img-4780.webp",
-    enter:0.49, end:0.55, exitS:0.73, exit:0.80, w:250,
+    enter:0.65, end:0.71, exitS:0.79, exit:0.84, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   // Scene 5 — butterfly moved to LEFT side
   { src: "/images/objects/img-4500.webp",
@@ -93,22 +93,41 @@ function Obj({ cfg, p }: { cfg: ObjCfg; p: MotionValue<number> }) {
   );
 }
 
-// ─── SECTION OVERLAY — slides up + fades in, stays, fades out ───────────────
-function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, children }: {
+// ─── SECTION OVERLAY — fades in/out, OR snaps instantly (snap=true) ─────────
+function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, children }: {
   p: MotionValue<number>;
   enter: number; show: number; hide: number; exit: number;
   slideY?: number;
+  snap?: boolean;
   children: ReactNode;
 }) {
   const opacity = useTransform(p, [enter, show, hide, exit], [0, 1, 1, 0]);
   const y       = useTransform(p, [enter, show, hide, exit], [slideY, 0, 0, -slideY]);
   const divRef  = useRef<HTMLDivElement>(null);
 
-  useMotionValueEvent(opacity, "change", (v) => {
-    if (divRef.current) {
-      divRef.current.style.pointerEvents = v > 0.05 ? "auto" : "none";
+  // snap mode — toggle display (no opacity fade, solid background stays solid)
+  useMotionValueEvent(p, "change", (v) => {
+    if (!divRef.current) return;
+    if (snap) {
+      const visible = v >= enter && v <= exit;
+      divRef.current.style.display        = visible ? "block" : "none";
+      divRef.current.style.pointerEvents  = visible ? "auto"  : "none";
+    } else {
+      divRef.current.style.pointerEvents = opacity.get() > 0.05 ? "auto" : "none";
     }
   });
+
+  if (snap) {
+    return (
+      <div
+        ref={divRef}
+        className="absolute inset-0 overflow-y-auto"
+        style={{ display: "none", pointerEvents: "none" }}
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -271,8 +290,8 @@ export default function Home() {
             <ThreeLevels />
           </SectionOverlay>
 
-          {/* Scene 4 → Examples: instant snap */}
-          <SectionOverlay p={p} enter={0.53} show={0.535} hide={0.665} exit={0.69}>
+          {/* Scene 4 → Examples: hard snap, no opacity fade */}
+          <SectionOverlay p={p} enter={0.53} show={0.53} hide={0.665} exit={0.69} snap>
             <Examples />
           </SectionOverlay>
 

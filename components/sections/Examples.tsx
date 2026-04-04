@@ -479,13 +479,40 @@ export default function Examples() {
       <div className="max-w-6xl mx-auto">
 
         {/* HEADER */}
-        <motion.div className="mb-10"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-          <p className="eyebrow mb-3" style={{ color: C.crimson }}>Архитектура системы</p>
-          <h2 className="h2 mb-3" style={{ color: C.espresso }}>Как это работает</h2>
-          <p className="font-inter font-light text-lg" style={{ color: C.taupe }}>Снаружи просто. Внутри — инженерия.</p>
-        </motion.div>
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
+            <p className="eyebrow mb-3" style={{ color: C.crimson }}>Архитектура системы</p>
+            <h2 className="h2 mb-3" style={{ color: C.espresso }}>Как это работает</h2>
+            <p className="font-inter font-light text-lg" style={{ color: C.taupe }}>Снаружи просто. Внутри — инженерия.</p>
+          </motion.div>
+
+          {/* Floating 3D sphere */}
+          <motion.div
+            className="hidden md:block flex-shrink-0"
+            initial={{ opacity: 0, y: 30, scale: 0.85 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 220, height: 220, position: "relative" }}>
+            {/* Glow halo */}
+            <div className="sphere-glow" style={{
+              position: "absolute", inset: "15%",
+              background: "radial-gradient(circle, rgba(196,18,48,0.22) 0%, rgba(210,182,138,0.1) 55%, transparent 80%)",
+              borderRadius: "50%",
+              filter: "blur(18px)",
+            }} />
+            <div className="sphere-float" style={{ width: "100%", height: "100%" }}>
+              <img
+                src="/images/sphere-3d.png"
+                alt="AI система — 3D визуализация"
+                style={{ width: "100%", height: "100%", objectFit: "contain",
+                  filter: "drop-shadow(0 12px 40px rgba(196,18,48,0.18)) drop-shadow(0 2px 8px rgba(0,0,0,0.12))" }}
+              />
+            </div>
+          </motion.div>
+        </div>
 
         {/* LEVEL SWITCHER */}
         <div className="flex gap-2 mb-8">

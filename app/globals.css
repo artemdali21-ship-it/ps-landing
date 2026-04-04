@@ -20,6 +20,19 @@
   --font-inter: var(--font-inter-var), sans-serif;
 }
 
+/* Floating sphere animations */
+@keyframes sphere-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1deg); }
+  66%       { transform: translateY(-6px) rotate(-0.5deg); }
+}
+@keyframes sphere-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.85; transform: scale(1.08); }
+}
+.sphere-float { animation: sphere-float 6s ease-in-out infinite; }
+.sphere-glow  { animation: sphere-glow 3s ease-in-out infinite; }
+
 /* Scene 6 (meditation) — recentre on mobile so the figure stays in frame */
 @media (max-width: 767px) {
   .scene-meditation {

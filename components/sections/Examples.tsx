@@ -545,20 +545,21 @@ export default function Examples() {
           </p>
         </div>
 
-        {/* IMAGE PLACEHOLDER */}
-        <div className="mt-12" style={{
-          border: "1.5px dashed rgba(196,18,48,0.2)",
-          borderRadius: 20,
-          minHeight: 380,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          background: "rgba(196,18,48,0.015)",
-          position: "relative", overflow: "hidden",
-        }}>
-          {/* Placeholder content — will be replaced by image */}
-          <p style={{ color: "rgba(31,20,16,0.2)", fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: 1 }}>
-            ИЗОБРАЖЕНИЕ В РАЗРАБОТКЕ
-          </p>
-        </div>
+        {/* AI SPHERE IMAGE */}
+        <motion.div
+          className="mt-12"
+          style={{ borderRadius: 20, overflow: "hidden", position: "relative" }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          <img
+            src="/images/ai-sphere.jpg"
+            alt="AI система — интеллектуальный центр обработки данных"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }}
+          />
+        </motion.div>
 
         {/* FINAL PHRASE */}
         <motion.p className="micro-phrase text-center mt-10" style={{ color: C.taupe }}

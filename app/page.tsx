@@ -214,15 +214,13 @@ export default function Home() {
   const heroY  = useTransform(p, [0.00, 0.11], [0, -50]);
   const hintOp = useTransform(p, [0.00, 0.03], [1, 0]);
 
-  // ─── FIXED LAYER FADE — dissolves before static screen appears ───────────
-  const fixedLayerOp = useTransform(p, [0.92, 1.00], [1, 0]);
 
   return (
     <>
       <Navbar />
 
-      {/* ── FIXED SCENE LAYER — fades out as static screen approaches ───────── */}
-      <motion.div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", opacity: fixedLayerOp }}>
+      {/* ── FIXED SCENE LAYER — static div slides over it at z-index:1 ─────── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden" }}>
         <div className="grain-overlay" />
 
         {/* Scenes */}
@@ -294,17 +292,18 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
           <Process />
         </SectionOverlay>
-      </motion.div>
+      </div>
 
       {/* ── SCROLL SPACER — creates 1200vh of scrollable space ────────────────── */}
       <div ref={ref} style={{ height: "1200vh" }} />
 
-      {/* ── FINAL SCREEN — scrolls on top of fixed scenes (z-index > 0) ────────── */}
+      {/* ── FINAL SCREEN — covers fixed layer as it scrolls in ───────────────── */}
       <div
         id="cta"
         style={{
           position: "relative",
           zIndex: 1,
+          marginTop: "-100vh",
           minHeight: "100vh",
           backgroundImage: "url('/images/scenes/6g-desktop.webp')",
           backgroundSize: "cover",

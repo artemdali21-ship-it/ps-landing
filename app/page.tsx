@@ -269,8 +269,8 @@ export default function Home() {
             <ThreeLevels />
           </SectionOverlay>
 
-          {/* Scene 4 → Examples: snap-in at 53%, exit at 69% */}
-          <SectionOverlay p={p} enter={0.53} show={0.535} hide={0.665} exit={0.69}>
+          {/* Scene 4 → Examples: gentle fade-in 51→57% */}
+          <SectionOverlay p={p} enter={0.51} show={0.565} hide={0.665} exit={0.69}>
             <Examples />
           </SectionOverlay>
 
@@ -286,6 +286,27 @@ export default function Home() {
             </div>
           </FinalOverlay>
 
+        </div>
+      </div>
+
+      {/* ── ANCHOR: static final screen so heading never disappears ─────────── */}
+      <div
+        id="cta-anchor"
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          backgroundImage: "url('/images/scenes/6g-desktop.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "62% center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* subtle dark overlay so text is readable */}
+        <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.38)" }} />
+        <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
+          <FinalCTA />
         </div>
       </div>
 

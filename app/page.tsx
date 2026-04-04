@@ -273,8 +273,8 @@ export default function Home() {
             <ThreeLevels />
           </SectionOverlay>
 
-          {/* Scene 4 → Examples: 53-68%, gap до 71% */}
-          <SectionOverlay p={p} enter={0.53} show={0.58} hide={0.64} exit={0.69}>
+          {/* Scene 4 → Examples: snap-in at 53%, exit at 69% */}
+          <SectionOverlay p={p} enter={0.53} show={0.535} hide={0.665} exit={0.69}>
             <Examples />
           </SectionOverlay>
 

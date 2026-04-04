@@ -27,8 +27,8 @@ const RPAN_W = 108;
 const OUT_W  = 150;
 
 // Total content width = 150+10+108+10+234+10+108+10+150 = 790
-// Center in W=900 → offset = (900-790)/2 = 55
-const INP_X  = 55;
+// Slight right-of-center shift for visual balance with bg image
+const INP_X  = 75;
 const LPAN_X = INP_X + INP_W + 10;
 const CORE_X = LPAN_X + LPAN_W + 10;
 const RPAN_X = CORE_X + CORE_W + 10;

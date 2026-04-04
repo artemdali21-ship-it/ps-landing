@@ -92,10 +92,10 @@ const INPUTS = [
 ];
 
 const OUTPUTS: { lines: string[]; color: string; minLevel: number }[] = [
-  { lines: ["Квалифицированный", "результат"], color: C.crimson, minLevel: 1 },
-  { lines: ["Отчёт + статус"],                  color: C.purple,  minLevel: 2 },
+  { lines: ["Квалифицированный", "результат"], color: C.green,   minLevel: 1 },
+  { lines: ["Отчёт + статус"],                  color: C.amber,   minLevel: 2 },
   { lines: ["Задачи в CRM"],                    color: C.blue,    minLevel: 2 },
-  { lines: ["Экспертное заключение"],           color: C.amber,   minLevel: 3 },
+  { lines: ["Экспертное заключение"],           color: C.purple,  minLevel: 3 },
 ];
 
 const LEVEL_EXAMPLES: Record<number, string> = {
@@ -241,21 +241,22 @@ function InNode({ i, show }: { i: number; show: boolean }) {
     <motion.div
       style={{
         position: "absolute", left: INP_X, top: nodeY(i), width: INP_W, height: NODE_H,
-        background: "rgba(255,255,255,0.72)",
-        backdropFilter: "blur(18px) saturate(140%)",
-        WebkitBackdropFilter: "blur(18px) saturate(140%)",
-        border: `1px solid rgba(255,255,255,0.7)`,
+        background: "rgba(100,110,125,0.38)",
+        backdropFilter: "blur(20px) saturate(80%)",
+        WebkitBackdropFilter: "blur(20px) saturate(80%)",
+        border: `1px solid rgba(255,255,255,0.22)`,
         borderLeft: `3px solid ${color}`,
+        borderTop: `1px solid rgba(255,255,255,0.32)`,
         borderRadius: 9,
-        boxShadow: `0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)`,
+        boxShadow: `0 4px 20px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)`,
         display: "flex", flexDirection: "column", justifyContent: "center",
         padding: "0 10px 0 12px", cursor: "pointer", overflow: "hidden",
       }}
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : -10 }}
-      whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
+      whileHover={{ background: "rgba(120,132,148,0.52)", boxShadow: `0 0 0 1.5px ${color}66, 0 6px 24px rgba(0,0,0,0.22)` }}
       transition={{ duration: 0.3, delay: i * 0.06 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif", lineHeight: 1.2 }}>{label}</div>
-      <div style={{ fontSize: 9.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", lineHeight: 1.2, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{label}</div>
+      <div style={{ fontSize: 9.5, color: "rgba(255,255,255,0.52)", fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
 }
@@ -267,21 +268,22 @@ function OutNode({ i, show }: { i: number; show: boolean }) {
     <motion.div
       style={{
         position: "absolute", left: OUT_X, top: nodeY(i), width: OUT_W, height: NODE_H,
-        background: "rgba(255,255,255,0.72)",
-        backdropFilter: "blur(18px) saturate(140%)",
-        WebkitBackdropFilter: "blur(18px) saturate(140%)",
-        border: `1px solid rgba(255,255,255,0.7)`,
+        background: "rgba(100,110,125,0.38)",
+        backdropFilter: "blur(20px) saturate(80%)",
+        WebkitBackdropFilter: "blur(20px) saturate(80%)",
+        border: `1px solid rgba(255,255,255,0.22)`,
         borderRight: `3px solid ${color}`,
+        borderTop: `1px solid rgba(255,255,255,0.32)`,
         borderRadius: 9,
-        boxShadow: `0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)`,
+        boxShadow: `0 4px 20px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18)`,
         display: "flex", flexDirection: "column", justifyContent: "center",
         padding: "0 12px 0 10px", cursor: "pointer", overflow: "hidden",
       }}
       initial={{ opacity: 0, x: 10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : 10 }}
-      whileHover={{ background: "rgba(255,255,255,0.88)", boxShadow: `0 0 0 1.5px ${color}55, 0 6px 22px rgba(0,0,0,0.10)` }}
+      whileHover={{ background: "rgba(120,132,148,0.52)", boxShadow: `0 0 0 1.5px ${color}66, 0 6px 24px rgba(0,0,0,0.22)` }}
       transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}>
       {lines.map((line, li) => (
-        <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk, sans-serif", lineHeight: 1.25 }}>{line}</div>
+        <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk, sans-serif", lineHeight: 1.25, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{line}</div>
       ))}
     </motion.div>
   );
@@ -292,21 +294,21 @@ function LPanel({ yi, label, sub, accent, show, delay = 0 }: { yi: number; label
     <motion.div
       style={{
         position: "absolute", left: LPAN_X, top: lpanY(yi), width: LPAN_W, height: PANEL_H,
-        background: "rgba(255,255,255,0.65)",
-        backdropFilter: "blur(16px) saturate(140%)",
-        WebkitBackdropFilter: "blur(16px) saturate(140%)",
-        border: accent ? `1.5px solid ${accent}88` : "1px solid rgba(255,255,255,0.65)",
-        borderTop: "1px solid rgba(255,255,255,0.75)",
+        background: "rgba(100,110,125,0.38)",
+        backdropFilter: "blur(20px) saturate(80%)",
+        WebkitBackdropFilter: "blur(20px) saturate(80%)",
+        border: accent ? `1.5px solid ${accent}88` : "1px solid rgba(255,255,255,0.20)",
+        borderTop: accent ? `1.5px solid ${accent}88` : "1px solid rgba(255,255,255,0.30)",
         borderRadius: 8,
-        boxShadow: `0 3px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8)`,
+        boxShadow: `0 3px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.16)`,
         display: "flex", flexDirection: "column", justifyContent: "center",
         alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer", overflow: "hidden",
       }}
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-      whileHover={{ background: "rgba(255,255,255,0.82)", boxShadow: `0 0 0 1.5px ${accent ?? "rgba(255,255,255,0.9)"}` }}
+      whileHover={{ background: "rgba(120,132,148,0.52)", boxShadow: `0 0 0 1.5px ${accent ?? "rgba(255,255,255,0.35)"}` }}
       transition={{ duration: 0.3, delay }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{label}</div>
-      <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+      <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.90)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{label}</div>
+      <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.50)", fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
 }
@@ -316,21 +318,21 @@ function RPanel({ i, label, sub, show, delay = 0 }: { i: number; label: string; 
     <motion.div
       style={{
         position: "absolute", left: RPAN_X, top: rpanY(i), width: RPAN_W, height: PANEL_H,
-        background: "rgba(255,255,255,0.65)",
-        backdropFilter: "blur(16px) saturate(140%)",
-        WebkitBackdropFilter: "blur(16px) saturate(140%)",
-        border: "1px solid rgba(255,255,255,0.65)",
-        borderTop: "1px solid rgba(255,255,255,0.75)",
+        background: "rgba(100,110,125,0.38)",
+        backdropFilter: "blur(20px) saturate(80%)",
+        WebkitBackdropFilter: "blur(20px) saturate(80%)",
+        border: "1px solid rgba(255,255,255,0.20)",
+        borderTop: "1px solid rgba(255,255,255,0.30)",
         borderRadius: 8,
-        boxShadow: `0 3px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8)`,
+        boxShadow: `0 3px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.16)`,
         display: "flex", flexDirection: "column", justifyContent: "center",
         alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer", overflow: "hidden",
       }}
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-      whileHover={{ background: "rgba(255,255,255,0.82)" }}
+      whileHover={{ background: "rgba(120,132,148,0.52)" }}
       transition={{ duration: 0.3, delay }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Space Grotesk,sans-serif" }}>{label}</div>
-      <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+      <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.90)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{label}</div>
+      <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.50)", fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
     </motion.div>
   );
 }

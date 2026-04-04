@@ -33,18 +33,18 @@
 .sphere-float { animation: sphere-float 6s ease-in-out infinite; }
 .sphere-glow  { animation: sphere-glow 3s ease-in-out infinite; }
 
-/* Scene 6 (meditation) — wide landscape image, avoid upscaling */
-/* Desktop: fit by width (no upscale), person appears small/distant, crisp */
+/* Scene 6 (meditation) — forest + holographic UI */
+/* Desktop: fit width, person visible in distance, crisp no upscale */
 @media (min-width: 768px) {
   .scene-meditation {
     background-size: 100% auto !important;
-    background-position: center 55% !important;
+    background-position: center 40% !important;
   }
 }
-/* Mobile: cover fills the screen, position focuses on the figure */
+/* Mobile: cover fills screen, person is at ~60% from left */
 @media (max-width: 767px) {
   .scene-meditation {
     background-size: cover !important;
-    background-position: 58% center !important;
+    background-position: 62% center !important;
   }
 }

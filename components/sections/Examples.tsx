@@ -425,31 +425,69 @@ const LIQUID: React.CSSProperties = {
   boxShadow: "0 4px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)",
 };
 
+// Animated flowing arrow for mobile
+function MobileFlowArrow({ color = "rgba(255,255,255,0.35)", show = true }: { color?: string; show?: boolean }) {
+  if (!show) return null;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: 28, position: "relative", overflow: "hidden" }}>
+      <svg width="40" height="28" viewBox="0 0 40 28" style={{ overflow: "visible" }}>
+        {/* Static line */}
+        <line x1="20" y1="0" x2="20" y2="22" stroke={color} strokeWidth="1.5" strokeOpacity="0.35" />
+        {/* Flowing dash */}
+        <motion.line x1="20" y1="0" x2="20" y2="22"
+          stroke={color} strokeWidth="2.5" strokeLinecap="round"
+          strokeDasharray="5 14"
+          initial={{ strokeDashoffset: 0, opacity: 0 }}
+          animate={{ strokeDashoffset: -19, opacity: 0.75 }}
+          transition={{ strokeDashoffset: { duration: 1.1, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.4 } }}
+        />
+        {/* Arrowhead */}
+        <motion.path d="M14 17 L20 24 L26 17" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+          initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ duration: 0.4 }} />
+      </svg>
+    </div>
+  );
+}
+
 function MobileDiagram({ level }: { level: number }) {
   const lv = (n: number) => level >= n;
+
+  // Count visible inputs for arrow color
+  const visibleInputs = INPUTS.filter(inp => lv(inp.minLevel));
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
 
       {/* ── INPUTS ── */}
-      {INPUTS.map((inp, i) => lv(inp.minLevel) && (
-        <motion.div key={i}
-          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-          style={{ ...SMOKED, borderLeft: `3px solid ${inp.color}`, borderRadius: 9, padding: "8px 12px", overflow: "hidden" }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{inp.label}</div>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.50)", fontFamily: "Inter,sans-serif", marginTop: 1 }}>{inp.sub}</div>
-        </motion.div>
-      ))}
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {INPUTS.map((inp, i) => lv(inp.minLevel) && (
+          <motion.div key={i}
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35, delay: i * 0.07 }}
+            whileTap={{ scale: 0.97, background: "rgba(130,142,158,0.55)" }}
+            style={{ ...SMOKED, borderLeft: `3px solid ${inp.color}`, borderRadius: 9, padding: "8px 12px", overflow: "hidden", cursor: "pointer" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{inp.label}</div>
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.50)", fontFamily: "Inter,sans-serif", marginTop: 1 }}>{inp.sub}</div>
+          </motion.div>
+        ))}
+      </div>
 
-      <div style={{ textAlign: "center", color: "rgba(255,255,255,0.38)", fontSize: 15 }}>↓</div>
+      <MobileFlowArrow color={INPUTS[0].color} />
 
       {/* ── CORE (liquid glass wrapper) ── */}
-      <div style={{ ...LIQUID, borderRadius: 14, padding: "12px 10px", overflow: "hidden" }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        style={{ ...LIQUID, borderRadius: 14, padding: "12px 10px", overflow: "hidden" }}>
         <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: "rgba(255,255,255,0.60)", fontFamily: "Space Grotesk,sans-serif", marginBottom: 10 }}>
           ЯДРО СИСТЕМЫ
         </div>
         {LAYERS.map((layer, i) => (
           <div key={i}>
-            <div style={{ display: "flex", alignItems: "center", gap: 7, ...LIQUID, borderRadius: 8, padding: "6px 9px", overflow: "hidden", position: "relative" }}>
+            <motion.div
+              whileTap={{ scale: 0.98, background: "rgba(255,255,255,0.22)" }}
+              style={{ display: "flex", alignItems: "center", gap: 7, ...LIQUID, borderRadius: 8, padding: "6px 9px", overflow: "hidden", position: "relative", cursor: "pointer" }}>
               {/* Shimmer */}
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(180deg,rgba(255,255,255,0.22) 0%,transparent 100%)", borderRadius: "8px 8px 0 0", pointerEvents: "none" }} />
               <div style={{ width: 3, height: 20, borderRadius: 2, background: layer.color, flexShrink: 0 }} />
@@ -460,36 +498,55 @@ function MobileDiagram({ level }: { level: number }) {
                   <span style={{ border: "0.8px solid rgba(255,255,255,0.50)", borderRadius: 99, padding: "1px 5px", fontSize: 7.5, color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.12)", marginLeft: 4 }}>Human review</span>
                 )}
               </div>
-            </div>
-            {i < 5 && <div style={{ textAlign: "left", paddingLeft: 12, color: LAYERS[i + 1].color, fontSize: 10, opacity: 0.5 }}>↓</div>}
+            </motion.div>
+            {i < 5 && (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, paddingLeft: 10, height: 18 }}>
+                <svg width="12" height="18" viewBox="0 0 12 18">
+                  <line x1="6" y1="0" x2="6" y2="12" stroke={LAYERS[i+1].color} strokeWidth="1.2" strokeOpacity="0.4" />
+                  <motion.line x1="6" y1="0" x2="6" y2="12"
+                    stroke={LAYERS[i+1].color} strokeWidth="2" strokeLinecap="round" strokeDasharray="4 10"
+                    animate={{ strokeDashoffset: [-14, 0] }}
+                    transition={{ duration: 0.9, repeat: Infinity, ease: "linear", delay: i * 0.15 }}
+                  />
+                  <path d="M2 10 L6 15 L10 10" fill="none" stroke={LAYERS[i+1].color} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" opacity="0.55" />
+                </svg>
+              </div>
+            )}
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* ── CONTEXT PILLS (L2+) ── */}
       {lv(2) && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+          style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
           {["Память", "Знания", ...(lv(3) ? ["Обучение"] : [])].map(label => (
-            <div key={label} style={{
-              ...SMOKED,
-              border: `1px solid ${label === "Обучение" ? C.crimson + "99" : "rgba(255,255,255,0.22)"}`,
-              borderRadius: 6, padding: "5px 10px", fontSize: 10,
-              color: "rgba(255,255,255,0.82)", overflow: "hidden",
-            }}>{label}</div>
+            <motion.div key={label} whileTap={{ scale: 0.95 }}
+              style={{
+                ...SMOKED,
+                border: `1px solid ${label === "Обучение" ? C.crimson + "99" : "rgba(255,255,255,0.22)"}`,
+                borderRadius: 6, padding: "5px 10px", fontSize: 10,
+                color: "rgba(255,255,255,0.82)", overflow: "hidden", cursor: "pointer",
+              }}>{label}</motion.div>
           ))}
         </motion.div>
       )}
 
-      <div style={{ textAlign: "center", color: "rgba(255,255,255,0.38)", fontSize: 15 }}>↓</div>
+      <MobileFlowArrow color={OUTPUTS[0].color} />
 
       {/* ── OUTPUTS ── */}
-      {OUTPUTS.map((out, i) => lv(out.minLevel) && (
-        <motion.div key={i}
-          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-          style={{ ...SMOKED, borderRight: `3px solid ${out.color}`, borderRadius: 9, padding: "8px 12px", textAlign: "right", overflow: "hidden" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{out.lines.join(" ")}</div>
-        </motion.div>
-      ))}
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {OUTPUTS.map((out, i) => lv(out.minLevel) && (
+          <motion.div key={i}
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35, delay: i * 0.07 }}
+            whileTap={{ scale: 0.97, background: "rgba(130,142,158,0.55)" }}
+            style={{ ...SMOKED, borderRight: `3px solid ${out.color}`, borderRadius: 9, padding: "8px 12px", textAlign: "right", overflow: "hidden", cursor: "pointer" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "Space Grotesk,sans-serif", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{out.lines.join(" ")}</div>
+          </motion.div>
+        ))}
+      </div>
 
     </div>
   );

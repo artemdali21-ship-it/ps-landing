@@ -219,15 +219,9 @@ export default function Home() {
       <Navbar />
       <div className="grain-overlay" />
 
-      {/* STORY ZONE — 1200vh (forest bg fills the de-stick tail) */}
-      <div ref={ref} style={{
-        height: "1200vh",
-        backgroundImage: "url('/images/scenes/6g-desktop.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center 40%",
-        backgroundAttachment: "scroll",
-      }}>
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* STORY ZONE — 1200vh */}
+      <div ref={ref} style={{ height: "1200vh" }}>
+        <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ zIndex: 10 }}>
 
           {/* Scenes */}
           <Scene src="/images/scenes/1-desktop.webp" opacity={s1Op} scale={s1Sc} first />
@@ -310,11 +304,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Static final screen — forest + FinalCTA ──────────────────────────── */}
+      {/* ── Static final screen — slides up behind sticky scene ─────────────── */}
       <div
         id="cta"
         style={{
           position: "relative",
+          zIndex: 1,
+          marginTop: "-100vh",
           minHeight: "100vh",
           backgroundImage: "url('/images/scenes/6g-desktop.webp')",
           backgroundSize: "cover",

@@ -15,7 +15,6 @@ import Examples from "@/components/sections/Examples";
 import Process from "@/components/sections/Process";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
-import AIFlowDiagram from "@/components/sections/AIFlowDiagram";
 
 // ─── OBJECTS ──────────────────────────────────────────────────────────────────
 type ObjCfg = {
@@ -292,9 +291,6 @@ export default function Home() {
 
         </div>
       </div>
-
-      {/* AI Flow Diagram — how it works */}
-      <AIFlowDiagram />
 
       {/* Footer */}
       <Footer />

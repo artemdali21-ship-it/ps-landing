@@ -202,11 +202,11 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.63, 0.68], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.68], [1.00, 1.05]);
 
-  const s5Op = useTransform(p, [0.63, 0.70, 0.79, 0.84], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.63, 0.84], [1.00, 1.04]);
+  const s5Op = useTransform(p, [0.63, 0.70, 0.88, 0.93], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.63, 0.93], [1.00, 1.04]);
 
-  const s6Op = useTransform(p, [0.80, 0.88], [0, 1]);
-  const s6Sc = useTransform(p, [0.80, 1.00], [1.02, 1.00]);
+  const s6Op = useTransform(p, [0.88, 0.95], [0, 1]);
+  const s6Sc = useTransform(p, [0.88, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -289,7 +289,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.53} show={0.53} hide={0.665} exit={0.69} snap>
           <Examples />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.71} show={0.76} hide={0.82} exit={0.86}>
+        <SectionOverlay p={p} enter={0.74} show={0.79} hide={0.89} exit={0.94}>
           <Process />
         </SectionOverlay>
       </div>

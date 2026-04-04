@@ -15,62 +15,48 @@ const C = {
   amber:    "#E8A838",
 };
 
-// ─── SVG LAYOUT ──────────────────────────────────────────────────────────────
+// ─── DIAGRAM CONSTANTS ───────────────────────────────────────────────────────
 const W = 900;
-const H = 440;
+const H = 480;
 
 const INP_W  = 150;
 const LPAN_W = 108;
 const CORE_W = 234;
 const CORE_H = 300;
 const RPAN_W = 108;
-const OUT_W  = 154;
+const OUT_W  = 150;
 
-const LPAN_X = INP_W + 10;            // 160
-const CORE_X = LPAN_X + LPAN_W + 10;  // 278
-const RPAN_X = CORE_X + CORE_W + 10;  // 522
-const OUT_X  = RPAN_X + RPAN_W + 10;  // 640
+const LPAN_X = INP_W + 10;
+const CORE_X = LPAN_X + LPAN_W + 10;
+const RPAN_X = CORE_X + CORE_W + 10;
+const OUT_X  = RPAN_X + RPAN_W + 10;
+const CORE_Y = (H - CORE_H) / 2;
 
-const CORE_Y = (H - CORE_H) / 2;      // 70
-
-const NODE_H   = 54;
-const NODE_GAP = 12;
-const PANEL_H  = 52;
+const NODE_H    = 54;
+const NODE_GAP  = 12;
+const PANEL_H   = 52;
 const PANEL_GAP = 10;
-const LAYER_H  = 28;
-const ARROW_H  = 10;  // space between layers for connector arrow
 
-// Node Y positions — fixed at 4-node (L3) layout
 function nodeY(i: number) {
   const total = 4 * NODE_H + 3 * NODE_GAP;
-  const start = (H - total) / 2;
-  return start + i * (NODE_H + NODE_GAP);
+  return (H - total) / 2 + i * (NODE_H + NODE_GAP);
 }
 function nodeCY(i: number) { return nodeY(i) + NODE_H / 2; }
 
-// Fan points where connections enter/leave core edges (evenly spread across core height)
-const FAN_Y = [0, 1, 2, 3].map(i => CORE_Y + 55 + i * 58); // [125, 183, 241, 299]
+const FAN_Y = [0, 1, 2, 3].map(i => CORE_Y + 55 + i * 56);
 
-// Left panels — 3 positions (L3 layout)
 function lpanY(i: number) {
   const total = 3 * PANEL_H + 2 * PANEL_GAP;
-  const start = (H - total) / 2;
-  return start + i * (PANEL_H + PANEL_GAP);
+  return (H - total) / 2 + i * (PANEL_H + PANEL_GAP);
 }
 function lpanCY(i: number) { return lpanY(i) + PANEL_H / 2; }
 
-// Right panels — 2 positions
 function rpanY(i: number) {
   const total = 2 * PANEL_H + PANEL_GAP;
-  const start = (H - total) / 2;
-  return start + i * (PANEL_H + PANEL_GAP);
+  return (H - total) / 2 + i * (PANEL_H + PANEL_GAP);
 }
 function rpanCY(i: number) { return rpanY(i) + PANEL_H / 2; }
 
-// Layer Y inside core (with ARROW_H between each)
-function layerY(i: number) { return CORE_Y + 34 + i * (LAYER_H + ARROW_H); }
-
-// Bezier paths
 function pathIn(ni: number) {
   const x1 = INP_W; const y1 = nodeCY(ni);
   const x2 = CORE_X; const y2 = FAN_Y[ni];
@@ -96,13 +82,12 @@ const LAYERS = [
 ];
 
 const INPUTS = [
-  { label: "Текст",     sub: "сообщения",         color: C.crimson, minLevel: 1 },
-  { label: "Голос",    sub: "аудио, звонки",      color: C.purple,  minLevel: 2 },
-  { label: "Файл",     sub: "PDF, DOCX, XLS",     color: C.blue,    minLevel: 2 },
-  { label: "API / CRM",sub: "внешние системы",    color: C.amber,   minLevel: 3 },
+  { label: "Текст",      sub: "сообщения",         color: C.crimson, minLevel: 1 },
+  { label: "Голос",     sub: "аудио, звонки",      color: C.purple,  minLevel: 2 },
+  { label: "Файл",      sub: "PDF, DOCX, XLS",     color: C.blue,    minLevel: 2 },
+  { label: "API / CRM", sub: "внешние системы",    color: C.amber,   minLevel: 3 },
 ];
 
-// output labels as string arrays (multi-line support)
 const OUTPUTS: { lines: string[]; color: string; minLevel: number }[] = [
   { lines: ["Квалифицированный", "результат"], color: C.crimson, minLevel: 1 },
   { lines: ["Отчёт + статус"],                  color: C.purple,  minLevel: 2 },
@@ -116,21 +101,22 @@ const LEVEL_EXAMPLES: Record<number, string> = {
   3: "Например: экспертная оценка, decision support, аналитика",
 };
 
-// ─── LAYER ICON (small SVG shape per processing step) ────────────────────────
-function LayerIcon({ idx, x, y, color }: { idx: number; x: number; y: number; color: string }) {
-  const p = { stroke: color, strokeWidth: "1.2", strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none", opacity: 0.85 };
-  switch (idx) {
-    case 0: return <g><path d={`M${x+5} ${y} a2.5 2.5 0 0 1 0 5`} {...p}/><path d={`M${x+2} ${y+3} a3 3 0 0 0 6 0`} {...p}/><line x1={x+5} y1={y+6} x2={x+5} y2={y+9} {...p}/></g>;
-    case 1: return <g><line x1={x} y1={y+1.5} x2={x+10} y2={y+1.5} {...p}/><line x1={x} y1={y+5} x2={x+7.5} y2={y+5} {...p}/><line x1={x} y1={y+8.5} x2={x+5} y2={y+8.5} {...p}/></g>;
-    case 2: return <g><line x1={x+5} y1={y} x2={x+5} y2={y+4} {...p}/><line x1={x+5} y1={y+4} x2={x+1} y2={y+9} {...p}/><line x1={x+5} y1={y+4} x2={x+9} y2={y+9} {...p}/></g>;
-    case 3: return <g><rect x={x+1} y={y+1} width={8} height={8} rx={1.5} {...p}/><line x1={x+3} y1={y+5} x2={x+7} y2={y+5} {...p}/><line x1={x+5} y1={y+3} x2={x+5} y2={y+7} {...p}/></g>;
-    case 4: return <g><path d={`M${x+1} ${y+5} L${x+4} ${y+8.5} L${x+9} ${y+1.5}`} {...p}/></g>;
-    case 5: return <g><line x1={x} y1={y+5} x2={x+8.5} y2={y+5} {...p}/><path d={`M${x+5} ${y+2} L${x+8.5} ${y+5} L${x+5} ${y+8}`} {...p}/></g>;
-    default: return null;
-  }
+// ─── LAYER ICONS (inline SVG) ────────────────────────────────────────────────
+function LayerIconSvg({ idx, color }: { idx: number; color: string }) {
+  const s = { stroke: color, strokeWidth: "1.4", strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
+  return (
+    <svg width={14} height={14} viewBox="0 0 14 14" aria-hidden="true">
+      {idx === 0 && <><path d="M7 1.5a2.5 2.5 0 0 1 2.5 2.5v3a2.5 2.5 0 0 1-5 0V4A2.5 2.5 0 0 1 7 1.5z" {...s}/><path d="M3.5 8.5A3.5 3.5 0 0 0 10.5 8.5" {...s}/><line x1="7" y1="12" x2="7" y2="14" {...s}/></>}
+      {idx === 1 && <><line x1="2" y1="3" x2="12" y2="3" {...s}/><line x1="2" y1="7" x2="9" y2="7" {...s}/><line x1="2" y1="11" x2="6" y2="11" {...s}/></>}
+      {idx === 2 && <><line x1="7" y1="1" x2="7" y2="5.5" {...s}/><line x1="7" y1="5.5" x2="2" y2="12" {...s}/><line x1="7" y1="5.5" x2="12" y2="12" {...s}/></>}
+      {idx === 3 && <><rect x="2.5" y="2.5" width="9" height="9" rx="1.5" {...s}/><line x1="5" y1="7" x2="9" y2="7" {...s}/><line x1="7" y1="5" x2="7" y2="9" {...s}/></>}
+      {idx === 4 && <path d="M2 7.5L5.5 11L12 3" {...s}/>}
+      {idx === 5 && <><line x1="2" y1="7" x2="11.5" y2="7" {...s}/><path d="M8 3.5L12 7L8 10.5" {...s}/></>}
+    </svg>
+  );
 }
 
-// ─── ANIMATED FLOW PATH ───────────────────────────────────────────────────────
+// ─── SVG FLOW PATH ───────────────────────────────────────────────────────────
 function FlowPath({ d, color, show, delay = 0 }: { d: string; color: string; show: boolean; delay?: number }) {
   return (
     <g>
@@ -151,83 +137,6 @@ function FlowPath({ d, color, show, delay = 0 }: { d: string; color: string; sho
   );
 }
 
-// ─── INPUT NODE ───────────────────────────────────────────────────────────────
-function InNode({ i, show }: { i: number; show: boolean }) {
-  const { color, label, sub } = INPUTS[i];
-  const x = 0; const y = nodeY(i); const w = INP_W; const h = NODE_H;
-  return (
-    <motion.g initial={{ opacity: 0, x: -12 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : -12 }}
-      whileHover={{ filter: `drop-shadow(0px 0px 8px ${color}80)` }}
-      transition={{ duration: 0.3, delay: i * 0.06 }}
-      style={{ cursor: "pointer" }}>
-      <rect x={x} y={y} width={w} height={h} rx={7} fill="white" stroke={color} strokeWidth="1.2" strokeOpacity="0.55" />
-      <rect x={x} y={y} width={3} height={h} rx={1.5} fill={color} opacity="0.85" />
-      <text x={x+14} y={y+h/2-(sub?7:0)} fill={C.espresso} fontSize="11.5" fontFamily="Inter,sans-serif" fontWeight="500" dominantBaseline="middle">{label}</text>
-      <text x={x+14} y={y+h/2+8}         fill={C.taupe}    fontSize="9"    fontFamily="Inter,sans-serif" fontWeight="300" dominantBaseline="middle">{sub}</text>
-      <circle cx={x+w} cy={y+h/2} r={4} fill={color} />
-    </motion.g>
-  );
-}
-
-// ─── OUTPUT NODE ──────────────────────────────────────────────────────────────
-function OutNode({ i, show }: { i: number; show: boolean }) {
-  const { lines, color } = OUTPUTS[i];
-  const x = OUT_X; const y = nodeY(i); const w = OUT_W; const h = NODE_H;
-  const multiLine = lines.length > 1;
-  return (
-    <motion.g initial={{ opacity: 0, x: 12 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : 12 }}
-      whileHover={{ filter: `drop-shadow(0px 0px 8px ${color}80)` }}
-      transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
-      style={{ cursor: "pointer" }}>
-      <rect x={x} y={y} width={w} height={h} rx={7} fill="white" stroke={color} strokeWidth="1.2" strokeOpacity="0.55" />
-      <rect x={x+w-3} y={y} width={3} height={h} rx={1.5} fill={color} opacity="0.85" />
-      <circle cx={x} cy={y+h/2} r={4} fill={color} />
-      {multiLine ? (
-        <>
-          <text x={x+10} y={y+h/2-7}  fill={C.espresso} fontSize="10.5" fontFamily="Inter,sans-serif" fontWeight="500" dominantBaseline="middle">{lines[0]}</text>
-          <text x={x+10} y={y+h/2+7}  fill={C.espresso} fontSize="10.5" fontFamily="Inter,sans-serif" fontWeight="500" dominantBaseline="middle">{lines[1]}</text>
-        </>
-      ) : (
-        <text x={x+10} y={y+h/2}     fill={C.espresso} fontSize="10.5" fontFamily="Inter,sans-serif" fontWeight="500" dominantBaseline="middle">{lines[0]}</text>
-      )}
-    </motion.g>
-  );
-}
-
-// ─── LEFT PANEL ───────────────────────────────────────────────────────────────
-function LeftPanel({ yi, label, sub, accent, show, delay = 0 }: {
-  yi: number; label: string; sub: string; accent?: string; show: boolean; delay?: number;
-}) {
-  const x = LPAN_X; const y = lpanY(yi); const w = LPAN_W; const h = PANEL_H;
-  const bColor = accent ?? "rgba(0,0,0,0.12)";
-  return (
-    <motion.g initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-      whileHover={{ filter: `drop-shadow(0px 0px 6px ${bColor}60)` }}
-      transition={{ duration: 0.3, delay }}
-      style={{ cursor: "pointer" }}>
-      <rect x={x} y={y} width={w} height={h} rx={6} fill="white" stroke={bColor} strokeWidth={accent ? "1.5" : "0.8"} />
-      <text x={x+w/2} y={y+h/2-7} fill={C.espresso} fontSize="9.5" fontFamily="Inter,sans-serif" fontWeight="600" textAnchor="middle" dominantBaseline="middle">{label}</text>
-      <text x={x+w/2} y={y+h/2+7} fill={C.taupe}    fontSize="8"   fontFamily="Inter,sans-serif" fontWeight="300" textAnchor="middle" dominantBaseline="middle">{sub}</text>
-    </motion.g>
-  );
-}
-
-// ─── RIGHT PANEL ──────────────────────────────────────────────────────────────
-function RightPanel({ i, label, sub, show, delay = 0 }: {
-  i: number; label: string; sub: string; show: boolean; delay?: number;
-}) {
-  const x = RPAN_X; const y = rpanY(i); const w = RPAN_W; const h = PANEL_H;
-  return (
-    <motion.g initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-      transition={{ duration: 0.3, delay }}>
-      <rect x={x} y={y} width={w} height={h} rx={6} fill="white" stroke="rgba(0,0,0,0.12)" strokeWidth="0.8" />
-      <text x={x+w/2} y={y+h/2-7} fill={C.espresso} fontSize="9.5" fontFamily="Inter,sans-serif" fontWeight="600" textAnchor="middle" dominantBaseline="middle">{label}</text>
-      <text x={x+w/2} y={y+h/2+7} fill={C.taupe}    fontSize="8"   fontFamily="Inter,sans-serif" fontWeight="300" textAnchor="middle" dominantBaseline="middle">{sub}</text>
-    </motion.g>
-  );
-}
-
-// ─── DASHED PANEL LINK ────────────────────────────────────────────────────────
 function DashLink({ x1, y1, x2, y2, show }: { x1: number; y1: number; x2: number; y2: number; show: boolean }) {
   return (
     <motion.line x1={x1} y1={y1} x2={x2} y2={y2}
@@ -236,140 +145,235 @@ function DashLink({ x1, y1, x2, y2, show }: { x1: number; y1: number; x2: number
   );
 }
 
-// ─── DESKTOP SVG DIAGRAM ─────────────────────────────────────────────────────
+// ─── 3D STACKED CORE ─────────────────────────────────────────────────────────
+const CARD_W    = 216;
+const CARD_H    = 44;
+const CARD_STEP = 42;
+const CARD_DEPTH = 15;
+const N = LAYERS.length;
+
+function Core3D({ level }: { level: number }) {
+  const lv = (n: number) => level >= n;
+  return (
+    <div style={{ position: "absolute", left: CORE_X, top: CORE_Y, width: CORE_W, height: CORE_H, overflow: "visible" }}>
+      {/* Header */}
+      <div style={{ textAlign: "center", fontSize: 9, letterSpacing: 3, color: C.taupe, fontFamily: "Inter,sans-serif", marginBottom: 8, paddingTop: 4 }}>
+        ЯДРО СИСТЕМЫ
+      </div>
+
+      {/* 3D perspective wrapper */}
+      <div style={{ perspective: "720px", perspectiveOrigin: "50% -40%", overflow: "visible" }}>
+        {/* Rotating stack */}
+        <div style={{
+          position: "relative",
+          width: CARD_W,
+          height: (N - 1) * CARD_STEP + CARD_H,
+          margin: "0 auto",
+          transformStyle: "preserve-3d",
+          transform: "rotateX(24deg) rotateY(-6deg)",
+        }}>
+          {LAYERS.map((layer, i) => (
+            <motion.div key={i}
+              style={{
+                position: "absolute",
+                top: i * CARD_STEP,
+                left: 0,
+                width: CARD_W,
+                height: CARD_H,
+                transform: `translateZ(${(N - 1 - i) * CARD_DEPTH}px)`,
+                background: i === N - 1
+                  ? `linear-gradient(135deg, rgba(31,20,16,0.06) 0%, rgba(31,20,16,0.02) 100%)`
+                  : "rgba(255,255,255,0.92)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: `1px solid ${i === N - 1 ? "rgba(31,20,16,0.12)" : "rgba(255,255,255,0.95)"}`,
+                borderRadius: 8,
+                boxShadow: `0 ${2 + (N - 1 - i)}px ${8 + (N - 1 - i) * 4}px rgba(0,0,0,${0.06 + (N - 1 - i) * 0.012})`,
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "0 9px 0 10px",
+                cursor: "pointer",
+              }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{
+                background: "rgba(255,255,255,0.99)",
+                boxShadow: `0 6px 28px rgba(0,0,0,0.13), 0 0 0 1.5px ${layer.color}55`,
+                scale: 1.02,
+              }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
+            >
+              {/* Colour strip */}
+              <div style={{ width: 4, borderRadius: 2, background: layer.color, opacity: 0.9, alignSelf: "stretch", margin: "8px 0", flexShrink: 0 }} />
+              {/* Icon */}
+              <div style={{ flexShrink: 0 }}>
+                <LayerIconSvg idx={i} color={layer.color} />
+              </div>
+              {/* Text */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {layer.label}
+                </div>
+                <div style={{ fontSize: 7.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 1, lineHeight: 1.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {layer.sub}
+                </div>
+              </div>
+              {/* Human review badge */}
+              {i === 4 && lv(3) && (
+                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: 0.3 }}
+                  style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 7, color: C.crimson, whiteSpace: "nowrap", flexShrink: 0, fontFamily: "Inter,sans-serif" }}>
+                  Human review
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+
+          {/* Inter-layer arrows */}
+          {LAYERS.slice(0, -1).map((_, i) => (
+            <div key={`arr${i}`} style={{
+              position: "absolute",
+              top: i * CARD_STEP + CARD_H + 1,
+              left: 14,
+              height: CARD_STEP - CARD_H - 2,
+              display: "flex",
+              alignItems: "center",
+              transform: `translateZ(${(N - 2 - i) * CARD_DEPTH + CARD_DEPTH / 2}px)`,
+              color: LAYERS[i + 1].color,
+              fontSize: 9,
+              opacity: 0.45,
+              lineHeight: 1,
+            }}>↓</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── HTML NODE COMPONENTS ────────────────────────────────────────────────────
+function InNode({ i, show }: { i: number; show: boolean }) {
+  const { color, label, sub } = INPUTS[i];
+  return (
+    <motion.div
+      style={{ position: "absolute", left: 0, top: nodeY(i), width: INP_W, height: NODE_H, background: "white", border: `1.2px solid ${color}88`, borderLeft: `3px solid ${color}`, borderRadius: 7, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 10px 0 12px", cursor: "pointer" }}
+      initial={{ opacity: 0, x: -10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : -10 }}
+      whileHover={{ boxShadow: `0 0 0 2px ${color}55, 0 4px 18px ${color}25` }}
+      transition={{ duration: 0.3, delay: i * 0.06 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.2 }}>{label}</div>
+      <div style={{ fontSize: 9.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+    </motion.div>
+  );
+}
+
+function OutNode({ i, show }: { i: number; show: boolean }) {
+  const { lines, color } = OUTPUTS[i];
+  const multi = lines.length > 1;
+  return (
+    <motion.div
+      style={{ position: "absolute", left: OUT_X, top: nodeY(i), width: OUT_W, height: NODE_H, background: "white", border: `1.2px solid ${color}88`, borderRight: `3px solid ${color}`, borderRadius: 7, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 12px 0 10px", cursor: "pointer" }}
+      initial={{ opacity: 0, x: 10 }} animate={{ opacity: show ? 1 : 0, x: show ? 0 : 10 }}
+      whileHover={{ boxShadow: `0 0 0 2px ${color}55, 0 4px 18px ${color}25` }}
+      transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}>
+      {lines.map((line, li) => (
+        <div key={li} style={{ fontSize: multi ? 10.5 : 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif", lineHeight: 1.25 }}>{line}</div>
+      ))}
+    </motion.div>
+  );
+}
+
+function LPanel({ yi, label, sub, accent, show, delay = 0 }: { yi: number; label: string; sub: string; accent?: string; show: boolean; delay?: number }) {
+  return (
+    <motion.div
+      style={{ position: "absolute", left: LPAN_X, top: lpanY(yi), width: LPAN_W, height: PANEL_H, background: "white", border: `${accent ? "1.5px" : "0.8px"} solid ${accent ?? "rgba(0,0,0,0.12)"}`, borderRadius: 6, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer" }}
+      initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
+      whileHover={{ boxShadow: `0 0 0 1.5px ${accent ?? "rgba(0,0,0,0.2)"}` }}
+      transition={{ duration: 0.3, delay }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
+      <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+    </motion.div>
+  );
+}
+
+function RPanel({ i, label, sub, show, delay = 0 }: { i: number; label: string; sub: string; show: boolean; delay?: number }) {
+  return (
+    <motion.div
+      style={{ position: "absolute", left: RPAN_X, top: rpanY(i), width: RPAN_W, height: PANEL_H, background: "white", border: "0.8px solid rgba(0,0,0,0.12)", borderRadius: 6, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "0 8px", cursor: "pointer" }}
+      initial={{ opacity: 0, y: 8 }} animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
+      transition={{ duration: 0.3, delay }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{label}</div>
+      <div style={{ fontSize: 8.5, color: C.taupe, fontFamily: "Inter,sans-serif", marginTop: 2 }}>{sub}</div>
+    </motion.div>
+  );
+}
+
+// ─── DESKTOP DIAGRAM ─────────────────────────────────────────────────────────
 function DesktopDiagram({ level }: { level: number }) {
   const lv = (n: number) => level >= n;
 
-  // Learning loop: last output bottom → arc down → Training panel bottom
-  const loopStartX = OUT_X + OUT_W / 2;
-  const loopStartY = nodeY(3) + NODE_H;
-  const loopEndX   = LPAN_X + LPAN_W / 2;
-  const loopEndY   = lpanY(2) + PANEL_H;
-  const loopPath   = `M ${loopStartX} ${loopStartY} C ${loopStartX} 425 ${loopEndX} 425 ${loopEndX} ${loopEndY}`;
+  const loopSX = OUT_X + OUT_W / 2;
+  const loopSY = nodeY(3) + NODE_H;
+  const loopEX = LPAN_X + LPAN_W / 2;
+  const loopEY = lpanY(2) + PANEL_H;
+  const loopPath = `M ${loopSX} ${loopSY} C ${loopSX} ${H - 28} ${loopEX} ${H - 28} ${loopEX} ${loopEY}`;
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" style={{ maxHeight: 440 }} aria-hidden="true">
-      {/* ── INPUT → CORE connections ── */}
-      {INPUTS.map((inp, i) => (
-        <FlowPath key={`in${i}`} d={pathIn(i)} color={inp.color} show={lv(inp.minLevel)} delay={i*0.07} />
-      ))}
+    <div style={{ position: "relative", width: W, height: H, margin: "0 auto", overflow: "visible" }}>
 
-      {/* ── CORE → OUTPUT connections ── */}
-      {OUTPUTS.map((out, i) => (
-        <FlowPath key={`out${i}`} d={pathOut(i)} color={out.color} show={lv(out.minLevel)} delay={0.1+i*0.07} />
-      ))}
+      {/* ── SVG connections (z=0, pointer-events: none) ── */}
+      <svg viewBox={`0 0 ${W} ${H}`}
+        style={{ position: "absolute", left: 0, top: 0, width: W, height: H, pointerEvents: "none", zIndex: 0, overflow: "visible" }}
+        aria-hidden="true">
 
-      {/* ── DASHED panel links ── */}
-      {lv(2) && <DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(0)} x2={CORE_X} y2={lpanCY(0)} show />}
-      {lv(2) && <DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(1)} x2={CORE_X} y2={lpanCY(1)} show />}
-      {lv(3) && <DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(2)} x2={CORE_X} y2={lpanCY(2)} show />}
-      {lv(2) && <DashLink x1={CORE_X+CORE_W} y1={rpanCY(0)} x2={RPAN_X} y2={rpanCY(0)} show />}
-      {lv(2) && <DashLink x1={CORE_X+CORE_W} y1={rpanCY(1)} x2={RPAN_X} y2={rpanCY(1)} show />}
+        {/* Flow paths */}
+        {INPUTS.map((inp, i)  => <FlowPath key={`i${i}`} d={pathIn(i)}  color={inp.color} show={lv(inp.minLevel)} delay={i*0.07} />)}
+        {OUTPUTS.map((out, i) => <FlowPath key={`o${i}`} d={pathOut(i)} color={out.color} show={lv(out.minLevel)} delay={0.1+i*0.07} />)}
 
-      {/* ── LEARNING LOOP (L3) ── */}
-      {lv(3) && (
-        <g>
-          <motion.path d={loopPath} fill="none" stroke={C.crimson} strokeWidth="1.2"
-            strokeDasharray="5 8" strokeOpacity="0.45"
+        {/* Dashed panel links */}
+        {lv(2) && <><DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(0)} x2={CORE_X} y2={lpanCY(0)} show /><DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(1)} x2={CORE_X} y2={lpanCY(1)} show /></>}
+        {lv(3) && <DashLink x1={LPAN_X+LPAN_W} y1={lpanCY(2)} x2={CORE_X} y2={lpanCY(2)} show />}
+        {lv(2) && <><DashLink x1={CORE_X+CORE_W} y1={rpanCY(0)} x2={RPAN_X} y2={rpanCY(0)} show /><DashLink x1={CORE_X+CORE_W} y1={rpanCY(1)} x2={RPAN_X} y2={rpanCY(1)} show /></>}
+
+        {/* Learning loop */}
+        {lv(3) && <>
+          <motion.path d={loopPath} fill="none" stroke={C.crimson} strokeWidth="1.2" strokeDasharray="5 8" strokeOpacity="0.4"
             initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9 }} />
-          <motion.path d={loopPath} fill="none" stroke={C.crimson} strokeWidth="2"
-            strokeLinecap="round" strokeDasharray="4 18"
-            initial={{ strokeDashoffset: 0, opacity: 0 }}
-            animate={{ strokeDashoffset: -22, opacity: 0.6 }}
-            transition={{
-              strokeDashoffset: { duration: 2, repeat: Infinity, ease: "linear" },
-              opacity: { duration: 0.4 },
-            }} />
-          <text x={(loopStartX + loopEndX) / 2} y={429} fill={C.crimson} fontSize="8"
-            fontFamily="Inter,sans-serif" fontWeight="300" textAnchor="middle" opacity="0.55">
-            петля обучения
-          </text>
-        </g>
-      )}
+          <motion.path d={loopPath} fill="none" stroke={C.crimson} strokeWidth="2" strokeLinecap="round" strokeDasharray="4 18"
+            initial={{ strokeDashoffset: 0, opacity: 0 }} animate={{ strokeDashoffset: -22, opacity: 0.55 }}
+            transition={{ strokeDashoffset: { duration: 2, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.4 } }} />
+          <text x={(loopSX + loopEX) / 2} y={H - 6} fill={C.crimson} fontSize="9" fontFamily="Inter,sans-serif" textAnchor="middle" opacity="0.55">петля обучения</text>
+        </>}
 
-      {/* ── CORE CONTAINER ── */}
-      <rect x={CORE_X} y={CORE_Y} width={CORE_W} height={CORE_H} rx={10}
-        fill="white" stroke="rgba(0,0,0,0.08)" strokeWidth="1"
-        style={{ filter: "drop-shadow(0px 2px 12px rgba(0,0,0,0.07))" }} />
-      <text x={CORE_X+CORE_W/2} y={CORE_Y+18} fill={C.taupe} fontSize="8.5"
-        fontFamily="Inter,sans-serif" fontWeight="400" letterSpacing="2" textAnchor="middle">
-        ЯДРО СИСТЕМЫ
-      </text>
-      <line x1={CORE_X+12} y1={CORE_Y+28} x2={CORE_X+CORE_W-12} y2={CORE_Y+28}
-        stroke="rgba(0,0,0,0.06)" strokeWidth="1" />
+        {/* Port dots */}
+        {INPUTS.map((inp, i)  => lv(inp.minLevel)  && <circle key={`pdi${i}`} cx={INP_W}         cy={nodeCY(i)}  r={4} fill={inp.color} />)}
+        {OUTPUTS.map((out, i) => lv(out.minLevel)  && <circle key={`pdo${i}`} cx={OUT_X}          cy={nodeCY(i)}  r={4} fill={out.color} />)}
+        {lv(2) && <><circle cx={LPAN_X+LPAN_W} cy={lpanCY(0)} r={3} fill="rgba(0,0,0,0.18)" /><circle cx={LPAN_X+LPAN_W} cy={lpanCY(1)} r={3} fill="rgba(0,0,0,0.18)" /></>}
+        {lv(3) && <circle cx={LPAN_X+LPAN_W} cy={lpanCY(2)} r={3} fill={C.crimson} opacity={0.5} />}
+        {lv(2) && <><circle cx={RPAN_X} cy={rpanCY(0)} r={3} fill="rgba(0,0,0,0.18)" /><circle cx={RPAN_X} cy={rpanCY(1)} r={3} fill="rgba(0,0,0,0.18)" /></>}
 
-      {/* ── CORE LAYERS with icons + inter-layer arrows ── */}
-      {LAYERS.map((layer, i) => {
-        const ly = layerY(i);
-        const ay = ly + LAYER_H; // arrow start Y
-        const isLast = i === 5;
-        return (
-          <g key={i}>
-            {/* Layer row */}
-            <rect x={CORE_X+8} y={ly} width={CORE_W-16} height={LAYER_H} rx={4}
-              fill={isLast ? "rgba(31,20,16,0.04)" : "rgba(0,0,0,0.015)"}
-              stroke="rgba(0,0,0,0.06)" strokeWidth="0.5" />
-            {/* Color strip */}
-            <rect x={CORE_X+12} y={ly+5} width={4} height={LAYER_H-10} rx={2} fill={layer.color} opacity="0.9" />
-            {/* Icon (12x12, centered vertically in layer) */}
-            <LayerIcon idx={i} x={CORE_X+21} y={ly+(LAYER_H-10)/2} color={layer.color} />
-            {/* Label */}
-            <text x={CORE_X+38} y={ly+LAYER_H/2-6} fill={C.espresso}
-              fontSize="9.5" fontFamily="Inter,sans-serif" fontWeight="600" dominantBaseline="middle">
-              {layer.label}
-            </text>
-            <text x={CORE_X+38} y={ly+LAYER_H/2+7} fill={C.taupe}
-              fontSize="8" fontFamily="Inter,sans-serif" fontWeight="300" dominantBaseline="middle">
-              {layer.sub}
-            </text>
-            {/* Human review badge on layer 4 at L3 */}
-            {i === 4 && lv(3) && (
-              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35, delay: 0.2 }}>
-                <rect x={CORE_X+CORE_W-82} y={ly+8} width={68} height={13} rx={6.5}
-                  fill="none" stroke={C.crimson} strokeWidth="0.85" />
-                <text x={CORE_X+CORE_W-48} y={ly+14.5} fill={C.crimson} fontSize="7.5"
-                  fontFamily="Inter,sans-serif" textAnchor="middle" dominantBaseline="middle">
-                  Human review
-                </text>
-              </motion.g>
-            )}
-            {/* Inter-layer connector arrow (not after last layer) */}
-            {!isLast && (
-              <g opacity="0.4">
-                <line x1={CORE_X+14} y1={ay} x2={CORE_X+14} y2={ay+ARROW_H-2}
-                  stroke={LAYERS[i+1].color} strokeWidth="1" />
-                <path d={`M${CORE_X+11} ${ay+ARROW_H-4} L${CORE_X+14} ${ay+ARROW_H-1} L${CORE_X+17} ${ay+ARROW_H-4}`}
-                  fill="none" stroke={LAYERS[i+1].color} strokeWidth="1" strokeLinecap="round" />
-              </g>
-            )}
-          </g>
-        );
-      })}
-
-      {/* ── LEFT PANELS ── */}
-      <LeftPanel yi={0} label="Память"   sub="история, состояние" show={lv(2)} delay={0.10} />
-      <LeftPanel yi={1} label="Знания"   sub="правила, домен"      show={lv(2)} delay={0.17} />
-      <LeftPanel yi={2} label="Обучение" sub="ошибки → улучшение"  accent={C.crimson} show={lv(3)} delay={0.24} />
-
-      {/* ── RIGHT PANELS ── */}
-      <RightPanel i={0} label="Прозрачность"      sub="статус, история решений" show={lv(2)} delay={0.10} />
-      <RightPanel i={1} label="Стандарты системы" sub="версионированная логика"  show={lv(2)} delay={0.17} />
-
-      {/* ── INPUT NODES ── */}
-      {INPUTS.map((_, i) => <InNode key={i} i={i} show={lv(INPUTS[i].minLevel)} />)}
-
-      {/* ── OUTPUT NODES ── */}
-      {OUTPUTS.map((_, i) => <OutNode key={i} i={i} show={lv(OUTPUTS[i].minLevel)} />)}
-
-      {/* Channels label */}
-      {lv(2) && (
-        <motion.text x={2} y={H-4} fill={C.taupe} fontSize="8"
-          fontFamily="Inter,sans-serif" fontWeight="300"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.3 }}>
+        {/* Channels label */}
+        {lv(2) && <motion.text x={2} y={H - 4} fill={C.taupe} fontSize="8" fontFamily="Inter,sans-serif"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
           Каналы: TG · VK · Max · Email · Сайт
-        </motion.text>
-      )}
-    </svg>
+        </motion.text>}
+      </svg>
+
+      {/* ── HTML elements (z=1) ── */}
+      <div style={{ position: "absolute", left: 0, top: 0, width: W, height: H, zIndex: 1 }}>
+        {INPUTS.map((_, i)  => <InNode key={i}  i={i} show={lv(INPUTS[i].minLevel)} />)}
+        {OUTPUTS.map((_, i) => <OutNode key={i} i={i} show={lv(OUTPUTS[i].minLevel)} />)}
+
+        <LPanel yi={0} label="Память"   sub="история, состояние" show={lv(2)} delay={0.10} />
+        <LPanel yi={1} label="Знания"   sub="правила, домен"      show={lv(2)} delay={0.17} />
+        <LPanel yi={2} label="Обучение" sub="ошибки → улучшение"  accent={C.crimson} show={lv(3)} delay={0.24} />
+
+        <RPanel i={0} label="Прозрачность"      sub="статус, история решений" show={lv(2)} delay={0.10} />
+        <RPanel i={1} label="Стандарты системы" sub="версионированная логика"  show={lv(2)} delay={0.17} />
+
+        {/* 3D Core (z-index allows it to render above SVG) */}
+        <Core3D level={level} />
+      </div>
+    </div>
   );
 }
 
@@ -378,62 +382,49 @@ function MobileDiagram({ level }: { level: number }) {
   const lv = (n: number) => level >= n;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      {/* Inputs */}
       {INPUTS.map((inp, i) => lv(inp.minLevel) && (
-        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: i * 0.06 }}
-          style={{ border: `1px solid ${inp.color}55`, borderLeft: `3px solid ${inp.color}`, borderRadius: 7,
-            padding: "8px 12px", background: "white", display: "flex", gap: 10, alignItems: "center" }}>
-          <div>
-            <div style={{ color: C.espresso, fontSize: 12, fontWeight: 600 }}>{inp.label}</div>
-            <div style={{ color: C.taupe,    fontSize: 10 }}>{inp.sub}</div>
-          </div>
+        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+          style={{ border: `1px solid ${inp.color}55`, borderLeft: `3px solid ${inp.color}`, borderRadius: 7, padding: "8px 12px", background: "white" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{inp.label}</div>
+          <div style={{ fontSize: 10, color: C.taupe, fontFamily: "Inter,sans-serif" }}>{inp.sub}</div>
         </motion.div>
       ))}
       <div style={{ textAlign: "center", color: C.taupe, fontSize: 16 }}>↓</div>
-      {/* Core */}
-      <div style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 10, padding: "12px 10px 10px", background: "white", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
+      <div style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 10, padding: "10px", background: "white", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
         <div style={{ textAlign: "center", color: C.taupe, fontSize: 9, letterSpacing: 2, marginBottom: 8 }}>ЯДРО СИСТЕМЫ</div>
         {LAYERS.map((layer, i) => (
           <div key={i}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, background: i===5 ? "rgba(31,20,16,0.04)" : "rgba(0,0,0,0.01)", borderRadius: 5, padding: "5px 8px", border: "0.5px solid rgba(0,0,0,0.06)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 7, background: i === 5 ? "rgba(31,20,16,0.04)" : "rgba(0,0,0,0.01)", borderRadius: 5, padding: "5px 8px", border: "0.5px solid rgba(0,0,0,0.06)" }}>
               <div style={{ width: 4, height: 18, borderRadius: 2, background: layer.color, flexShrink: 0 }} />
+              <LayerIconSvg idx={i} color={layer.color} />
               <div style={{ flex: 1 }}>
-                <div style={{ color: C.espresso, fontSize: 10.5, fontWeight: 600 }}>{layer.label}</div>
-                <div style={{ color: C.taupe,    fontSize: 8.5 }}>{layer.sub}</div>
+                <div style={{ fontSize: 10.5, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{layer.label}</div>
+                {i === 4 && lv(3) && <span style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 7.5, color: C.crimson, marginLeft: 4 }}>Human review</span>}
               </div>
-              {i === 4 && lv(3) && (
-                <span style={{ border: `0.8px solid ${C.crimson}`, borderRadius: 99, padding: "1px 5px", fontSize: 8, color: C.crimson }}>Human review</span>
-              )}
             </div>
-            {i < 5 && <div style={{ textAlign: "left", paddingLeft: 14, color: LAYERS[i+1].color, fontSize: 10, lineHeight: "10px", opacity: 0.5 }}>↓</div>}
+            {i < 5 && <div style={{ textAlign: "left", paddingLeft: 12, color: LAYERS[i+1].color, fontSize: 10, opacity: 0.45 }}>↓</div>}
           </div>
         ))}
       </div>
-      {/* Side pills */}
       {lv(2) && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
-          style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {["Память", "Знания", ...(lv(3) ? ["Обучение"] : [])].map(label => (
             <div key={label} style={{ border: `1px solid ${label === "Обучение" ? C.crimson + "88" : "rgba(0,0,0,0.15)"}`, borderRadius: 6, padding: "5px 10px", fontSize: 10, color: C.espresso, background: "white" }}>{label}</div>
           ))}
         </motion.div>
       )}
       <div style={{ textAlign: "center", color: C.taupe, fontSize: 16 }}>↓</div>
-      {/* Outputs */}
       {OUTPUTS.map((out, i) => lv(out.minLevel) && (
-        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: i * 0.06 }}
-          style={{ border: `1px solid ${out.color}55`, borderRight: `3px solid ${out.color}`, borderRadius: 7,
-            padding: "8px 12px", background: "white", textAlign: "right" }}>
-          <div style={{ color: C.espresso, fontSize: 11, fontWeight: 600 }}>{out.lines.join(" ")}</div>
+        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+          style={{ border: `1px solid ${out.color}55`, borderRight: `3px solid ${out.color}`, borderRadius: 7, padding: "8px 12px", background: "white", textAlign: "right" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: C.espresso, fontFamily: "Inter,sans-serif" }}>{out.lines.join(" ")}</div>
         </motion.div>
       ))}
     </div>
   );
 }
 
-// ─── FOUNDATION ICONS ─────────────────────────────────────────────────────────
+// ─── FOUNDATION ICONS ────────────────────────────────────────────────────────
 const IP = { width: 15, height: 15, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 function ILock()  { return <svg {...IP}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>; }
 function IKey()   { return <svg {...IP}><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>; }
@@ -449,8 +440,6 @@ const FOUNDATIONS = [
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function Examples() {
   const [level, setLevel] = useState(1);
-  const lv = (n: number) => level >= n;
-
   const LEVELS = [
     { n: 1, label: "L1", sub: "Сфокусированная" },
     { n: 2, label: "L2", sub: "Связанная" },
@@ -463,44 +452,36 @@ export default function Examples() {
 
         {/* HEADER */}
         <motion.div className="mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}>
-          <p className="eyebrow mb-3" style={{ color: C.crimson }}>Архитектура</p>
-          <h2 className="h2 mb-3" style={{ color: C.espresso }}>
-            Как это работает
-          </h2>
-          <p className="font-inter font-light text-lg" style={{ color: C.taupe }}>
-            Снаружи просто. Внутри — инженерия.
-          </p>
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
+          <p className="eyebrow mb-3" style={{ color: C.crimson }}>Архитектура системы</p>
+          <h2 className="h2 mb-3" style={{ color: C.espresso }}>Как это работает</h2>
+          <p className="font-inter font-light text-lg" style={{ color: C.taupe }}>Снаружи просто. Внутри — инженерия.</p>
         </motion.div>
 
         {/* LEVEL SWITCHER */}
-        <div className="flex gap-2 mb-8" role="group">
+        <div className="flex gap-2 mb-8">
           {LEVELS.map(({ n, label, sub }) => {
             const active = level === n;
             return (
-              <button key={n} onClick={() => setLevel(n)}
-                style={{
-                  padding: "8px 18px", borderRadius: 7, cursor: "pointer",
-                  border: `1.5px solid ${active ? C.crimson : "rgba(31,20,16,0.2)"}`,
-                  background: active ? C.crimson : "transparent",
-                  color: active ? "#fff" : C.espresso,
-                  transition: "all 0.2s ease",
-                  display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 1,
-                }}>
-                <span style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: 1 }}>{label}</span>
-                <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: 10, opacity: active ? 0.8 : 0.5 }}>{sub}</span>
+              <button key={n} onClick={() => setLevel(n)} style={{
+                padding: "8px 18px", borderRadius: 7, cursor: "pointer",
+                border: `1.5px solid ${active ? C.crimson : "rgba(31,20,16,0.2)"}`,
+                background: active ? C.crimson : "transparent",
+                color: active ? "#fff" : C.espresso,
+                transition: "all 0.2s ease",
+                display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 1,
+              }}>
+                <span style={{ fontFamily: "Space Grotesk,sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: 1 }}>{label}</span>
+                <span style={{ fontFamily: "Inter,sans-serif", fontWeight: 300, fontSize: 10, opacity: active ? 0.8 : 0.5 }}>{sub}</span>
               </button>
             );
           })}
         </div>
 
         {/* DIAGRAM */}
-        <motion.div layout transition={{ duration: 0.4, ease: "easeInOut" }}
-          style={{ background: "white", border: "1px solid rgba(0,0,0,0.06)", borderRadius: 16,
-            padding: "28px 20px 20px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
+        <motion.div layout transition={{ duration: 0.4 }}
+          style={{ background: "white", border: "1px solid rgba(0,0,0,0.06)", borderRadius: 16, padding: "28px 20px 20px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", overflowX: "auto" }}>
           <div className="hidden md:block">
             <DesktopDiagram level={level} />
           </div>
@@ -512,8 +493,7 @@ export default function Examples() {
         {/* DYNAMIC EXAMPLE */}
         <div className="text-center mt-5" style={{ minHeight: 22 }}>
           <AnimatePresence mode="wait">
-            <motion.p key={level} className="font-inter font-light italic text-sm"
-              style={{ color: C.taupe }}
+            <motion.p key={level} className="font-inter font-light italic text-sm" style={{ color: C.taupe }}
               initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.25 }}>
               {LEVEL_EXAMPLES[level]}
@@ -521,9 +501,9 @@ export default function Examples() {
           </AnimatePresence>
         </div>
 
-        {/* FOUNDATION ROW */}
+        {/* FOUNDATION */}
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-10 pt-8"
-          style={{ borderTop: `1px solid rgba(31,20,16,0.08)` }}>
+          style={{ borderTop: "1px solid rgba(31,20,16,0.08)" }}>
           {FOUNDATIONS.map(({ icon, label }) => (
             <div key={label} className="flex items-center gap-2" style={{ color: C.taupe }}>
               {icon}
@@ -540,25 +520,15 @@ export default function Examples() {
           <p className="font-inter font-light text-xs" style={{ color: C.taupe }}>
             <span style={{ color: C.espresso, fontWeight: 600 }}>РФ:</span> YandexGPT · Gigachat · YandexCloud · Selectel · VK Cloud
           </p>
-          <p className="font-inter font-light text-xs mt-1" style={{ color: "rgba(31,20,16,0.3)" }}>
-            Данные под вашим контролем
-          </p>
+          <p className="font-inter font-light text-xs mt-1" style={{ color: "rgba(31,20,16,0.3)" }}>Данные под вашим контролем</p>
         </div>
 
         {/* AI SPHERE IMAGE */}
-        <motion.div
-          className="mt-12"
-          style={{ borderRadius: 20, overflow: "hidden", position: "relative" }}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          <img
-            src="/images/ai-sphere.jpg"
-            alt="AI система — интеллектуальный центр обработки данных"
-            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }}
-          />
+        <motion.div className="mt-12" style={{ borderRadius: 20, overflow: "hidden" }}
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
+          <img src="/images/ai-sphere.jpg" alt="AI система — архитектура обработки данных"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }} />
         </motion.div>
 
         {/* FINAL PHRASE */}

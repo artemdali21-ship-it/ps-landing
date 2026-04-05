@@ -123,7 +123,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
         className="absolute inset-0"
         style={{ display: "none", pointerEvents: "none" }}
       >
-        <div style={{ pointerEvents: "auto", height: "100%" }}>{children}</div>
+        <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", WebkitOverflowScrolling: "touch" as const }}>{children}</div>
       </div>
     );
   }
@@ -136,7 +136,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
       className="absolute inset-0"
       style={{ opacity, y, pointerEvents: "none" }}
     >
-      <div style={{ pointerEvents: "auto", height: "100%" }}>{children}</div>
+      <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", WebkitOverflowScrolling: "touch" as const }}>{children}</div>
     </motion.div>
   );
 }

@@ -48,12 +48,12 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // After sphere — robot hand + butterfly float on scene 6 (meditation)
+  // After sphere — robot hand + butterfly float on scene 5/6 (generous hold)
   { src: "/images/objects/img-4780.webp",
-    enter:0.85, end:0.89, exitS:0.93, exit:0.97, w:250,
+    enter:0.83, end:0.87, exitS:0.93, exit:0.97, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.85, end:0.89, exitS:0.93, exit:0.97, w:148,
+    enter:0.84, end:0.88, exitS:0.94, exit:0.98, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -203,12 +203,12 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.79], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.79], [1.00, 1.06]);
 
-  // Scene 5 — door with holes, enters after door fully exits
-  const s5Op = useTransform(p, [0.79, 0.85, 0.91, 0.95], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.79, 0.95], [1.00, 1.06]);
+  // Scene 5 — door with holes, enters after door fully exits, holds for sphere+objects
+  const s5Op = useTransform(p, [0.79, 0.84, 0.92, 0.96], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.79, 0.96], [1.00, 1.06]);
 
-  const s6Op = useTransform(p, [0.91, 0.97], [0, 1]);
-  const s6Sc = useTransform(p, [0.91, 1.00], [1.02, 1.00]);
+  const s6Op = useTransform(p, [0.93, 0.98], [0, 1]);
+  const s6Sc = useTransform(p, [0.93, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -291,57 +291,55 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.58} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere / девушка — on clean scene 5 */}
-        <SectionOverlay p={p} enter={0.79} show={0.83} hide={0.88} exit={0.92}>
-          <div style={{ position: "absolute", inset: 0 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/ai-sphere.jpg"
-              alt="AI система"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
-            />
-            {/* Text overlay */}
+        {/* Sphere / девушка — contained glass card on scene 5 */}
+        <SectionOverlay p={p} enter={0.80} show={0.83} hide={0.89} exit={0.93}>
+          <div style={{
+            position: "absolute", inset: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "80px clamp(1.25rem, 5vw, 5rem) 2rem",
+          }}>
             <div style={{
-              position: "absolute", inset: 0,
-              background: "linear-gradient(to top, rgba(31,20,16,0.72) 0%, rgba(31,20,16,0.18) 55%, transparent 100%)",
-              display: "flex", alignItems: "flex-end",
-              padding: "clamp(2rem,5vw,5rem)",
+              width: "100%", maxWidth: 860,
+              background: "rgba(250,246,240,0.92)",
+              backdropFilter: "blur(28px) saturate(160%)",
+              WebkitBackdropFilter: "blur(28px) saturate(160%)",
+              border: "1px solid rgba(212,200,184,0.6)",
+              borderRadius: 4,
+              overflow: "hidden",
             }}>
-              <div>
-                <p style={{
-                  fontFamily: "'Satoshi', var(--font-outfit-var), sans-serif",
-                  fontWeight: 900,
-                  fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
-                  color: "#ffffff",
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1.1,
-                  margin: 0,
-                  textShadow: "0 2px 24px rgba(0,0,0,0.4)",
-                }}>
-                  Работает в процессе,<br />а не в презентации.
-                </p>
+              {/* Image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/ai-sphere.jpg"
+                alt="AI система"
+                style={{
+                  width: "100%",
+                  maxHeight: "52vh",
+                  objectFit: "cover",
+                  objectPosition: "center top",
+                  display: "block",
+                }}
+              />
+              {/* Text */}
+              <div style={{ padding: "1.75rem 2rem 2rem" }}>
                 <p style={{
                   fontFamily: "var(--font-space-grotesk-var), sans-serif",
-                  fontWeight: 600,
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "#C41230",
-                  margin: "1rem 0 0",
+                  fontWeight: 600, fontSize: "0.65rem",
+                  letterSpacing: "0.18em", textTransform: "uppercase",
+                  color: "#C41230", margin: "0 0 0.75rem",
                 }}>
                   AI-системы, которые работают
                 </p>
+                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
+                  Работает в процессе,<br />а не в презентации.
+                </h2>
               </div>
             </div>
           </div>
         </SectionOverlay>
 
-        <SectionOverlay p={p} enter={0.92} show={0.94} hide={0.96} exit={0.98}>
+        {/* Process — enters ONLY after sphere fully exits */}
+        <SectionOverlay p={p} enter={0.93} show={0.95} hide={0.97} exit={0.99}>
           <Process />
         </SectionOverlay>
       </div>

@@ -124,18 +124,20 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
         className="absolute inset-0"
         style={{ display: "none", pointerEvents: "none" }}
       >
-        {children}
+        <div style={{ pointerEvents: "auto", height: "100%" }}>{children}</div>
       </div>
     );
   }
 
+  // Outer wrapper: pointer-events:none so wheel events pass through to window.
+  // Inner wrapper: pointer-events:auto so clicks still work inside sections.
   return (
     <motion.div
       ref={divRef}
       className="absolute inset-0"
-      style={{ opacity, y }}
+      style={{ opacity, y, pointerEvents: "none" }}
     >
-      {children}
+      <div style={{ pointerEvents: "auto", height: "100%" }}>{children}</div>
     </motion.div>
   );
 }

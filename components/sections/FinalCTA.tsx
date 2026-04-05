@@ -7,7 +7,7 @@ export default function FinalCTA() {
     <section
       id="cta"
       className="text-center relative overflow-hidden"
-      style={{ background: "transparent", paddingTop: "clamp(4rem, 8vh, 10rem)", paddingBottom: "clamp(4rem, 10vh, 10vh)" }}
+      style={{ background: "transparent", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "flex-start", paddingTop: "clamp(4rem, 18vh, 12rem)", paddingBottom: "clamp(3rem, 8vh, 6rem)" }}
     >
       {/* Subtle crimson breathing glow */}
       <motion.div

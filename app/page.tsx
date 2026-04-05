@@ -112,7 +112,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
       divRef.current.style.display        = visible ? "block" : "none";
       divRef.current.style.pointerEvents  = visible ? "auto"  : "none";
     } else {
-      divRef.current.style.pointerEvents = opacity.get() > 0.05 ? "auto" : "none";
+      divRef.current.style.pointerEvents = opacity.get() > 0.02 ? "auto" : "none";
     }
   });
 
@@ -123,20 +123,20 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
         className="absolute inset-0"
         style={{ display: "none", pointerEvents: "none" }}
       >
-        <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", WebkitOverflowScrolling: "touch" as const }}>{children}</div>
+        <div style={{ pointerEvents: "auto", height: "100%", overflow: "visible" }}>{children}</div>
       </div>
     );
   }
 
-  // Outer wrapper: pointer-events:none so wheel events pass through to window.
-  // Inner wrapper: pointer-events:auto so clicks still work inside sections.
+  // Outer wrapper: pointer-events:none so wheel/touch events pass through to window.
+  // Inner wrapper: overflow:visible so touch events are NOT captured by a nested scroller.
   return (
     <motion.div
       ref={divRef}
       className="absolute inset-0"
       style={{ opacity, y, pointerEvents: "none" }}
     >
-      <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", WebkitOverflowScrolling: "touch" as const }}>{children}</div>
+      <div style={{ pointerEvents: "auto", height: "100%", overflow: "visible" }}>{children}</div>
     </motion.div>
   );
 }
@@ -308,7 +308,7 @@ export default function Home() {
       <div id="scroll-spacer" ref={ref} style={{ height: "1600vh", position: "relative", pointerEvents: "none" }} />
 
       {/* ── FINAL SCREEN ── */}
-      <div id="cta" style={{ position: "relative", zIndex: 2, marginTop: 0, minHeight: "100svh" }}>
+      <div id="cta" style={{ position: "relative", zIndex: 2, marginTop: 0, minHeight: "auto" }}>
         <FinalCTA />
       </div>
 

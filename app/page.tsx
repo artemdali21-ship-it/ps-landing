@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, type ReactNode } from "react";
+import { useRef, useEffect, useState, type ReactNode } from "react";
 import {
   motion,
   useMotionValue,
@@ -167,10 +167,66 @@ function FinalOverlay({ p, enter, show, children }: {
   );
 }
 
+// ─── MOBILE LAYOUT — normal document flow, no fixed/scroll-story ─────────────
+function MobileLayout() {
+  return (
+    <>
+      <Navbar />
+      {/* Hero */}
+      <section style={{
+        minHeight: "100svh",
+        backgroundImage: "url(/images/scenes/1-mobile.webp)",
+        backgroundSize: "cover", backgroundPosition: "center",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "88px 1.25rem 3rem",
+      }}>
+        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
+        <h1 className="h1 mb-6 max-w-lg relative" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
+          Освобождаем время<br />для того, что<br />действительно{" "}
+          <span style={{ color: "#C41230" }}>важно.</span>
+        </h1>
+        <p className="font-outfit font-light text-lg leading-relaxed max-w-sm mb-3 relative" style={{ color: "rgba(255,255,255,0.75)" }}>
+          AI-системы, которые работают.
+        </p>
+        <p className="font-space-grotesk font-medium text-crimson text-xs uppercase tracking-widest mb-8 relative">
+          Не начинайте с решения. Начните с результата.
+        </p>
+        <a href="#cta" className="btn-primary self-start relative">Разобрать кейс</a>
+      </section>
+      {/* Content sections — normal scroll */}
+      <WhatWeDo />
+      <ThreeLevels />
+      <Examples />
+      {/* Process — dark bg since text is white */}
+      <section style={{ background: "#1F1410", padding: "5rem 1.25rem" }}>
+        <p className="font-outfit font-black uppercase leading-tight tracking-tight text-center"
+          style={{ fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff" }}>
+          СИСТЕМА ДОЛЖНА{" "}
+          <span style={{ color: "#C41230" }}>МЕНЯТЬ РЕАЛЬНОСТЬ.</span>
+          <br />ИНАЧЕ ЭТО ИНТЕРФЕЙС.
+        </p>
+      </section>
+      {/* CTA — dark bg */}
+      <div style={{ background: "#1F1410" }}>
+        <FinalCTA />
+      </div>
+      <Footer />
+    </>
+  );
+}
+
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const p = useMotionValue(0);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -222,6 +278,8 @@ export default function Home() {
   const heroY  = useTransform(p, [0.00, 0.09], [0, -50]);
   const hintOp = useTransform(p, [0.00, 0.03], [1, 0]);
 
+  // All hooks done — now safe to branch
+  if (isMobile) return <MobileLayout />;
 
   return (
     <>

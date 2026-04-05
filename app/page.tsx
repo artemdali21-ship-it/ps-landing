@@ -48,13 +48,14 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5 (door-with-holes): robot + butterfly appear AFTER s5 is visible (0.91+)
-  // Hold long: 0.91-0.97 = 0.06 × 1500vh = 90vh each (generous, no rush)
+  // Scene 5: 3D objects appear when s5 fully settled (0.91), hold through Process, exit with s5
+  // Order: s5 settles (0.91) → robot fades in (0.91-0.92) → butterfly (0.92-0.93)
+  //        → Process text (0.93) → text exits (0.97) → s5+objects fade (0.96-0.99)
   { src: "/images/objects/img-4780.webp",
-    enter:0.91, end:0.93, exitS:0.96, exit:0.98, w:250,
+    enter:0.91, end:0.92, exitS:0.96, exit:0.99, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.92, end:0.94, exitS:0.97, exit:0.99, w:148,
+    enter:0.92, end:0.93, exitS:0.97, exit:0.99, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -205,14 +206,14 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.80], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.80], [1.00, 1.07]);
 
-  // Scene 5 — door with holes: enters ONLY after sphere exits (0.87), holds clean
-  // p=0.80-0.87 = empty gap → beige background shows → sphere card visible here
-  const s5Op = useTransform(p, [0.87, 0.91, 0.95, 0.97], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.87, 0.97], [1.00, 1.06]);
+  // Scene 5 — door with holes: enters ONLY after sphere exits (0.87)
+  // Holds: 0.91-0.95 = full opacity while 3D objects + Process text play out
+  const s5Op = useTransform(p, [0.87, 0.91, 0.96, 0.99], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.87, 0.99], [1.00, 1.06]);
 
-  // Scene 6 — meditation: fades in after Process text exits
-  const s6Op = useTransform(p, [0.92, 0.97], [0, 1]);
-  const s6Sc = useTransform(p, [0.92, 1.00], [1.02, 1.00]);
+  // Scene 6 — meditation: enters ONLY after Process exits (0.97), holds for FinalCTA
+  const s6Op = useTransform(p, [0.97, 1.00], [0, 1]);
+  const s6Sc = useTransform(p, [0.97, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -295,46 +296,40 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.58} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere / девушка — appears in beige gap (p=0.80-0.87) between s4 and s5 */}
+        {/* Sphere / девушка — beige gap (p=0.80-0.87): full image, no crop */}
         <SectionOverlay p={p} enter={0.80} show={0.82} hide={0.85} exit={0.87}>
           <div style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "80px clamp(1.25rem, 5vw, 5rem) 2rem",
+            padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem",
+            overflowY: "auto",
           }}>
             <div style={{
-              width: "100%", maxWidth: 860,
-              background: "rgba(250,246,240,0.92)",
-              backdropFilter: "blur(28px) saturate(160%)",
-              WebkitBackdropFilter: "blur(28px) saturate(160%)",
-              border: "1px solid rgba(212,200,184,0.6)",
-              borderRadius: 4,
+              width: "100%", maxWidth: 1100,
+              background: "#FAF6F0",
+              border: "1px solid rgba(212,200,184,0.5)",
+              borderRadius: 6,
               overflow: "hidden",
+              boxShadow: "0 8px 60px rgba(31,20,16,0.14)",
             }}>
-              {/* Image */}
+              {/* Full image — height:auto so nothing is cut */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/ai-sphere.jpg"
                 alt="AI система"
-                style={{
-                  width: "100%",
-                  maxHeight: "52vh",
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                  display: "block",
-                }}
+                style={{ width: "100%", height: "auto", display: "block" }}
               />
-              {/* Text */}
-              <div style={{ padding: "1.75rem 2rem 2rem" }}>
+              {/* Text below image */}
+              <div style={{ padding: "1.5rem 2rem 2rem" }}>
                 <p style={{
                   fontFamily: "var(--font-space-grotesk-var), sans-serif",
                   fontWeight: 600, fontSize: "0.65rem",
                   letterSpacing: "0.18em", textTransform: "uppercase",
-                  color: "#C41230", margin: "0 0 0.75rem",
+                  color: "#C41230", margin: "0 0 0.5rem",
                 }}>
                   AI-системы, которые работают
                 </p>
-                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
+                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)" }}>
                   Работает в процессе,<br />а не в презентации.
                 </h2>
               </div>
@@ -342,8 +337,8 @@ export default function Home() {
           </div>
         </SectionOverlay>
 
-        {/* Process — on s5 background, after s5 is settled (0.91), exits before FinalCTA (p≈0.933) */}
-        <SectionOverlay p={p} enter={0.90} show={0.91} hide={0.92} exit={0.93}>
+        {/* Process — appears AFTER 3D objects are settled (0.93), exits at 0.97 before s5 fades */}
+        <SectionOverlay p={p} enter={0.93} show={0.94} hide={0.96} exit={0.97}>
           <Process />
         </SectionOverlay>
       </div>
@@ -352,13 +347,13 @@ export default function Home() {
       {/* 1600vh: each section gets ~255vh. FinalCTA enters at p≈0.933, all overlays exit by 0.92 */}
       <div id="scroll-spacer" ref={ref} style={{ height: "1600vh", position: "relative", pointerEvents: "none" }} />
 
-      {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
+      {/* ── FINAL SCREEN — no margin-top overlap so animation runs clean to p=1.0 ── */}
       <div
         id="cta"
         style={{
           position: "relative",
           zIndex: 1,
-          marginTop: "-100vh",
+          marginTop: 0,
           minHeight: "100vh",
           display: "flex",
           alignItems: "flex-start",

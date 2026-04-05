@@ -224,10 +224,41 @@ function MobileLayout() {
         </div>
       </section>
 
-      {/* Content sections — normal scroll, own backgrounds */}
+      {/* Scene 2 — interior/office visual break before WhatWeDo */}
+      <div style={{ position: "relative", height: "50vw", minHeight: "200px", maxHeight: "340px" }}>
+        <ParallaxBg src="/images/scenes/2-mobile.webp" factor={0.3} />
+      </div>
+
       <WhatWeDo />
       <ThreeLevels />
+
+      {/* Scene 3 — clean office visual break before Examples */}
+      <div style={{ position: "relative", height: "50vw", minHeight: "200px", maxHeight: "300px" }}>
+        <ParallaxBg src="/images/scenes/3-mobile.webp" factor={0.3} />
+      </div>
+
       <Examples />
+
+      {/* Scene 4 — digital screens, before sphere card */}
+      <div style={{ position: "relative", height: "45vw", minHeight: "180px", maxHeight: "280px" }}>
+        <ParallaxBg src="/images/scenes/4-mobile.webp" factor={0.3} />
+      </div>
+
+      {/* Sphere card — ai-sphere.jpg glass card (same as desktop) */}
+      <div style={{ background: "#FAF6F0", padding: "2rem 1.25rem" }}>
+        <div style={{ width: "100%", maxWidth: 480, margin: "0 auto", background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 40px rgba(31,20,16,0.12)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
+          <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
+            <p style={{ fontFamily: "var(--font-space-grotesk-var), sans-serif", fontWeight: 600, fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C41230", margin: "0 0 0.5rem" }}>
+              AI-системы, которые работают
+            </p>
+            <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.2rem, 4vw, 1.6rem)" }}>
+              Работает в процессе,<br />а не в презентации.
+            </h2>
+          </div>
+        </div>
+      </div>
 
       {/* Process — scene 5, JS parallax */}
       <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "50vh", display: "flex", alignItems: "center", justifyContent: "center" }}>

@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
           alt=""
         />
 
-        {/* Gradient overlay — boosts text contrast */}
+        {/* Gradient overlay */}
         <div
           style={{
             position: "absolute",
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
             width: "1200px",
             height: "630px",
             background:
-              "linear-gradient(160deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.55) 100%)",
+              "linear-gradient(160deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.60) 100%)",
             display: "flex",
           }}
         />
@@ -57,41 +57,42 @@ export async function GET(req: NextRequest) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "24px",
+            gap: "28px",
             position: "relative",
             padding: "60px 80px",
           }}
         >
-          {/* Main headline */}
+          {/* Main headline — uppercase, heavy */}
           <div
             style={{
-              fontSize: "78px",
+              fontSize: "86px",
               fontWeight: 900,
               color: "#FFFFFF",
               textAlign: "center",
-              lineHeight: "1.04",
-              letterSpacing: "-0.02em",
+              lineHeight: "1.0",
+              letterSpacing: "0.01em",
+              textTransform: "uppercase",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "4px",
+              gap: "0px",
             }}
           >
-            <span>AI-системы,</span>
-            <span>которые работают</span>
+            <span>AI-СИСТЕМЫ,</span>
+            <span>КОТОРЫЕ РАБОТАЮТ</span>
           </div>
 
-          {/* Brand line */}
+          {/* Brand line — crimson */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "16px",
             }}
           >
             <div
               style={{
-                width: "32px",
+                width: "40px",
                 height: "2px",
                 background: "#C41230",
                 display: "flex",
@@ -99,10 +100,10 @@ export async function GET(req: NextRequest) {
             />
             <span
               style={{
-                fontSize: "18px",
-                fontWeight: 600,
-                color: "rgba(255,255,255,0.75)",
-                letterSpacing: "0.22em",
+                fontSize: "17px",
+                fontWeight: 700,
+                color: "#C41230",
+                letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 display: "flex",
               }}
@@ -111,7 +112,7 @@ export async function GET(req: NextRequest) {
             </span>
             <div
               style={{
-                width: "32px",
+                width: "40px",
                 height: "2px",
                 background: "#C41230",
                 display: "flex",

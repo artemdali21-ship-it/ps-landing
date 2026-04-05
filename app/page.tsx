@@ -37,25 +37,23 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/--------------2026-04-03---10-43-19.webp",
     enter:0.02, end:0.06, exitS:0.10, exit:0.14, w:88,
     pos:{top:"52%",right:"7%"}, py:-110, fy:13, fd:3.4, fdl:2.4 },
-  // Scene 2 — marble head + coral: enter WITH s2 (0.14+), exit WITH s2 (by 0.36)
+  // Scene 2 — marble head + coral: appear during WhatWeDo, exit before ThreeLevels starts
   { src: "/images/objects/img-4774.webp",
-    enter:0.15, end:0.21, exitS:0.30, exit:0.36, w:153,
+    enter:0.15, end:0.21, exitS:0.36, exit:0.42, w:153,
     pos:{top:"10%",right:"6%"}, py:-100, fy:12, fd:4.2, fdl:0.3 },
   { src: "/images/objects/img-4791.webp",
-    enter:0.16, end:0.22, exitS:0.31, exit:0.36, w:72,
+    enter:0.16, end:0.22, exitS:0.37, exit:0.43, w:72,
     pos:{bottom:"16%",left:"10%"}, py:-70, fy:16, fd:3.6, fdl:1.2 },
-  // Scene 3 (ThreeLevels) — crystal cube: enter WITH s3 (0.36+), exit WITH s3 (by 0.58)
+  // ThreeLevels (on s2) — crystal cube: enter before ThreeLevels section, exit WITH s2 (0.53)
   { src: "/images/objects/img-4792.webp",
-    enter:0.37, end:0.43, exitS:0.52, exit:0.58, w:160,
+    enter:0.37, end:0.43, exitS:0.49, exit:0.53, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5: 3D objects appear when s5 fully settled (0.91), hold through Process, exit with s5
-  // Order: s5 settles (0.91) → robot fades in (0.91-0.92) → butterfly (0.92-0.93)
-  //        → Process text (0.93) → text exits (0.97) → s5+objects fade (0.96-0.99)
+  // Scene 5 (door-holes): robot + butterfly — enter when s5 settles (0.93), Process text at 0.95
   { src: "/images/objects/img-4780.webp",
-    enter:0.91, end:0.92, exitS:0.96, exit:0.99, w:250,
+    enter:0.93, end:0.94, exitS:0.97, exit:0.99, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.92, end:0.93, exitS:0.97, exit:0.99, w:148,
+    enter:0.94, end:0.95, exitS:0.98, exit:0.99, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -197,24 +195,26 @@ export default function Home() {
   const s1Op = useTransform(p, [0.00, 0.09, 0.14], [1, 1, 0]);   // exits at 0.14
   const s1Sc = useTransform(p, [0.00, 0.14], [1.00, 1.08]);
 
-  const s2Op = useTransform(p, [0.14, 0.20, 0.30, 0.36], [0, 1, 1, 0]); // full 0.20-0.30
-  const s2Sc = useTransform(p, [0.14, 0.36], [1.00, 1.06]);
+  // s2 holds through BOTH WhatWeDo (0.20-0.30) AND ThreeLevels (0.42-0.53)
+  // Clean office (s3) must NOT be visible before ThreeLevels is done
+  const s2Op = useTransform(p, [0.14, 0.20, 0.43, 0.53], [0, 1, 1, 0]); // full 0.20-0.43
+  const s2Sc = useTransform(p, [0.14, 0.53], [1.00, 1.06]);
 
-  const s3Op = useTransform(p, [0.36, 0.42, 0.52, 0.58], [0, 1, 1, 0]); // full 0.42-0.52
-  const s3Sc = useTransform(p, [0.36, 0.58], [1.00, 1.06]);
+  // s3 (clean office) — appears ONLY after ThreeLevels exits (0.53). Visual reward.
+  const s3Op = useTransform(p, [0.53, 0.57, 0.62, 0.65], [0, 1, 1, 0]); // full 0.57-0.62
+  const s3Sc = useTransform(p, [0.53, 0.65], [1.00, 1.04]);
 
-  // Scene 4 — door: enters when s3 exits (0.58), holds long, fully exits at 0.80
-  const s4Op = useTransform(p, [0.58, 0.63, 0.74, 0.80], [0, 1, 1, 0]); // full 0.63-0.74
-  const s4Sc = useTransform(p, [0.58, 0.80], [1.00, 1.07]);
+  // Scene 4 — door: enters when clean office exits (0.65), holds while Examples shows
+  const s4Op = useTransform(p, [0.65, 0.69, 0.77, 0.84], [0, 1, 1, 0]); // full 0.69-0.77
+  const s4Sc = useTransform(p, [0.65, 0.84], [1.00, 1.07]);
 
-  // Scene 5 — door with holes: enters ONLY after sphere exits (0.87)
-  // Holds: 0.91-0.95 = full opacity while 3D objects + Process text play out
-  const s5Op = useTransform(p, [0.87, 0.91, 0.96, 0.99], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.87, 0.99], [1.00, 1.06]);
+  // Scene 5 — door with holes: enters ONLY after sphere exits (0.90)
+  const s5Op = useTransform(p, [0.90, 0.93, 0.97, 0.99], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.90, 0.99], [1.00, 1.06]);
 
-  // Scene 6 — meditation: enters ONLY after Process exits (0.97), holds for FinalCTA
-  const s6Op = useTransform(p, [0.97, 1.00], [0, 1]);
-  const s6Sc = useTransform(p, [0.97, 1.00], [1.02, 1.00]);
+  // Scene 6 — meditation: enters after Process exits, holds for FinalCTA
+  const s6Op = useTransform(p, [0.96, 1.00], [0, 1]);
+  const s6Sc = useTransform(p, [0.96, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -292,16 +292,16 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.20} show={0.23} hide={0.28} exit={0.30}>
           <WhatWeDo />
         </SectionOverlay>
-        {/* ThreeLevels — appears only after s3 fully visible (0.42) */}
+        {/* ThreeLevels — on s2 background (s2 holds until 0.53 exactly for this) */}
         <SectionOverlay p={p} enter={0.42} show={0.45} hide={0.50} exit={0.53}>
           <ThreeLevels />
         </SectionOverlay>
-        {/* Examples — appears only after s4 fully visible (0.63) */}
-        <SectionOverlay p={p} enter={0.63} show={0.66} hide={0.72} exit={0.76}>
+        {/* Examples — appears only after s4 fully visible (0.69) */}
+        <SectionOverlay p={p} enter={0.69} show={0.72} hide={0.77} exit={0.81}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere / девушка — beige gap (p=0.80-0.87): full image, no crop */}
-        <SectionOverlay p={p} enter={0.80} show={0.82} hide={0.85} exit={0.87}>
+        {/* Sphere / девушка — beige gap after s4 exits (0.84): full image, no crop */}
+        <SectionOverlay p={p} enter={0.84} show={0.86} hide={0.88} exit={0.90}>
           <div style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -341,8 +341,8 @@ export default function Home() {
           </div>
         </SectionOverlay>
 
-        {/* Process — appears AFTER 3D objects are settled (0.93), exits at 0.97 before s5 fades */}
-        <SectionOverlay p={p} enter={0.93} show={0.94} hide={0.96} exit={0.97}>
+        {/* Process — appears AFTER 3D objects are settled, exits before s5 fades */}
+        <SectionOverlay p={p} enter={0.95} show={0.96} hide={0.97} exit={0.98}>
           <Process />
         </SectionOverlay>
       </div>

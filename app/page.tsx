@@ -121,7 +121,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
     return (
       <div
         ref={divRef}
-        className="absolute inset-0 overflow-y-auto"
+        className="absolute inset-0 overflow-hidden"
         style={{ display: "none", pointerEvents: "none" }}
       >
         {children}
@@ -132,7 +132,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
   return (
     <motion.div
       ref={divRef}
-      className="absolute inset-0 overflow-y-auto"
+      className="absolute inset-0 overflow-hidden"
       style={{ opacity, y, pointerEvents: "none" }}
     >
       {children}

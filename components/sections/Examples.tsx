@@ -575,12 +575,12 @@ export default function Examples() {
   ];
 
   return (
-    <section id="examples" className="section-padding" style={{ background: "#FAF6F0" }}>
-      <div className="max-w-6xl mx-auto">
+    <section id="examples" style={{ background: "#FAF6F0", padding: "80px 1.25rem 0", height: "100vh", overflow: "hidden" }}>
+      <div className="max-w-6xl mx-auto" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
 
         {/* HEADER — relative so sphere can overflow into diagram zone */}
-        <div style={{ position: "relative" }}>
-          <div className="mb-10" style={{ maxWidth: "62%" }}>
+        <div style={{ position: "relative", flexShrink: 0 }}>
+          <div className="mb-4" style={{ maxWidth: "62%" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
@@ -629,7 +629,7 @@ export default function Examples() {
         </div>
 
         {/* LEVEL SWITCHER — z-index:2 so wires go behind */}
-        <div className="flex gap-2 mb-8" style={{ position: "relative", zIndex: 2 }}>
+        <div className="flex gap-2 mb-4" style={{ position: "relative", zIndex: 2, flexShrink: 0 }}>
           {LEVELS.map(({ n, label, sub }) => {
             const active = level === n;
             return (
@@ -655,11 +655,13 @@ export default function Examples() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: 18,
-            padding: "28px 20px 20px",
+            padding: "20px 20px 16px",
             boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
             overflowX: "auto",
             position: "relative",
             zIndex: 2,
+            flex: 1,
+            minHeight: 0,
           }}>
           <div className="hidden md:block">
             <DesktopDiagram level={level} />

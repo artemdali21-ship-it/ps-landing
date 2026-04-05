@@ -123,20 +123,20 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
         className="absolute inset-0"
         style={{ display: "none", pointerEvents: "none" }}
       >
-        <div style={{ pointerEvents: "auto", height: "100%", overflow: "visible" }}>{children}</div>
+        <div style={{ pointerEvents: "auto", height: "100%", overflow: "hidden" }}>{children}</div>
       </div>
     );
   }
 
-  // Outer wrapper: pointer-events:none so wheel/touch events pass through to window.
-  // Inner wrapper: overflow:visible so touch events are NOT captured by a nested scroller.
+  // Desktop only: overflow:hidden clips content cleanly within the fixed layer.
+  // Mobile uses MobileLayout (normal scroll), so this code path is desktop-only.
   return (
     <motion.div
       ref={divRef}
       className="absolute inset-0"
       style={{ opacity, y, pointerEvents: "none" }}
     >
-      <div style={{ pointerEvents: "auto", height: "100%", overflow: "visible" }}>{children}</div>
+      <div style={{ pointerEvents: "auto", height: "100%", overflow: "hidden" }}>{children}</div>
     </motion.div>
   );
 }
@@ -174,13 +174,14 @@ function MobileLayout() {
       <Navbar />
       {/* Hero */}
       <section style={{
+        position: "relative",
         minHeight: "100svh",
         backgroundImage: "url(/images/scenes/1-mobile.webp)",
         backgroundSize: "cover", backgroundPosition: "center",
         display: "flex", flexDirection: "column", justifyContent: "center",
         padding: "88px 1.25rem 3rem",
       }}>
-        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
+        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }} />
         <h1 className="h1 mb-6 max-w-lg relative" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
           Освобождаем время<br />для того, что<br />действительно{" "}
           <span style={{ color: "#C41230" }}>важно.</span>

@@ -1,6 +1,6 @@
 "use client";
 // v3 — Folders UI
-import { useState, ReactElement } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ─── Inline SVG Icons ────────────────────────────────────────────────────────
@@ -324,11 +324,21 @@ interface Level {
 
 function FolderCard({ level }: { level: Level }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <motion.div
-      onClick={() => setIsOpen((o) => !o)}
-      whileHover={{ y: -4 }}
+      onMouseEnter={() => !isMobile && setIsOpen(true)}
+      onMouseLeave={() => !isMobile && setIsOpen(false)}
+      onClick={() => isMobile && setIsOpen((o) => !o)}
+      whileHover={!isMobile ? { y: -4 } : undefined}
       style={{
         background: "rgba(250,246,240,0.9)",
         borderRadius: 20,

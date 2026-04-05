@@ -501,6 +501,30 @@ export default function ThreeLevels() {
           ))}
         </div>
 
+        {/* Intermediate CTA */}
+        <motion.div
+          className="flex justify-center mt-12"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <a
+            href="#cta"
+            className="font-space-grotesk font-semibold uppercase text-xs tracking-widest px-8 py-3 rounded-sm transition-all duration-200 hover:-translate-y-0.5"
+            style={{
+              border: "1.5px solid #C41230",
+              color: "#C41230",
+              letterSpacing: "0.14em",
+              background: "transparent",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(196,18,48,0.06)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+          >
+            Обсудить задачу
+          </a>
+        </motion.div>
+
       </div>
     </section>
   );

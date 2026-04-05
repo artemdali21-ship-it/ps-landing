@@ -240,7 +240,7 @@ export default function Home() {
         {/* Hero text — scene 1 */}
         <motion.div
           className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
-          style={{ opacity: heroOp, y: heroY }}
+          style={{ opacity: heroOp, y: heroY, paddingTop: "80px" }}
         >
           <h1
             className="h1 mb-8 max-w-3xl"
@@ -290,13 +290,20 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75} snap>
           <Examples />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.92} exit={0.96}>
+        <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.90} exit={0.93}>
           <Process />
         </SectionOverlay>
       </div>
 
-      {/* ── SCROLL SPACER — creates 1200vh of scrollable space ────────────────── */}
-      <div ref={ref} style={{ height: "1200vh" }} />
+      {/* ── SCROLL SPACER — nav anchors at correct scroll positions ────────────── */}
+      <div ref={ref} style={{ height: "1200vh", position: "relative" }}>
+        {/* УСЛУГИ → WhatWeDo at ~21% */}
+        <div id="services" style={{ position: "absolute", top: "19%", scrollMarginTop: "80px" }} />
+        {/* ПРИМЕРЫ → Examples at ~62% */}
+        <div id="examples" style={{ position: "absolute", top: "60%", scrollMarginTop: "80px" }} />
+        {/* ПРОЦЕСС → Process at ~82% */}
+        <div id="process"  style={{ position: "absolute", top: "82%", scrollMarginTop: "80px" }} />
+      </div>
 
       {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
       <div

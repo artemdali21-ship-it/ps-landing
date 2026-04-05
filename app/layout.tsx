@@ -26,17 +26,35 @@ const inter = Inter({
   weight: ["300", "400", "500"],
 });
 
+const SITE_URL = "https://polishchuk-systems-landing.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Polishchuk Systems — AI-системы, которые работают",
+  title: "Polishchuk AI Systems — AI-системы, которые работают",
   description:
-    "Проектируем, строим и внедряем AI-системы для бизнеса. Микросистемы, рабочие системы, экспертные системы. От 150 000 ₽.",
+    "Освобождаем время для того, что действительно важно. Не начинайте с решения — начните с результата.",
+  metadataBase: new URL(SITE_URL),
   openGraph: {
-    title: "Polishchuk Systems — AI-системы, которые работают",
-    description:
-      "Освобождаем время для того, что действительно важно. Не начинайте с решения — начните с результата.",
+    title: "Polishchuk AI Systems",
+    description: "Освобождаем время для того, что действительно важно.",
+    images: [
+      {
+        url: `${SITE_URL}/og`,
+        width: 1200,
+        height: 630,
+        alt: "Polishchuk AI Systems",
+      },
+    ],
     type: "website",
+    url: SITE_URL,
+    locale: "ru_RU",
+    siteName: "Polishchuk AI Systems",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Polishchuk AI Systems",
+    description: "Освобождаем время для того, что действительно важно.",
+    images: [`${SITE_URL}/og`],
+  },
 };
 
 export const viewport = { themeColor: "#FAF6F0" };

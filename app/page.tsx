@@ -48,12 +48,13 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // After sphere — robot hand + butterfly: enter with sphere, hold long (195vh), exit cleanly
+  // Scene 5 (door-with-holes): robot + butterfly appear AFTER s5 is visible (0.91+)
+  // Hold long: 0.91-0.97 = 0.06 × 1500vh = 90vh each (generous, no rush)
   { src: "/images/objects/img-4780.webp",
-    enter:0.81, end:0.85, exitS:0.90, exit:0.93, w:250,
+    enter:0.91, end:0.93, exitS:0.96, exit:0.98, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.82, end:0.86, exitS:0.91, exit:0.94, w:148,
+    enter:0.92, end:0.94, exitS:0.97, exit:0.99, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -200,16 +201,18 @@ export default function Home() {
   const s3Op = useTransform(p, [0.30, 0.37, 0.46, 0.52], [0, 1, 1, 0]);
   const s3Sc = useTransform(p, [0.30, 0.52], [1.00, 1.06]);
 
-  const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.79], [0, 1, 1, 0]);
-  const s4Sc = useTransform(p, [0.47, 0.79], [1.00, 1.06]);
+  // Scene 4 — door: holds 0.54-0.74 (300vh), fully exits at 0.80
+  const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.80], [0, 1, 1, 0]);
+  const s4Sc = useTransform(p, [0.47, 0.80], [1.00, 1.07]);
 
-  // Scene 5 — door with holes, holds while sphere+objects show
-  const s5Op = useTransform(p, [0.79, 0.83, 0.90, 0.94], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.79, 0.94], [1.00, 1.06]);
+  // Scene 5 — door with holes: enters ONLY after sphere exits (0.87), holds clean
+  // p=0.80-0.87 = empty gap → beige background shows → sphere card visible here
+  const s5Op = useTransform(p, [0.87, 0.91, 0.95, 0.97], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.87, 0.97], [1.00, 1.06]);
 
-  // Scene 6 — meditation forest, fades in when Process appears
-  const s6Op = useTransform(p, [0.87, 0.92], [0, 1]);
-  const s6Sc = useTransform(p, [0.87, 1.00], [1.02, 1.00]);
+  // Scene 6 — meditation: fades in after Process text exits
+  const s6Op = useTransform(p, [0.92, 0.97], [0, 1]);
+  const s6Sc = useTransform(p, [0.92, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -222,8 +225,8 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* ── FIXED SCENE LAYER — static div slides over it at z-index:1 ─────── */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden" }}>
+      {/* ── FIXED SCENE LAYER — beige base so gap between scenes shows clean ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", backgroundColor: "#FAF6F0" }}>
         <div className="grain-overlay" />
 
         {/* Scenes */}
@@ -292,8 +295,8 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.58} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere / девушка — contained glass card on scene 5 */}
-        <SectionOverlay p={p} enter={0.78} show={0.81} hide={0.85} exit={0.88}>
+        {/* Sphere / девушка — appears in beige gap (p=0.80-0.87) between s4 and s5 */}
+        <SectionOverlay p={p} enter={0.80} show={0.82} hide={0.85} exit={0.87}>
           <div style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -339,8 +342,8 @@ export default function Home() {
           </div>
         </SectionOverlay>
 
-        {/* Process — enters ONLY after sphere exits (0.88), must exit before FinalCTA (p≈0.933 with 1600vh) */}
-        <SectionOverlay p={p} enter={0.88} show={0.90} hide={0.91} exit={0.92}>
+        {/* Process — on s5 background, after s5 is settled (0.91), exits before FinalCTA (p≈0.933) */}
+        <SectionOverlay p={p} enter={0.90} show={0.91} hide={0.92} exit={0.93}>
           <Process />
         </SectionOverlay>
       </div>

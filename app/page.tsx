@@ -287,7 +287,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
           <ThreeLevels />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75} snap>
+        <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
         <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.90} exit={0.93}>
@@ -295,15 +295,8 @@ export default function Home() {
         </SectionOverlay>
       </div>
 
-      {/* ── SCROLL SPACER — nav anchors at correct scroll positions ────────────── */}
-      <div ref={ref} style={{ height: "1200vh", position: "relative" }}>
-        {/* УСЛУГИ → WhatWeDo at ~21% */}
-        <div id="services" style={{ position: "absolute", top: "19%", scrollMarginTop: "80px" }} />
-        {/* ПРИМЕРЫ → Examples at ~62% */}
-        <div id="examples" style={{ position: "absolute", top: "60%", scrollMarginTop: "80px" }} />
-        {/* ПРОЦЕСС → Process at ~82% */}
-        <div id="process"  style={{ position: "absolute", top: "82%", scrollMarginTop: "80px" }} />
-      </div>
+      {/* ── SCROLL SPACER — id used by Navbar for programmatic scroll ─────────── */}
+      <div id="scroll-spacer" ref={ref} style={{ height: "1200vh", position: "relative" }} />
 
       {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
       <div

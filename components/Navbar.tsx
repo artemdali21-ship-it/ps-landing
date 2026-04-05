@@ -4,11 +4,21 @@ import { motion, useMotionValue, useTransform, useMotionTemplate, AnimatePresenc
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+// Scroll progress targets for each section (fraction of total scroll distance)
+// Derived from page.tsx SectionOverlay show= values
 const NAV_LINKS = [
-  { label: "Услуги",   id: "services" },
-  { label: "Примеры",  id: "examples" },
-  { label: "Процесс",  id: "process"  },
+  { label: "Услуги",  id: "services", pct: 0.21 },  // WhatWeDo show=0.21
+  { label: "Примеры", id: "examples", pct: 0.65 },  // Examples  show=0.62, mid=0.65
+  { label: "Процесс", id: "process",  pct: 0.87 },  // Process   show=0.86
 ];
+
+function scrollToSection(pct: number) {
+  const spacer = document.getElementById("scroll-spacer");
+  if (!spacer) return;
+  // Total scrollable distance = spacer height − viewport height (matches page.tsx logic)
+  const total = spacer.offsetHeight - window.innerHeight;
+  window.scrollTo({ top: Math.max(0, pct * total), behavior: "smooth" });
+}
 
 export default function Navbar() {
   const scrollY   = useMotionValue(0);
@@ -53,14 +63,14 @@ export default function Navbar() {
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(({ label, id }) => (
-              <a
+            {NAV_LINKS.map(({ label, id, pct }) => (
+              <button
                 key={id}
-                href={`#${id}`}
-                className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200"
+                onClick={() => scrollToSection(pct)}
+                className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200 bg-transparent border-none cursor-pointer p-0"
               >
                 {label}
-              </a>
+              </button>
             ))}
           </div>
 
@@ -128,12 +138,11 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
             >
-              {NAV_LINKS.map(({ label, id }, i) => (
-                <a
+              {NAV_LINKS.map(({ label, id, pct }, i) => (
+                <button
                   key={id}
-                  href={`#${id}`}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso hover:text-crimson hover:bg-stone/30 transition-colors duration-150"
+                  onClick={() => { scrollToSection(pct); setOpen(false); }}
+                  className="flex items-center justify-between w-full px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso hover:text-crimson hover:bg-stone/30 transition-colors duration-150 bg-transparent border-none cursor-pointer"
                   style={{
                     borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(212,200,184,0.5)" : "none",
                     letterSpacing: "0.14em",
@@ -143,7 +152,7 @@ export default function Navbar() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </a>
+                </button>
               ))}
             </motion.div>
           </motion.div>

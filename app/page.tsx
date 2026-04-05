@@ -48,7 +48,13 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5 is now clean — robot hand and butterfly removed
+  // After sphere — robot hand + butterfly float on scene 6 (meditation)
+  { src: "/images/objects/img-4780.webp",
+    enter:0.85, end:0.89, exitS:0.93, exit:0.97, w:250,
+    pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
+  { src: "/images/objects/img-4500.webp",
+    enter:0.85, end:0.89, exitS:0.93, exit:0.97, w:148,
+    pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
 // ─── SCENE COMPONENT ─────────────────────────────────────────────────────────
@@ -194,12 +200,12 @@ export default function Home() {
   const s3Op = useTransform(p, [0.30, 0.37, 0.46, 0.52], [0, 1, 1, 0]);
   const s3Sc = useTransform(p, [0.30, 0.52], [1.00, 1.06]);
 
-  const s4Op = useTransform(p, [0.47, 0.54, 0.70, 0.75], [0, 1, 1, 0]);
-  const s4Sc = useTransform(p, [0.47, 0.75], [1.00, 1.06]);
+  const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.79], [0, 1, 1, 0]);
+  const s4Sc = useTransform(p, [0.47, 0.79], [1.00, 1.06]);
 
-  // Scene 5 enters ONLY after Examples exits (0.75) — door with holes
-  const s5Op = useTransform(p, [0.75, 0.82, 0.91, 0.95], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.75, 0.95], [1.00, 1.06]);
+  // Scene 5 — door with holes, enters after door fully exits
+  const s5Op = useTransform(p, [0.79, 0.85, 0.91, 0.95], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.79, 0.95], [1.00, 1.06]);
 
   const s6Op = useTransform(p, [0.91, 0.97], [0, 1]);
   const s6Sc = useTransform(p, [0.91, 1.00], [1.02, 1.00]);
@@ -286,12 +292,8 @@ export default function Home() {
           <Examples />
         </SectionOverlay>
         {/* Sphere / девушка — on clean scene 5 */}
-        <SectionOverlay p={p} enter={0.76} show={0.80} hide={0.84} exit={0.88}>
-          <div style={{
-            position: "absolute", inset: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            background: "transparent",
-          }}>
+        <SectionOverlay p={p} enter={0.79} show={0.83} hide={0.88} exit={0.92}>
+          <div style={{ position: "absolute", inset: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/ai-sphere.jpg"
@@ -302,10 +304,44 @@ export default function Home() {
                 objectPosition: "center",
               }}
             />
+            {/* Text overlay */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(to top, rgba(31,20,16,0.72) 0%, rgba(31,20,16,0.18) 55%, transparent 100%)",
+              display: "flex", alignItems: "flex-end",
+              padding: "clamp(2rem,5vw,5rem)",
+            }}>
+              <div>
+                <p style={{
+                  fontFamily: "'Satoshi', var(--font-outfit-var), sans-serif",
+                  fontWeight: 900,
+                  fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
+                  color: "#ffffff",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1.1,
+                  margin: 0,
+                  textShadow: "0 2px 24px rgba(0,0,0,0.4)",
+                }}>
+                  Работает в процессе,<br />а не в презентации.
+                </p>
+                <p style={{
+                  fontFamily: "var(--font-space-grotesk-var), sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "#C41230",
+                  margin: "1rem 0 0",
+                }}>
+                  AI-системы, которые работают
+                </p>
+              </div>
+            </div>
           </div>
         </SectionOverlay>
 
-        <SectionOverlay p={p} enter={0.88} show={0.91} hide={0.94} exit={0.97}>
+        <SectionOverlay p={p} enter={0.92} show={0.94} hide={0.96} exit={0.98}>
           <Process />
         </SectionOverlay>
       </div>

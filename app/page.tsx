@@ -287,7 +287,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.34} show={0.40} hide={0.46} exit={0.51}>
           <ThreeLevels />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75}>
+        <SectionOverlay p={p} enter={0.58} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
         <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.90} exit={0.93}>

@@ -6,9 +6,9 @@ import Link from "next/link";
 
 // Scroll progress targets for each section (fraction of total scroll distance)
 const NAV_LINKS = [
-  { label: "Услуги",   id: "services", pct: 0.21 },  // WhatWeDo  show=0.21
-  { label: "Форматы",  id: "formats",  pct: 0.40 },  // ThreeLevels show=0.40
-  { label: "Процесс",  id: "process",  pct: 0.65 },  // Examples  show=0.62, mid=0.65
+  { label: "Услуги",   id: "services", pct: 0.23 },  // WhatWeDo  show=0.23
+  { label: "Форматы",  id: "formats",  pct: 0.45 },  // ThreeLevels show=0.45
+  { label: "Процесс",  id: "process",  pct: 0.68 },  // Examples  show=0.66
 ];
 
 function scrollToSection(pct: number) {

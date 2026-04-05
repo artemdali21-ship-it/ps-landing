@@ -9,7 +9,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="px-5 md:px-20 py-10 md:py-10 border-t border-stone" style={{ position: "relative", zIndex: 2, background: "#FAF6F0", paddingTop: "clamp(2rem, 5vw, 2.5rem)", paddingBottom: "clamp(2rem, 5vw, 2.5rem)" }}>
+    <footer className="px-5 md:px-20 py-8 border-t border-stone" style={{ position: "relative", zIndex: 2, background: "#FAF6F0" }}>
       <div className="max-w-5xl mx-auto flex flex-col items-center gap-5">
         <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
           {links.map((link) => (

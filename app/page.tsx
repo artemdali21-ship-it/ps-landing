@@ -227,110 +227,68 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* ── FIXED SCENE LAYER — beige base so gap between scenes shows clean ── */}
+      {/* ── FIXED SCENE LAYER — overflow:hidden clips scaled scenes only ── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", backgroundColor: "#FAF6F0" }}>
         <div className="grain-overlay" />
-
-        {/* Scenes */}
         <Scene src="/images/scenes/1-desktop.webp" opacity={s1Op} scale={s1Sc} first />
         <Scene src="/images/scenes/2-desktop.webp" opacity={s2Op} scale={s2Sc} />
         <Scene src="/images/scenes/3-desktop.webp" opacity={s3Op} scale={s3Sc} />
         <Scene src="/images/scenes/4-desktop.webp" opacity={s4Op} scale={s4Sc} />
         <Scene src="/images/scenes/5-desktop.webp" opacity={s5Op} scale={s5Sc} />
         <Scene src="/images/scenes/6g-desktop.webp" opacity={s6Op} scale={s6Sc} className="scene-meditation" />
+        {OBJECTS.map((cfg, i) => <Obj key={i} cfg={cfg} p={p} />)}
 
-        {/* 3D floating objects */}
-        {OBJECTS.map((cfg, i) => (
-          <Obj key={i} cfg={cfg} p={p} />
-        ))}
-
-        {/* Hero text — scene 1 */}
+        {/* Hero text */}
         <motion.div
           className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
           style={{ opacity: heroOp, y: heroY, paddingTop: "80px" }}
         >
-          <h1
-            className="h1 mb-8 max-w-3xl"
-            style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}
-          >
+          <h1 className="h1 mb-8 max-w-3xl" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
             Освобождаем время<br />
             для того, что<br />
             действительно{" "}
             <span style={{ color: "#C41230" }}>важно.</span>
           </h1>
-          <p
-            className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
-            style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
-          >
+          <p className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4" style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}>
             AI-системы, которые работают.
           </p>
           <p className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10">
             Не начинайте с решения. Начните с результата.
           </p>
           <div className="pointer-events-auto">
-            <a href="#cta" className="btn-primary">
-              Разобрать кейс
-            </a>
+            <a href="#cta" className="btn-primary">Разобрать кейс</a>
           </div>
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
-          style={{ opacity: hintOp }}
-        >
+        <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none" style={{ opacity: hintOp }}>
           <span className="eyebrow">scroll</span>
-          <motion.div
-            className="w-px h-10 bg-taupe/40"
-            animate={{ scaleY: [0, 1, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
+          <motion.div className="w-px h-10 bg-taupe/40" animate={{ scaleY: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }} />
         </motion.div>
+      </div>
 
-        {/* Content overlays */}
-        {/* WhatWeDo — appears only after s2 fully visible (0.20) */}
+      {/* ── FIXED OVERLAY LAYER — NO overflow:hidden so sections scroll on mobile ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+        {/* WhatWeDo */}
         <SectionOverlay p={p} enter={0.20} show={0.23} hide={0.28} exit={0.30}>
           <WhatWeDo />
         </SectionOverlay>
-        {/* ThreeLevels — on s2 background (s2 holds until 0.53 exactly for this) */}
+        {/* ThreeLevels */}
         <SectionOverlay p={p} enter={0.42} show={0.45} hide={0.50} exit={0.53}>
           <ThreeLevels />
         </SectionOverlay>
-        {/* Examples — enters WITH s4 (0.65) so digital-screens scene never shows alone */}
+        {/* Examples */}
         <SectionOverlay p={p} enter={0.65} show={0.69} hide={0.77} exit={0.81}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere / девушка — beige gap after s4 exits (0.84): full image, no crop */}
+        {/* Sphere — beige gap after s4 exits */}
         <SectionOverlay p={p} enter={0.84} show={0.85} hide={0.86} exit={0.87}>
-          <div style={{
-            position: "absolute", inset: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem",
-            overflowY: "auto",
-          }}>
-            <div style={{
-              width: "100%", maxWidth: 1100,
-              background: "#FAF6F0",
-              border: "1px solid rgba(212,200,184,0.5)",
-              borderRadius: 6,
-              overflow: "hidden",
-              boxShadow: "0 8px 60px rgba(31,20,16,0.14)",
-            }}>
-              {/* Full image — height:auto so nothing is cut */}
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem", overflowY: "auto" }}>
+            <div style={{ width: "100%", maxWidth: 1100, background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 60px rgba(31,20,16,0.14)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/ai-sphere.jpg"
-                alt="AI система"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-              {/* Text below image */}
+              <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <p style={{
-                  fontFamily: "var(--font-space-grotesk-var), sans-serif",
-                  fontWeight: 600, fontSize: "0.65rem",
-                  letterSpacing: "0.18em", textTransform: "uppercase",
-                  color: "#C41230", margin: "0 0 0.5rem",
-                }}>
+                <p style={{ fontFamily: "var(--font-space-grotesk-var), sans-serif", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C41230", margin: "0 0 0.5rem" }}>
                   AI-системы, которые работают
                 </p>
                 <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)" }}>
@@ -340,36 +298,20 @@ export default function Home() {
             </div>
           </div>
         </SectionOverlay>
-
-        {/* Process — enters with s5 settled, holds long, exits before s5 fades */}
+        {/* Process */}
         <SectionOverlay p={p} enter={0.90} show={0.91} hide={0.96} exit={0.98}>
           <Process />
         </SectionOverlay>
       </div>
 
-      {/* ── SCROLL SPACER — pointer-events:none so it doesn't block fixed layer ── */}
-      {/* 1600vh: each section gets ~255vh. FinalCTA enters at p≈0.933, all overlays exit by 0.92 */}
+      {/* ── SCROLL SPACER ── */}
       <div id="scroll-spacer" ref={ref} style={{ height: "1600vh", position: "relative", pointerEvents: "none" }} />
 
-      {/* ── FINAL SCREEN — no margin-top overlap so animation runs clean to p=1.0 ── */}
-      <div
-        id="cta"
-        style={{
-          position: "relative",
-          zIndex: 1,
-          marginTop: 0,
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
-          <FinalCTA />
-        </div>
+      {/* ── FINAL SCREEN ── */}
+      <div id="cta" style={{ position: "relative", zIndex: 2, marginTop: 0, minHeight: "100svh" }}>
+        <FinalCTA />
       </div>
 
-      {/* Footer */}
       <Footer />
     </>
   );

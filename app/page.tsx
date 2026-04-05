@@ -48,12 +48,12 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.37, end:0.43, exitS:0.49, exit:0.53, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5 (door-holes): robot + butterfly — enter when s5 settles (0.93), Process text at 0.95
+  // Scene 5 (door-holes): robot + butterfly — enter when s5 settles (0.90), hold until 0.95
   { src: "/images/objects/img-4780.webp",
-    enter:0.93, end:0.94, exitS:0.97, exit:0.99, w:250,
+    enter:0.90, end:0.91, exitS:0.95, exit:0.97, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.94, end:0.95, exitS:0.98, exit:0.99, w:148,
+    enter:0.91, end:0.92, exitS:0.95, exit:0.97, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -208,13 +208,13 @@ export default function Home() {
   const s4Op = useTransform(p, [0.65, 0.69, 0.77, 0.84], [0, 1, 1, 0]); // full 0.69-0.77
   const s4Sc = useTransform(p, [0.65, 0.84], [1.00, 1.07]);
 
-  // Scene 5 — door with holes: enters ONLY after sphere exits (0.90)
-  const s5Op = useTransform(p, [0.90, 0.93, 0.97, 0.99], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.90, 0.99], [1.00, 1.06]);
+  // Scene 5 — door with holes: enters after sphere exits (0.87), holds long for Process text
+  const s5Op = useTransform(p, [0.87, 0.90, 0.96, 0.99], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.87, 0.99], [1.00, 1.06]);
 
-  // Scene 6 — meditation: enters after Process exits, holds for FinalCTA
-  const s6Op = useTransform(p, [0.96, 1.00], [0, 1]);
-  const s6Sc = useTransform(p, [0.96, 1.00], [1.02, 1.00]);
+  // Scene 6 — meditation: enters after s5 exits, holds for FinalCTA
+  const s6Op = useTransform(p, [0.97, 1.00], [0, 1]);
+  const s6Sc = useTransform(p, [0.97, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -301,7 +301,7 @@ export default function Home() {
           <Examples />
         </SectionOverlay>
         {/* Sphere / девушка — beige gap after s4 exits (0.84): full image, no crop */}
-        <SectionOverlay p={p} enter={0.84} show={0.86} hide={0.88} exit={0.90}>
+        <SectionOverlay p={p} enter={0.84} show={0.85} hide={0.86} exit={0.87}>
           <div style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -341,8 +341,8 @@ export default function Home() {
           </div>
         </SectionOverlay>
 
-        {/* Process — appears AFTER 3D objects are settled, exits before s5 fades */}
-        <SectionOverlay p={p} enter={0.95} show={0.96} hide={0.97} exit={0.98}>
+        {/* Process — enters with s5 settled, holds long, exits before s5 fades */}
+        <SectionOverlay p={p} enter={0.90} show={0.91} hide={0.96} exit={0.98}>
           <Process />
         </SectionOverlay>
       </div>

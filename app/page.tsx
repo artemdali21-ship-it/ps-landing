@@ -167,50 +167,88 @@ function FinalOverlay({ p, enter, show, children }: {
   );
 }
 
+// ─── JS PARALLAX BG — Золотые швы #1: transform:translate3d, not CSS fixed ────
+// background-attachment:fixed breaks iOS Safari. Use real <img> + JS scroll.
+function ParallaxBg({ src, factor = 0.35, overlay }: {
+  src: string; factor?: number; overlay?: string;
+}) {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let rafId: number;
+    const update = () => {
+      if (!imgRef.current || !boxRef.current) return;
+      const rect = boxRef.current.getBoundingClientRect();
+      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * factor;
+      imgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+    };
+    const onScroll = () => { cancelAnimationFrame(rafId); rafId = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(rafId); };
+  }, [factor]);
+
+  return (
+    <div ref={boxRef} style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img ref={imgRef} src={src} alt=""
+        style={{ position: "absolute", top: "-12%", left: 0, width: "100%", height: "124%", objectFit: "cover", willChange: "transform" }} />
+      {overlay && <div style={{ position: "absolute", inset: 0, background: overlay }} />}
+    </div>
+  );
+}
+
 // ─── MOBILE LAYOUT — normal document flow, no fixed/scroll-story ─────────────
 function MobileLayout() {
   return (
     <>
       <Navbar />
-      {/* Hero */}
-      <section style={{
-        position: "relative",
-        minHeight: "100svh",
-        backgroundImage: "url(/images/scenes/1-mobile.webp)",
-        backgroundSize: "cover", backgroundPosition: "center",
-        display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: "88px 1.25rem 3rem",
-      }}>
-        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }} />
-        <h1 className="h1 mb-6 max-w-lg relative" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
-          Освобождаем время<br />для того, что<br />действительно{" "}
-          <span style={{ color: "#C41230" }}>важно.</span>
-        </h1>
-        <p className="font-outfit font-light text-lg leading-relaxed max-w-sm mb-3 relative" style={{ color: "rgba(255,255,255,0.75)" }}>
-          AI-системы, которые работают.
-        </p>
-        <p className="font-space-grotesk font-medium text-crimson text-xs uppercase tracking-widest mb-8 relative">
-          Не начинайте с решения. Начните с результата.
-        </p>
-        <a href="#cta" className="btn-primary self-start relative">Разобрать кейс</a>
+
+      {/* Hero — scene 1, JS parallax */}
+      <section style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "88px 1.25rem 3rem" }}>
+        <ParallaxBg src="/images/scenes/1-mobile.webp" overlay="rgba(0,0,0,0.15)" />
+        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <h1 className="h1 mb-6 max-w-lg" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
+            Освобождаем время<br />для того, что<br />действительно{" "}
+            <span style={{ color: "#C41230" }}>важно.</span>
+          </h1>
+          <p className="font-outfit font-light text-lg leading-relaxed max-w-sm mb-3" style={{ color: "rgba(255,255,255,0.75)" }}>
+            AI-системы, которые работают.
+          </p>
+          <p className="font-space-grotesk font-medium text-crimson text-xs uppercase tracking-widest mb-8">
+            Не начинайте с решения. Начните с результата.
+          </p>
+          <a href="#cta" className="btn-primary self-start">Разобрать кейс</a>
+        </div>
       </section>
-      {/* Content sections — normal scroll */}
+
+      {/* Content sections — normal scroll, own backgrounds */}
       <WhatWeDo />
       <ThreeLevels />
       <Examples />
-      {/* Process — dark bg since text is white */}
-      <section style={{ background: "#1F1410", padding: "5rem 1.25rem" }}>
+
+      {/* Process — scene 5, JS parallax */}
+      <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "50vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <ParallaxBg src="/images/scenes/5-mobile.webp" overlay="rgba(10,6,4,0.55)" />
+        <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
         <p className="font-outfit font-black uppercase leading-tight tracking-tight text-center"
-          style={{ fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff" }}>
+          style={{ position: "relative", zIndex: 2, fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff", textShadow: "0 2px 24px rgba(0,0,0,0.6)" }}>
           СИСТЕМА ДОЛЖНА{" "}
           <span style={{ color: "#C41230" }}>МЕНЯТЬ РЕАЛЬНОСТЬ.</span>
           <br />ИНАЧЕ ЭТО ИНТЕРФЕЙС.
         </p>
       </section>
-      {/* CTA — dark bg */}
-      <div style={{ background: "#1F1410" }}>
-        <FinalCTA />
+
+      {/* CTA — scene 6g (meditation), JS parallax */}
+      <div id="cta-wrapper" style={{ position: "relative" }}>
+        <ParallaxBg src="/images/scenes/6g-mobile.webp" overlay="rgba(20,12,8,0.45)" factor={0.25} />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <FinalCTA />
+        </div>
       </div>
+
       <Footer />
     </>
   );

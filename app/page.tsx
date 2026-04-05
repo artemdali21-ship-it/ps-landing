@@ -48,14 +48,7 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5 — robot hand, appears after Examples exits
-  { src: "/images/objects/img-4780.webp",
-    enter:0.78, end:0.84, exitS:0.91, exit:0.95, w:250,
-    pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
-  // Scene 5 — butterfly, appears with robot hand
-  { src: "/images/objects/img-4500.webp",
-    enter:0.78, end:0.84, exitS:0.91, exit:0.95, w:148,
-    pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
+  // Scene 5 is now clean — robot hand and butterfly removed
 ];
 
 // ─── SCENE COMPONENT ─────────────────────────────────────────────────────────
@@ -292,7 +285,27 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.58} show={0.62} hide={0.71} exit={0.75}>
           <Examples />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.90} exit={0.93}>
+        {/* Sphere / девушка — on clean scene 5 */}
+        <SectionOverlay p={p} enter={0.76} show={0.80} hide={0.84} exit={0.88}>
+          <div style={{
+            position: "absolute", inset: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "transparent",
+          }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/ai-sphere.jpg"
+              alt="AI система"
+              style={{
+                width: "100%", height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          </div>
+        </SectionOverlay>
+
+        <SectionOverlay p={p} enter={0.88} show={0.91} hide={0.94} exit={0.97}>
           <Process />
         </SectionOverlay>
       </div>

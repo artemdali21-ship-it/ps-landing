@@ -680,66 +680,6 @@ export default function Examples() {
           </AnimatePresence>
         </div>
 
-        {/* FOUNDATION */}
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-10 pt-8"
-          style={{ borderTop: "1px solid rgba(31,20,16,0.08)" }}>
-          {FOUNDATIONS.map(({ icon, label }) => (
-            <div key={label} className="flex items-center gap-2" style={{ color: C.taupe }}>
-              {icon}
-              <span className="font-inter font-light text-sm">{label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* TECH STACK */}
-        <div className="text-center mt-5 space-y-1">
-          <p className="font-inter font-light text-xs" style={{ color: C.taupe }}>
-            <span style={{ color: C.espresso, fontWeight: 600 }}>Core:</span> n8n · Supabase · Claude
-          </p>
-          <p className="font-inter font-light text-xs" style={{ color: C.taupe }}>
-            <span style={{ color: C.espresso, fontWeight: 600 }}>РФ:</span> YandexGPT · Gigachat · YandexCloud · Selectel · VK Cloud
-          </p>
-          <p className="font-inter font-light text-xs mt-1" style={{ color: "rgba(31,20,16,0.3)" }}>Данные под вашим контролем</p>
-        </div>
-
-        {/* AI SPHERE IMAGE */}
-        <motion.div className="mt-12" style={{ borderRadius: 20, overflow: "hidden" }}
-          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
-          <img src="/images/ai-sphere.jpg" alt="AI система — архитектура обработки данных"
-            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }} />
-        </motion.div>
-
-        {/* FINAL PHRASE */}
-        <motion.p className="micro-phrase text-center mt-10" style={{ color: C.taupe }}
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.6, delay: 0.3 }}>
-          Работает в процессе, а не в презентации.
-        </motion.p>
-
-        {/* Intermediate CTA */}
-        <motion.div
-          className="flex justify-center mt-8"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <a
-            href="#cta"
-            className="font-space-grotesk font-semibold uppercase text-xs tracking-widest px-8 py-3 rounded-sm transition-all duration-200 hover:-translate-y-0.5"
-            style={{
-              border: "1.5px solid #C41230",
-              color: "#C41230",
-              letterSpacing: "0.14em",
-              background: "transparent",
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(196,18,48,0.06)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-          >
-            Разобрать кейс
-          </a>
-        </motion.div>
 
       </div>
     </section>

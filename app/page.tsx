@@ -48,12 +48,12 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // After sphere — robot hand + butterfly float on scene 5/6 (generous hold)
+  // After sphere — robot hand + butterfly: enter with sphere, hold long (195vh), exit cleanly
   { src: "/images/objects/img-4780.webp",
-    enter:0.83, end:0.87, exitS:0.93, exit:0.97, w:250,
+    enter:0.81, end:0.85, exitS:0.90, exit:0.93, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.84, end:0.88, exitS:0.94, exit:0.98, w:148,
+    enter:0.82, end:0.86, exitS:0.91, exit:0.94, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -203,12 +203,13 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.74, 0.79], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.79], [1.00, 1.06]);
 
-  // Scene 5 — door with holes, enters after door fully exits, holds for sphere+objects
-  const s5Op = useTransform(p, [0.79, 0.84, 0.92, 0.96], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.79, 0.96], [1.00, 1.06]);
+  // Scene 5 — door with holes, holds while sphere+objects show
+  const s5Op = useTransform(p, [0.79, 0.83, 0.90, 0.94], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.79, 0.94], [1.00, 1.06]);
 
-  const s6Op = useTransform(p, [0.93, 0.98], [0, 1]);
-  const s6Sc = useTransform(p, [0.93, 1.00], [1.02, 1.00]);
+  // Scene 6 — meditation forest, fades in when Process appears
+  const s6Op = useTransform(p, [0.87, 0.92], [0, 1]);
+  const s6Sc = useTransform(p, [0.87, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -292,7 +293,7 @@ export default function Home() {
           <Examples />
         </SectionOverlay>
         {/* Sphere / девушка — contained glass card on scene 5 */}
-        <SectionOverlay p={p} enter={0.80} show={0.83} hide={0.89} exit={0.93}>
+        <SectionOverlay p={p} enter={0.78} show={0.81} hide={0.85} exit={0.88}>
           <div style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -338,14 +339,15 @@ export default function Home() {
           </div>
         </SectionOverlay>
 
-        {/* Process — enters ONLY after sphere fully exits */}
-        <SectionOverlay p={p} enter={0.93} show={0.95} hide={0.97} exit={0.99}>
+        {/* Process — enters ONLY after sphere exits (0.88), must exit before FinalCTA (p≈0.933 with 1600vh) */}
+        <SectionOverlay p={p} enter={0.88} show={0.90} hide={0.91} exit={0.92}>
           <Process />
         </SectionOverlay>
       </div>
 
       {/* ── SCROLL SPACER — pointer-events:none so it doesn't block fixed layer ── */}
-      <div id="scroll-spacer" ref={ref} style={{ height: "1200vh", position: "relative", pointerEvents: "none" }} />
+      {/* 1600vh: each section gets ~255vh. FinalCTA enters at p≈0.933, all overlays exit by 0.92 */}
+      <div id="scroll-spacer" ref={ref} style={{ height: "1600vh", position: "relative", pointerEvents: "none" }} />
 
       {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
       <div

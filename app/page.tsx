@@ -296,8 +296,8 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.42} show={0.45} hide={0.50} exit={0.53}>
           <ThreeLevels />
         </SectionOverlay>
-        {/* Examples — appears only after s4 fully visible (0.69) */}
-        <SectionOverlay p={p} enter={0.69} show={0.72} hide={0.77} exit={0.81}>
+        {/* Examples — enters WITH s4 (0.65) so digital-screens scene never shows alone */}
+        <SectionOverlay p={p} enter={0.65} show={0.69} hide={0.77} exit={0.81}>
           <Examples />
         </SectionOverlay>
         {/* Sphere / девушка — beige gap after s4 exits (0.84): full image, no crop */}

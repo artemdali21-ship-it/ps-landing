@@ -48,13 +48,13 @@ const OBJECTS: ObjCfg[] = [
   { src: "/images/objects/img-4792.webp",
     enter:0.34, end:0.40, exitS:0.47, exit:0.52, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
-  // Scene 5 — robot hand appears with butterfly (door/holes scene)
+  // Scene 5 — robot hand, appears after Examples exits
   { src: "/images/objects/img-4780.webp",
-    enter:0.65, end:0.71, exitS:0.79, exit:0.84, w:250,
+    enter:0.78, end:0.84, exitS:0.91, exit:0.95, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
-  // Scene 5 — butterfly moved to LEFT side
+  // Scene 5 — butterfly, appears with robot hand
   { src: "/images/objects/img-4500.webp",
-    enter:0.65, end:0.71, exitS:0.80, exit:0.85, w:148,
+    enter:0.78, end:0.84, exitS:0.91, exit:0.95, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -202,11 +202,12 @@ export default function Home() {
   const s4Op = useTransform(p, [0.47, 0.54, 0.70, 0.75], [0, 1, 1, 0]);
   const s4Sc = useTransform(p, [0.47, 0.75], [1.00, 1.06]);
 
-  const s5Op = useTransform(p, [0.57, 0.64, 0.88, 0.93], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.57, 0.93], [1.00, 1.08]);
+  // Scene 5 enters ONLY after Examples exits (0.75) — door with holes
+  const s5Op = useTransform(p, [0.75, 0.82, 0.91, 0.95], [0, 1, 1, 0]);
+  const s5Sc = useTransform(p, [0.75, 0.95], [1.00, 1.06]);
 
-  const s6Op = useTransform(p, [0.88, 0.95], [0, 1]);
-  const s6Sc = useTransform(p, [0.88, 1.00], [1.02, 1.00]);
+  const s6Op = useTransform(p, [0.91, 0.97], [0, 1]);
+  const s6Sc = useTransform(p, [0.91, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
@@ -289,7 +290,7 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.62} show={0.62} hide={0.71} exit={0.75} snap>
           <Examples />
         </SectionOverlay>
-        <SectionOverlay p={p} enter={0.74} show={0.79} hide={0.89} exit={0.94}>
+        <SectionOverlay p={p} enter={0.82} show={0.86} hide={0.92} exit={0.96}>
           <Process />
         </SectionOverlay>
       </div>

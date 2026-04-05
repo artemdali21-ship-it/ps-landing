@@ -274,7 +274,7 @@ function MobileLayout() {
 
       {/* CTA — scene 6g (meditation), JS parallax */}
       <div id="cta-wrapper" style={{ position: "relative" }}>
-        <ParallaxBg src="/images/scenes/6g-mobile.webp" overlay="rgba(20,12,8,0.45)" factor={0.25} />
+        <ParallaxBg src="/images/scenes/6g-desktop.webp" overlay="rgba(20,12,8,0.45)" factor={0.25} />
         <div style={{ position: "relative", zIndex: 1 }}>
           <FinalCTA />
         </div>

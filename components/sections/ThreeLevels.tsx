@@ -335,8 +335,8 @@ function FolderCard({ level }: { level: Level }) {
 
   return (
     <motion.div
-      onMouseEnter={() => !isMobile && setIsOpen(true)}
-      onMouseLeave={() => !isMobile && setIsOpen(false)}
+      onHoverStart={() => !isMobile && setIsOpen(true)}
+      onHoverEnd={() => !isMobile && setIsOpen(false)}
       onClick={() => isMobile && setIsOpen((o) => !o)}
       whileHover={!isMobile ? { y: -4 } : undefined}
       style={{

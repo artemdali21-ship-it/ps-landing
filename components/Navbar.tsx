@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // Scroll progress targets for each section (fraction of total scroll distance)
-// Derived from page.tsx SectionOverlay show= values
 const NAV_LINKS = [
-  { label: "Услуги",  id: "services", pct: 0.21 },  // WhatWeDo show=0.21
-  { label: "Примеры", id: "examples", pct: 0.65 },  // Examples  show=0.62, mid=0.65
-  { label: "Процесс", id: "process",  pct: 0.87 },  // Process   show=0.86
+  { label: "Услуги",   id: "services", pct: 0.21 },  // WhatWeDo  show=0.21
+  { label: "Форматы",  id: "formats",  pct: 0.40 },  // ThreeLevels show=0.40
+  { label: "Процесс",  id: "process",  pct: 0.65 },  // Examples  show=0.62, mid=0.65
 ];
 
 function scrollToSection(pct: number) {

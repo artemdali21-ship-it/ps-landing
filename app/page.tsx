@@ -133,7 +133,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
     <motion.div
       ref={divRef}
       className="absolute inset-0 overflow-hidden"
-      style={{ opacity, y, pointerEvents: "none" }}
+      style={{ opacity, y }}
     >
       {children}
     </motion.div>
@@ -295,8 +295,8 @@ export default function Home() {
         </SectionOverlay>
       </div>
 
-      {/* ── SCROLL SPACER — id used by Navbar for programmatic scroll ─────────── */}
-      <div id="scroll-spacer" ref={ref} style={{ height: "1200vh", position: "relative" }} />
+      {/* ── SCROLL SPACER — pointer-events:none so it doesn't block fixed layer ── */}
+      <div id="scroll-spacer" ref={ref} style={{ height: "1200vh", position: "relative", pointerEvents: "none" }} />
 
       {/* ── FINAL SCREEN — transparent, fixed layer provides the bg ─────────── */}
       <div

@@ -137,7 +137,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
       className="absolute inset-0"
       style={{ opacity, y, pointerEvents: "none" }}
     >
-      <div style={{ pointerEvents: "auto", height: "100%", overflow: "hidden" }}>{children}</div>
+      <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", overflowX: "hidden" }}>{children}</div>
     </motion.div>
   );
 }
@@ -168,10 +168,8 @@ function FinalOverlay({ p, enter, show, children }: {
   );
 }
 
-// ─── JS PARALLAX BG — Золотые швы #1: transform:translate3d, not CSS fixed ────
-// background-attachment:fixed breaks iOS Safari. Use real <img> + JS scroll.
-function ParallaxBg({ src, factor = 0.35, overlay, objectPosition = "center" }: {
-  src: string; factor?: number; overlay?: string; objectPosition?: string;
+function ParallaxBg({ src, factor = 0.35, overlay, objectPosition = "center", priority = false }: {
+  src: string; factor?: number; overlay?: string; objectPosition?: string; priority?: boolean;
 }) {
   const imgRef = useRef<HTMLImageElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -194,6 +192,9 @@ function ParallaxBg({ src, factor = 0.35, overlay, objectPosition = "center" }: 
     <div ref={boxRef} style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img ref={imgRef} src={src} alt=""
+        fetchPriority={priority ? "high" : "low"}
+        loading={priority ? "eager" : "lazy"}
+        decoding={priority ? "sync" : "async"}
         style={{ position: "absolute", top: "-12%", left: 0, width: "100%", height: "124%", objectFit: "cover", objectPosition, willChange: "transform" }} />
       {overlay && <div style={{ position: "absolute", inset: 0, background: overlay }} />}
     </div>
@@ -209,7 +210,7 @@ function MobileLayout() {
 
       {/* Hero — scene 1, JS parallax */}
       <section style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "88px 1.25rem 3rem" }}>
-        <ParallaxBg src="/images/scenes/1-mobile.webp" overlay="rgba(0,0,0,0.15)" />
+        <ParallaxBg src="/images/scenes/1-mobile.webp" overlay="rgba(0,0,0,0.15)" priority={true} />
         <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
         {/* Floating crumpled paper — hero top right */}
         <motion.img src="/images/objects/--------------2026-04-03---10-43-19.webp" alt=""

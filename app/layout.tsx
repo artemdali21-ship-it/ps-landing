@@ -68,6 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
           rel="stylesheet"
         />
+        {/* Preload hero scenes — LCP images, критически важно для PageSpeed */}
+        <link rel="preload" as="image" href="/images/scenes/1-desktop.webp" media="(min-width: 768px)" />
+        <link rel="preload" as="image" href="/images/scenes/1-mobile.webp" media="(max-width: 767px)" />
         <style dangerouslySetInnerHTML={{ __html: `
           *, *::before, *::after { box-sizing: border-box; }
           html { scroll-behavior: smooth; }
@@ -93,7 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           .h1 {
             font-family: 'Satoshi', var(--font-outfit-var), sans-serif;
-            font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900; font-size: clamp(1.75rem, 8vw, 5rem);
             line-height: 1.05; color: #1F1410;
             text-transform: uppercase; letter-spacing: -0.02em;
           }

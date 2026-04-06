@@ -209,11 +209,16 @@ function MobileLayout() {
       <section style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "88px 1.25rem 3rem" }}>
         <ParallaxBg src="/images/scenes/1-mobile.webp" overlay="rgba(0,0,0,0.15)" />
         <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
-        {/* Floating butterfly — hero top right */}
-        <motion.img src="/images/objects/img-4500.webp" alt=""
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-          style={{ position: "absolute", top: "14%", right: "4%", width: "30%", maxWidth: 120, zIndex: 2, pointerEvents: "none", opacity: 0.85, filter: "drop-shadow(0 6px 20px rgba(0,0,0,0.4))" }} />
+        {/* Floating crumpled paper — hero top right */}
+        <motion.img src="/images/objects/--------------2026-04-03---10-43-19.webp" alt=""
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          style={{ position: "absolute", top: "16%", right: "5%", width: "22%", maxWidth: 90, zIndex: 2, pointerEvents: "none", opacity: 0.82, filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.35))" }} />
+        {/* Floating crumpled paper — bottom left */}
+        <motion.img src="/images/objects/--------------2026-04-03---10-43-02.webp" alt=""
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 1.1 }}
+          style={{ position: "absolute", bottom: "18%", left: "4%", width: "16%", maxWidth: 65, zIndex: 2, pointerEvents: "none", opacity: 0.75, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.3))" }} />
         <div style={{ position: "relative", zIndex: 2 }}>
           <h1 className="h1 mb-6 max-w-lg" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
             Освобождаем время<br />для того, что<br />действительно{" "}
@@ -232,11 +237,16 @@ function MobileLayout() {
       {/* Scene 2 — interior/office visual break before WhatWeDo */}
       <div style={{ position: "relative", height: "50vw", minHeight: "200px", maxHeight: "340px" }}>
         <ParallaxBg src="/images/scenes/2-mobile.webp" factor={0.3} />
-        {/* Floating robot arm — right side */}
-        <motion.img src="/images/objects/img-4780.webp" alt=""
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4.1, repeat: Infinity, ease: "easeInOut", delay: 1.0 }}
-          style={{ position: "absolute", bottom: "10%", right: "-3%", width: "36%", maxWidth: 130, zIndex: 2, pointerEvents: "none", opacity: 0.88, filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.5))" }} />
+        {/* Floating marble head — right side */}
+        <motion.img src="/images/objects/img-4774.webp" alt=""
+          animate={{ y: [0, -11, 0] }}
+          transition={{ duration: 4.0, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+          style={{ position: "absolute", top: "8%", right: "-2%", width: "38%", maxWidth: 140, zIndex: 2, pointerEvents: "none", opacity: 0.9, filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.4))" }} />
+        {/* Floating coral — bottom left */}
+        <motion.img src="/images/objects/img-4791.webp" alt=""
+          animate={{ y: [0, -9, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+          style={{ position: "absolute", bottom: "6%", left: "5%", width: "24%", maxWidth: 88, zIndex: 2, pointerEvents: "none", opacity: 0.85, filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.35))" }} />
       </div>
 
       <WhatWeDo />
@@ -245,11 +255,11 @@ function MobileLayout() {
       {/* Scene 3 — clean office visual break before Examples */}
       <div style={{ position: "relative", height: "50vw", minHeight: "200px", maxHeight: "300px" }}>
         <ParallaxBg src="/images/scenes/3-mobile.webp" factor={0.3} />
-        {/* Floating butterfly — left side */}
-        <motion.img src="/images/objects/img-4500.webp" alt=""
-          animate={{ y: [0, -9, 0] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-          style={{ position: "absolute", top: "8%", left: "-2%", width: "32%", maxWidth: 120, zIndex: 2, pointerEvents: "none", opacity: 0.82, filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.4))" }} />
+        {/* Floating crystal cube — left side */}
+        <motion.img src="/images/objects/img-4792.webp" alt=""
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3.9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          style={{ position: "absolute", top: "6%", left: "-3%", width: "40%", maxWidth: 150, zIndex: 2, pointerEvents: "none", opacity: 0.88, filter: "drop-shadow(0 8px 22px rgba(0,0,0,0.4))" }} />
       </div>
 
       <Examples />
@@ -257,11 +267,11 @@ function MobileLayout() {
       {/* Scene 4 — digital screens, before sphere card */}
       <div style={{ position: "relative", height: "45vw", minHeight: "180px", maxHeight: "280px" }}>
         <ParallaxBg src="/images/scenes/4-mobile.webp" factor={0.3} />
-        {/* Floating robot arm — top right */}
-        <motion.img src="/images/objects/img-4780.webp" alt=""
-          animate={{ y: [0, -11, 0] }}
-          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          style={{ position: "absolute", top: "5%", right: "3%", width: "34%", maxWidth: 125, zIndex: 2, pointerEvents: "none", opacity: 0.9, filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.45))" }} />
+        {/* Floating crumpled paper — top right */}
+        <motion.img src="/images/objects/--------------2026-04-03---10-43-44.webp" alt=""
+          animate={{ y: [0, -9, 0] }}
+          transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+          style={{ position: "absolute", top: "10%", right: "4%", width: "20%", maxWidth: 75, zIndex: 2, pointerEvents: "none", opacity: 0.78, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.35))" }} />
       </div>
 
       {/* Sphere card — ai-sphere.jpg glass card (same as desktop) */}

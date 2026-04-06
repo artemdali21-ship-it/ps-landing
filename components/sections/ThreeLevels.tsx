@@ -131,7 +131,7 @@ const LEVELS = [
     number: "01",
     accentColor: "#8A7B6B",
     cards: [
-      { position: "center",  label: "Квалификация входящих", sublabel: "AI фильтр",    iconName: "Filter", image: "/images/cards/L1.png" },
+      { position: "center",  label: "Микросистемы", sublabel: "01", iconName: "Filter", image: "/images/cards/L1.jpg" },
       { position: "left-1",  label: "Итоги встречи",         sublabel: "Авто-протокол", iconName: "FileCheck" },
       { position: "left-2",  label: "Черновик КП",           sublabel: "Из брифа",      iconName: "FileEdit" },
       { position: "right-1", label: "Сортировка входящих",   sublabel: "Приоритеты",    iconName: "ArrowUpDown" },
@@ -152,7 +152,7 @@ const LEVELS = [
     number: "02",
     accentColor: "#C41230",
     cards: [
-      { position: "center",  label: "Система продаж",       sublabel: "CRM + AI",        iconName: "TrendingUp", image: "/images/cards/L2.png" },
+      { position: "center",  label: "Рабочие системы", sublabel: "02", iconName: "TrendingUp", image: "/images/cards/L2.jpg" },
       { position: "left-1",  label: "HR-скрининг",          sublabel: "100 → shortlist",  iconName: "Users" },
       { position: "left-2",  label: "Встреча → задачи",     sublabel: "Протокол",         iconName: "ListChecks" },
       { position: "right-1", label: "Документооборот",      sublabel: "Авто-поток",       iconName: "FolderOpen" },
@@ -173,7 +173,7 @@ const LEVELS = [
     number: "03",
     accentColor: "#D2B68A",
     cards: [
-      { position: "center",  label: "Экспертная оценка",         sublabel: "Human-in-loop",   iconName: "Award", image: "/images/cards/L3.png" },
+      { position: "center",  label: "Экспертные системы", sublabel: "03", iconName: "Award", image: "/images/cards/L3.jpg" },
       { position: "left-1",  label: "Система принятия решений",  sublabel: "С памятью",       iconName: "GitBranch" },
       { position: "left-2",  label: "Аналитика с прогнозом",     sublabel: "Мультифакторная", iconName: "LineChart" },
       { position: "right-1", label: "Контекстная система",       sublabel: "Под отрасль",     iconName: "Brain" },
@@ -270,12 +270,36 @@ function MiniCard({
       }}
     >
       {card.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={card.image}
-          alt={card.label}
-          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10 }}
-        />
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={card.image}
+            alt={card.label}
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10 }}
+          />
+          {isCenter && (
+            <div style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: "24px 10px 12px",
+              background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)",
+              borderRadius: "0 0 10px 10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 2,
+            }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "#fff", textAlign: "center", lineHeight: 1.3 }}>
+                {card.label}
+              </span>
+              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", textAlign: "center" }}>
+                {card.sublabel}
+              </span>
+            </div>
+          )}
+        </div>
       ) : (
         <>
           <span style={{ color: accentColor, display: "flex", flexShrink: 0 }}>

@@ -39,21 +39,21 @@ const OBJECTS: ObjCfg[] = [
     pos:{top:"52%",right:"7%"}, py:-110, fy:13, fd:3.4, fdl:2.4 },
   // Scene 2 — marble head + coral: appear during WhatWeDo, exit before ThreeLevels starts
   { src: "/images/objects/img-4774.webp",
-    enter:0.15, end:0.21, exitS:0.36, exit:0.42, w:153,
+    enter:0.13, end:0.16, exitS:0.23, exit:0.27, w:153,
     pos:{top:"10%",right:"6%"}, py:-100, fy:12, fd:4.2, fdl:0.3 },
   { src: "/images/objects/img-4791.webp",
-    enter:0.16, end:0.22, exitS:0.37, exit:0.43, w:72,
+    enter:0.14, end:0.17, exitS:0.24, exit:0.28, w:72,
     pos:{bottom:"16%",left:"10%"}, py:-70, fy:16, fd:3.6, fdl:1.2 },
   // ThreeLevels (on s2) — crystal cube: enter before ThreeLevels section, exit WITH s2 (0.53)
   { src: "/images/objects/img-4792.webp",
-    enter:0.37, end:0.43, exitS:0.49, exit:0.53, w:160,
+    enter:0.28, end:0.31, exitS:0.46, exit:0.50, w:160,
     pos:{top:"18%",left:"5%"}, py:-80, fy:14, fd:4.0, fdl:0.6 },
   // Scene 5 (door-holes): robot + butterfly — enter when s5 settles (0.90), hold until 0.95
   { src: "/images/objects/img-4780.webp",
-    enter:0.90, end:0.91, exitS:0.95, exit:0.97, w:250,
+    enter:0.89, end:0.90, exitS:0.94, exit:0.96, w:250,
     pos:{bottom:"28%",right:"6%"}, py:-90, fy:14, fd:3.9, fdl:0.5 },
   { src: "/images/objects/img-4500.webp",
-    enter:0.91, end:0.92, exitS:0.95, exit:0.97, w:148,
+    enter:0.90, end:0.91, exitS:0.94, exit:0.96, w:148,
     pos:{top:"18%",left:"7%"}, py:-55, fy:20, fd:3.2, fdl:0.9 },
 ];
 
@@ -350,35 +350,35 @@ export default function Home() {
 
   // ─── SCENE OPACITY / SCALE — SEQUENTIAL (no overlap between scenes) ─────
   // Rule: next scene starts exactly when previous one finishes → zero crossfade mud
-  const s1Op = useTransform(p, [0.00, 0.09, 0.14], [1, 1, 0]);   // exits at 0.14
-  const s1Sc = useTransform(p, [0.00, 0.14], [1.00, 1.08]);
+  const s1Op = useTransform(p, [0.00, 0.07, 0.12], [1, 1, 0]);   // exits at 0.12
+  const s1Sc = useTransform(p, [0.00, 0.12], [1.00, 1.08]);
 
   // s2 holds through BOTH WhatWeDo (0.20-0.30) AND ThreeLevels (0.42-0.53)
   // Clean office (s3) must NOT be visible before ThreeLevels is done
-  const s2Op = useTransform(p, [0.14, 0.20, 0.43, 0.53], [0, 1, 1, 0]); // full 0.20-0.43
-  const s2Sc = useTransform(p, [0.14, 0.53], [1.00, 1.06]);
+  const s2Op = useTransform(p, [0.12, 0.15, 0.26, 0.28], [0, 1, 1, 0]); // WhatWeDo
+  const s2Sc = useTransform(p, [0.12, 0.28], [1.00, 1.06]);
 
   // s3 (clean office) — appears ONLY after ThreeLevels exits (0.53). Visual reward.
-  const s3Op = useTransform(p, [0.53, 0.57, 0.62, 0.65], [0, 1, 1, 0]); // full 0.57-0.62
-  const s3Sc = useTransform(p, [0.53, 0.65], [1.00, 1.04]);
+  const s3Op = useTransform(p, [0.28, 0.30, 0.50, 0.52], [0, 1, 1, 0]); // ThreeLevels
+  const s3Sc = useTransform(p, [0.28, 0.52], [1.00, 1.04]);
 
   // Scene 4 — door: enters when clean office exits (0.65), holds while Examples shows
-  const s4Op = useTransform(p, [0.65, 0.69, 0.77, 0.84], [0, 1, 1, 0]); // full 0.69-0.77
-  const s4Sc = useTransform(p, [0.65, 0.84], [1.00, 1.07]);
+  const s4Op = useTransform(p, [0.52, 0.54, 0.74, 0.76], [0, 1, 1, 0]); // Examples
+  const s4Sc = useTransform(p, [0.52, 0.76], [1.00, 1.07]);
 
   // Scene 5 — door with holes: enters after sphere exits (0.87), holds long for Process text
-  const s5Op = useTransform(p, [0.87, 0.90, 0.96, 0.99], [0, 1, 1, 0]);
-  const s5Sc = useTransform(p, [0.87, 0.99], [1.00, 1.06]);
+  const s5Op = useTransform(p, [0.85, 0.87, 0.96, 0.98], [0, 1, 1, 0]); // Process
+  const s5Sc = useTransform(p, [0.85, 0.98], [1.00, 1.06]);
 
   // Scene 6 — meditation: enters after s5 exits, holds for FinalCTA
-  const s6Op = useTransform(p, [0.97, 1.00], [0, 1]);
-  const s6Sc = useTransform(p, [0.97, 1.00], [1.02, 1.00]);
+  const s6Op = useTransform(p, [0.96, 1.00], [0, 1]); // CTA
+  const s6Sc = useTransform(p, [0.96, 1.00], [1.02, 1.00]);
 
 
   // ─── HERO TEXT ───────────────────────────────────────────────────────────
-  const heroOp = useTransform(p, [0.00, 0.06, 0.09], [1, 1, 0]);
-  const heroY  = useTransform(p, [0.00, 0.09], [0, -50]);
-  const hintOp = useTransform(p, [0.00, 0.03], [1, 0]);
+  const heroOp = useTransform(p, [0.00, 0.05, 0.08], [1, 1, 0]);
+  const heroY  = useTransform(p, [0.00, 0.08], [0, -50]);
+  const hintOp = useTransform(p, [0.00, 0.02], [1, 0]);
 
   // All hooks done — now safe to branch
   if (isMobile) return <MobileLayout />;
@@ -430,19 +430,19 @@ export default function Home() {
       {/* ── FIXED OVERLAY LAYER — NO overflow:hidden so sections scroll on mobile ── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         {/* WhatWeDo */}
-        <SectionOverlay p={p} enter={0.20} show={0.23} hide={0.28} exit={0.30}>
+        <SectionOverlay p={p} enter={0.13} show={0.15} hide={0.24} exit={0.26}>
           <WhatWeDo />
         </SectionOverlay>
         {/* ThreeLevels */}
-        <SectionOverlay p={p} enter={0.42} show={0.45} hide={0.50} exit={0.53}>
+        <SectionOverlay p={p} enter={0.28} show={0.30} hide={0.48} exit={0.50}>
           <ThreeLevels />
         </SectionOverlay>
         {/* Examples */}
-        <SectionOverlay p={p} enter={0.65} show={0.69} hide={0.77} exit={0.81}>
+        <SectionOverlay p={p} enter={0.52} show={0.54} hide={0.72} exit={0.74}>
           <Examples />
         </SectionOverlay>
         {/* Sphere — beige gap after s4 exits, holds until Process begins */}
-        <SectionOverlay p={p} enter={0.84} show={0.85} hide={0.90} exit={0.92}>
+        <SectionOverlay p={p} enter={0.76} show={0.78} hide={0.83} exit={0.85}>
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem", overflowY: "auto" }}>
             <div style={{ width: "100%", maxWidth: 1100, background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 60px rgba(31,20,16,0.14)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -456,7 +456,7 @@ export default function Home() {
           </div>
         </SectionOverlay>
         {/* Process */}
-        <SectionOverlay p={p} enter={0.90} show={0.91} hide={0.96} exit={0.98}>
+        <SectionOverlay p={p} enter={0.87} show={0.89} hide={0.96} exit={0.98}>
           <Process />
         </SectionOverlay>
       </div>

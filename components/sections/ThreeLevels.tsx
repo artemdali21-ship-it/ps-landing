@@ -383,15 +383,15 @@ function FolderCard({ level }: { level: Level }) {
       transition={{ duration: 0.2 }}
       style={{
         background: "rgba(250,246,240,0.9)",
-        borderRadius: 20,
-        padding: 28,
+        borderRadius: 16,
+        padding: 20,
         cursor: "pointer",
         position: "relative",
         overflow: "visible",
       }}
     >
       {/* Fan of 5 mini-cards */}
-      <div style={{ height: 220, position: "relative", marginBottom: 24 }}>
+      <div style={{ height: 180, position: "relative", marginBottom: 16 }}>
         {level.cards.map((card, i) => (
           <MiniCard
             key={i}
@@ -511,12 +511,12 @@ function FolderCard({ level }: { level: Level }) {
 
 export default function ThreeLevels() {
   return (
-    <section id="services" className="section-padding" style={{ background: "#FAF6F0" }}>
+    <section id="services" className="section-padding" style={{ paddingTop: "4rem", paddingBottom: "3rem", background: "#FAF6F0" }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Header — kept exactly as original */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -536,7 +536,7 @@ export default function ThreeLevels() {
         </motion.div>
 
         {/* Folders UI */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
           {LEVELS.map((level, idx) => (
             <FolderCard key={idx} level={level} />
           ))}
@@ -544,7 +544,7 @@ export default function ThreeLevels() {
 
         {/* Intermediate CTA */}
         <motion.div
-          className="flex justify-center mt-12"
+          className="flex justify-center mt-8"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}

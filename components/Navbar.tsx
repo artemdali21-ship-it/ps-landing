@@ -6,9 +6,9 @@ import Link from "next/link";
 
 // Scroll progress targets for each section (fraction of total scroll distance)
 const NAV_LINKS = [
-  { label: "Услуги",   id: "services", pct: 0.23 },  // WhatWeDo  show=0.23
-  { label: "Форматы",  id: "services",  pct: 0.45 },  // ThreeLevels show=0.45
-  { label: "Процесс",  id: "process",  pct: 0.69 },  // Examples  show=0.72
+  { label: "Услуги",   id: "services", pct: 0.15 },  // WhatWeDo  show=0.23
+  { label: "Форматы",  id: "services", pct: 0.30 },  // ThreeLevels show=0.45
+  { label: "Процесс",  id: "process",  pct: 0.54 },  // Examples  show=0.72
 ];
 
 function scrollToSection(pct: number) {
@@ -75,15 +75,14 @@ export default function Navbar() {
 
           {/* Right side: CTA + burger */}
           <div className="flex items-center gap-3">
-            <a
-              href="#cta"
+            <button
               className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-4 md:px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
-              style={{ letterSpacing: "0.12em" }}
-              onClick={() => setOpen(false)}
+              style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer" }}
+              onClick={() => { scrollToSection(0.89); setOpen(false); }}
             >
               <span className="hidden sm:inline">Разобрать кейс</span>
               <span className="sm:hidden">Кейс</span>
-            </a>
+            </button>
 
             {/* Burger — mobile only */}
             <button

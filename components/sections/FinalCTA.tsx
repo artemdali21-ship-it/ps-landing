@@ -33,7 +33,7 @@ export default function FinalCTA() {
 
         <motion.p
           className="font-inter font-light text-lg leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.68)" }}
+          style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}

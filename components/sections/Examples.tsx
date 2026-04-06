@@ -681,6 +681,16 @@ export default function Examples() {
         </div>
 
 
+      {/* Foundation badges */}
+      <div className="flex flex-wrap justify-center gap-3 mt-6 pb-8">
+        {FOUNDATIONS.map((f, i) => (
+          <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}>
+            <span style={{ color: "#C41230" }}>{f.icon}</span>
+            <span className="font-space-grotesk uppercase tracking-widest" style={{ fontSize: "0.65rem", color: "rgba(31,20,16,0.7)" }}>{f.label}</span>
+          </div>
+        ))}
+      </div>
+
       </div>
     </section>
   );

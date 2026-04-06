@@ -575,7 +575,7 @@ export default function Examples() {
   ];
 
   return (
-    <section id="examples" style={{ background: "#FAF6F0", padding: "72px 1.25rem 0" }}>
+    <section id="examples" style={{ background: "#FAF6F0", padding: "clamp(32px, 6vh, 72px) 1.25rem 0" }}>
       <div className="max-w-6xl mx-auto">
 
         {/* HEADER — relative so sphere can overflow into diagram zone */}

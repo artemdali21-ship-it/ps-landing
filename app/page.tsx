@@ -137,7 +137,7 @@ function SectionOverlay({ p, enter, show, hide, exit, slideY = 0, snap = false, 
       className="absolute inset-0"
       style={{ opacity, y, pointerEvents: "none" }}
     >
-      <div style={{ pointerEvents: "auto", height: "100%", overflow: "hidden" }}>{children}</div>
+      <div style={{ pointerEvents: "auto", height: "100%", overflowY: "auto", overflowX: "hidden" }}>{children}</div>
     </motion.div>
   );
 }

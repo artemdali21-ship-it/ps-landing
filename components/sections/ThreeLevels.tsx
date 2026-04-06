@@ -259,9 +259,10 @@ function MiniCard({
         marginLeft: isCenter ? -80 : -60,
         width: isCenter ? 160 : 120,
         height: isCenter ? 200 : 160,
-        background: (!isCenter && sideCardBg)
-          ? `url(${sideCardBg}) center/cover`
-          : "#FAF6F0",
+        background: "#FAF6F0",
+        backgroundImage: (!isCenter && sideCardBg) ? `url(${sideCardBg})` : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         borderRadius: 12,
         border: (isCenter && card.image) ? "none" : "1px solid rgba(212,200,184,0.6)",
         boxShadow: "0 8px 32px rgba(31,20,16,0.12)",
@@ -310,25 +311,17 @@ function MiniCard({
         </div>
       ) : (
         <>
-          {/* Dark overlay for side cards with bg image */}
-          {!isCenter && sideCardBg && (
-            <div style={{
-              position: "absolute", inset: 0, borderRadius: 12,
-              background: "rgba(10,6,4,0.42)",
-            }} />
-          )}
-          <span style={{ color: (!isCenter && sideCardBg) ? "#fff" : accentColor, display: "flex", flexShrink: 0, position: "relative" }}>
+          <span style={{ color: accentColor, display: "flex", flexShrink: 0 }}>
             {ICONS[card.iconName] ?? ICONS["FileText"]}
           </span>
           <span
             style={{
               fontSize: isCenter ? 11 : 9,
               fontWeight: 700,
-              color: (!isCenter && sideCardBg) ? "#fff" : "#1F1410",
+              color: "#1F1410",
               textAlign: "center",
               lineHeight: 1.3,
               letterSpacing: 0.2,
-              position: "relative",
             }}
           >
             {card.label}
@@ -336,10 +329,9 @@ function MiniCard({
           <span
             style={{
               fontSize: isCenter ? 9 : 8,
-              color: (!isCenter && sideCardBg) ? "rgba(255,255,255,0.55)" : "rgba(31,20,16,0.45)",
+              color: "rgba(31,20,16,0.45)",
               textAlign: "center",
               lineHeight: 1.2,
-              position: "relative",
             }}
           >
             {card.sublabel}

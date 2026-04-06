@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
       <h1 className="font-space-grotesk font-bold text-charcoal text-3xl md:text-4xl mb-2">
         Политика конфиденциальности
       </h1>
-      <p className="text-taupe text-sm mb-10">Последнее обновление: 23.01.2026</p>
+      <p className="text-taupe text-sm mb-10">Последнее обновление: 06.04.2026</p>
 
       <section className="space-y-8 text-charcoal">
         <div>
@@ -85,6 +85,8 @@ export default function PrivacyPolicy() {
             обрабатываем ваши данные, пожалуйста, свяжитесь с нами:
           </p>
           <ul className="list-none mt-3 space-y-1 font-inter font-light text-taupe">
+            <li>Полищук Артём Викторович, самозанятый (НПД)</li>
+            <li>ИНН: 616204739770</li>
             <li>Email: <a href="mailto:a.polishchuk21@yandex.com" className="text-crimson hover:underline">a.polishchuk21@yandex.com</a></li>
             <li>Telegram: <a href="https://t.me/spaces_love" className="text-crimson hover:underline" target="_blank" rel="noopener noreferrer">@spaces_love</a></li>
           </ul>

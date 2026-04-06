@@ -8,7 +8,7 @@ export default function PublicOffer() {
       <h1 className="font-space-grotesk font-bold text-charcoal text-3xl md:text-4xl mb-2">
         Публичная оферта
       </h1>
-      <p className="text-taupe text-sm mb-10">Дата актуальности: 23.01.2026</p>
+      <p className="text-taupe text-sm mb-10">Дата актуальности: 06.04.2026</p>
 
       <section className="space-y-8 text-charcoal">
         <div>
@@ -103,6 +103,10 @@ export default function PublicOffer() {
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">11. Контактная информация</h2>
           <ul className="list-none space-y-1 font-inter font-light text-taupe">
+            <li>Исполнитель: Полищук Артём Викторович</li>
+            <li>Статус: Самозанятый, плательщик налога на профессиональный доход (НПД)</li>
+            <li>ИНН: 616204739770</li>
+            <li>Регион деятельности: г. Москва</li>
             <li>Email: <a href="mailto:a.polishchuk21@yandex.com" className="text-crimson hover:underline">a.polishchuk21@yandex.com</a></li>
             <li>Telegram: <a href="https://t.me/spaces_love" className="text-crimson hover:underline" target="_blank" rel="noopener noreferrer">@spaces_love</a></li>
           </ul>

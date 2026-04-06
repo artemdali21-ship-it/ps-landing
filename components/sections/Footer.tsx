@@ -22,8 +22,11 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
+        <p className="font-inter font-light text-taupe text-xs text-center">
+          Полищук Артём Викторович · Самозанятый (НПД) · ИНН 616204739770
+        </p>
         <p className="font-inter font-light text-crimson text-sm text-center">
-          Polishchuk Ai Systems · © 2026
+          Polishchuk AI Systems · © 2026
         </p>
       </div>
     </footer>

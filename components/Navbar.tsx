@@ -7,8 +7,8 @@ import Link from "next/link";
 // Scroll progress targets for each section (fraction of total scroll distance)
 const NAV_LINKS = [
   { label: "Услуги",   id: "services", pct: 0.23 },  // WhatWeDo  show=0.23
-  { label: "Форматы",  id: "formats",  pct: 0.45 },  // ThreeLevels show=0.45
-  { label: "Процесс",  id: "process",  pct: 0.72 },  // Examples  show=0.72
+  { label: "Форматы",  id: "services",  pct: 0.45 },  // ThreeLevels show=0.45
+  { label: "Процесс",  id: "process",  pct: 0.69 },  // Examples  show=0.72
 ];
 
 function scrollToSection(pct: number) {
@@ -56,7 +56,7 @@ export default function Navbar() {
               Polishchuk<span className="text-crimson">.</span>
             </span>
             <span className="text-crimson font-space-grotesk font-semibold text-xs tracking-widest uppercase" style={{ letterSpacing: "0.18em", marginTop: 1 }}>
-              Ai Systems
+              AI Systems
             </span>
           </Link>
 

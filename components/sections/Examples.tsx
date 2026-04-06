@@ -78,7 +78,7 @@ const NODE_COLORS = [C.crimson, C.purple, C.blue, C.amber];
 const LAYERS = [
   { color: C.taupe,    label: "Приём и распознавание", sub: "голос→текст, OCR, парсинг" },
   { color: C.blue,     label: "Контекст",              sub: "кто, что, зачем, история" },
-  { color: C.gold,     label: "Выбор маршрута",        sub: "сценарий, модель, fallback" },
+  { color: C.gold,     label: "Выбор маршрута",        sub: "сценарий, модель, резерв" },
   { color: C.crimson,  label: "Логика обработки",      sub: "несколько шагов, не один вызов" },
   { color: C.green,    label: "Контроль качества",     sub: "двойная проверка, стандарты" },
   { color: C.espresso, label: "Готовый результат",     sub: "формат, бренд, канал" },
@@ -101,7 +101,7 @@ const OUTPUTS: { lines: string[]; color: string; minLevel: number }[] = [
 const LEVEL_EXAMPLES: Record<number, string> = {
   1: "Например: квалификация лидов, протоколирование встреч, обработка входящих",
   2: "Например: система продаж, HR-скрининг, документооборот",
-  3: "Например: экспертная оценка, decision support, аналитика",
+  3: "Например: экспертная оценка, поддержка решений, аналитика",
 };
 
 // ─── LAYER ICONS (inline SVG) ────────────────────────────────────────────────
@@ -561,7 +561,7 @@ function IPhone() { return <svg {...IP}><rect x="5" y="2" width="14" height="20"
 const FOUNDATIONS = [
   { icon: <ILock/>,  label: "Безопасность" },
   { icon: <IKey/>,   label: "Контроль доступа" },
-  { icon: <IFlag/>,  label: "Адаптация РФ" },
+  { icon: <IFlag/>,  label: "Локализация РФ" },
   { icon: <IPhone/>, label: "Мультиканальность" },
 ];
 

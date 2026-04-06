@@ -82,8 +82,8 @@ export default function WhatWeDo() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <p className="font-outfit font-medium text-espresso text-xl leading-relaxed max-w-lg">
-                Вам не нужно понимать как устроена система.<br />
-                <span className="text-crimson">Вам нужно чтобы она работала.</span>
+                Вам не нужно понимать, как устроена система.<br />
+                <span className="text-crimson">Вам нужно, чтобы она работала.</span>
               </p>
             </motion.div>
           </div>

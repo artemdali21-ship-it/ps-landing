@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform, useMotionTemplate, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useMagneticHover } from "@/hooks/useMagneticHover";
 
 // Scroll progress targets for each section (fraction of total scroll distance)
 const NAV_LINKS = [
@@ -22,9 +23,29 @@ function scrollToSection(pct: number) {
 export default function Navbar() {
   const scrollY   = useMotionValue(0);
   const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const ctaMagnetic = useMagneticHover(5);
 
   useEffect(() => {
-    function onScroll() { scrollY.set(window.scrollY); }
+    function onScroll() {
+      scrollY.set(window.scrollY);
+      // Compute progress (0–1) same way as page.tsx
+      const spacer = document.getElementById("scroll-spacer");
+      if (spacer) {
+        const total = spacer.offsetHeight - window.innerHeight;
+        if (total > 0) {
+          const progress = Math.min(1, window.scrollY / total);
+          // Find the last nav link whose pct is <= current progress
+          let idx = -1;
+          for (let i = 0; i < NAV_LINKS.length; i++) {
+            if (progress >= NAV_LINKS[i].pct) idx = i;
+          }
+          setActiveIdx(idx);
+        }
+      } else {
+        setActiveIdx(-1);
+      }
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -62,27 +83,40 @@ export default function Navbar() {
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(({ label, id, pct }) => (
+            {NAV_LINKS.map(({ label, id, pct }, i) => (
               <button
-                key={id}
+                key={id + i}
                 onClick={() => scrollToSection(pct)}
-                className="font-space-grotesk font-medium text-xs uppercase tracking-widest text-taupe hover:text-crimson transition-colors duration-200 bg-transparent border-none cursor-pointer p-0"
+                className="relative font-space-grotesk font-medium text-xs uppercase tracking-widest transition-colors duration-200 bg-transparent border-none cursor-pointer p-0"
+                style={{ color: activeIdx === i ? "#C41230" : undefined }}
               >
-                {label}
+                <span className={activeIdx === i ? "text-crimson" : "text-taupe hover:text-crimson"}>
+                  {label}
+                </span>
+                {activeIdx === i && (
+                  <motion.span
+                    layoutId="nav-active-dot"
+                    className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-crimson"
+                    transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                  />
+                )}
               </button>
             ))}
           </div>
 
           {/* Right side: CTA + burger */}
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
+              ref={ctaMagnetic.ref as React.Ref<HTMLButtonElement>}
               className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-4 md:px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
-              style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer" }}
+              style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer", x: ctaMagnetic.x, y: ctaMagnetic.y }}
+              onMouseMove={ctaMagnetic.onMouseMove as React.MouseEventHandler<HTMLButtonElement>}
+              onMouseLeave={ctaMagnetic.onMouseLeave}
               onClick={() => { scrollToSection(0.89); setOpen(false); }}
             >
               <span className="hidden sm:inline">Разобрать кейс</span>
               <span className="sm:hidden">Кейс</span>
-            </button>
+            </motion.button>
 
             {/* Burger — mobile only */}
             <button

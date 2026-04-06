@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import ThreeLevels from "@/components/sections/ThreeLevels";
 import Examples from "@/components/sections/Examples";
@@ -203,6 +204,7 @@ function ParallaxBg({ src, factor = 0.35, overlay, objectPosition = "center" }: 
 function MobileLayout() {
   return (
     <>
+      <ScrollProgressBar />
       <Navbar />
 
       {/* Hero — scene 1, JS parallax */}
@@ -385,6 +387,7 @@ export default function Home() {
 
   return (
     <>
+      <ScrollProgressBar />
       <Navbar />
 
       {/* ── FIXED SCENE LAYER — overflow:hidden clips scaled scenes only ── */}
@@ -403,21 +406,48 @@ export default function Home() {
           className="absolute inset-0 flex flex-col justify-center px-5 md:px-20 pointer-events-none"
           style={{ opacity: heroOp, y: heroY, paddingTop: "80px" }}
         >
-          <h1 className="h1 mb-8 max-w-3xl" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)" }}>
-            Освобождаем время<br />
-            для того, что<br />
-            действительно{" "}
-            <span style={{ color: "#C41230" }}>важно.</span>
+          <h1 className="h1 mb-8 max-w-3xl" style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.35)", overflow: "hidden" }}>
+            {[
+              <>Освобождаем время</>,
+              <>для того, что</>,
+              <>действительно <span style={{ color: "#C41230" }}>важно.</span></>,
+            ].map((line, i) => (
+              <motion.span
+                key={i}
+                className="block"
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                {line}
+              </motion.span>
+            ))}
           </h1>
-          <p className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4" style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}>
+          <motion.p
+            className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
+            style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
+          >
             AI-системы, которые работают.
-          </p>
-          <p className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10">
+          </motion.p>
+          <motion.p
+            className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+          >
             Не начинайте с решения. Начните с результата.
-          </p>
-          <div className="pointer-events-auto">
+          </motion.p>
+          <motion.div
+            className="pointer-events-auto"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.85, ease: "easeOut" }}
+          >
             <a href="#cta" className="btn-primary">Разобрать кейс</a>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Scroll hint */}
@@ -430,19 +460,19 @@ export default function Home() {
       {/* ── FIXED OVERLAY LAYER — NO overflow:hidden so sections scroll on mobile ── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         {/* WhatWeDo */}
-        <SectionOverlay p={p} enter={0.13} show={0.15} hide={0.24} exit={0.26}>
+        <SectionOverlay p={p} enter={0.13} show={0.15} hide={0.24} exit={0.26} slideY={36}>
           <WhatWeDo />
         </SectionOverlay>
         {/* ThreeLevels */}
-        <SectionOverlay p={p} enter={0.28} show={0.30} hide={0.48} exit={0.50}>
+        <SectionOverlay p={p} enter={0.28} show={0.30} hide={0.48} exit={0.50} slideY={36}>
           <ThreeLevels />
         </SectionOverlay>
         {/* Examples */}
-        <SectionOverlay p={p} enter={0.52} show={0.54} hide={0.72} exit={0.74}>
+        <SectionOverlay p={p} enter={0.52} show={0.54} hide={0.72} exit={0.74} slideY={36}>
           <Examples />
         </SectionOverlay>
         {/* Sphere — beige gap after s4 exits, holds until Process begins */}
-        <SectionOverlay p={p} enter={0.76} show={0.78} hide={0.83} exit={0.85}>
+        <SectionOverlay p={p} enter={0.76} show={0.78} hide={0.83} exit={0.85} slideY={36}>
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem", overflowY: "auto" }}>
             <div style={{ width: "100%", maxWidth: 1100, background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 60px rgba(31,20,16,0.14)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -456,7 +486,7 @@ export default function Home() {
           </div>
         </SectionOverlay>
         {/* Process */}
-        <SectionOverlay p={p} enter={0.87} show={0.89} hide={0.96} exit={0.98}>
+        <SectionOverlay p={p} enter={0.87} show={0.89} hide={0.96} exit={0.98} slideY={36}>
           <Process />
         </SectionOverlay>
       </div>

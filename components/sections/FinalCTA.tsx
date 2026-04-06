@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMagneticHover } from "@/hooks/useMagneticHover";
 
 export default function FinalCTA() {
+  const magnetic = useMagneticHover(7);
   return (
     <section
       id="cta"
@@ -51,10 +53,14 @@ export default function FinalCTA() {
           transition={{ duration: 0.7, delay: 0.25 }}
         >
           <motion.a
+            ref={magnetic.ref as React.Ref<HTMLAnchorElement>}
             href="https://t.me/spaces_love"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary relative overflow-visible"
+            style={{ x: magnetic.x, y: magnetic.y }}
+            onMouseMove={magnetic.onMouseMove as React.MouseEventHandler<HTMLAnchorElement>}
+            onMouseLeave={magnetic.onMouseLeave}
             animate={{
               boxShadow: [
                 "0 0 0 0 rgba(196,18,48,0)",

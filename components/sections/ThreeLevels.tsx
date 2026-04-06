@@ -254,10 +254,10 @@ function MiniCard({
         marginLeft: isCenter ? -80 : -60,
         width: isCenter ? 160 : 120,
         height: isCenter ? 200 : 160,
-        background: "rgba(31,20,16,0.95)",
+        background: "#FAF6F0",
         borderRadius: 12,
-        border: "1px solid rgba(255,255,255,0.08)",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+        border: "1px solid rgba(212,200,184,0.6)",
+        boxShadow: "0 8px 32px rgba(31,20,16,0.12)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -285,7 +285,7 @@ function MiniCard({
             style={{
               fontSize: isCenter ? 11 : 9,
               fontWeight: 700,
-              color: "#FFFFFF",
+              color: "#1F1410",
               textAlign: "center",
               lineHeight: 1.3,
               letterSpacing: 0.2,
@@ -296,7 +296,7 @@ function MiniCard({
           <span
             style={{
               fontSize: isCenter ? 9 : 8,
-              color: "rgba(255,255,255,0.45)",
+              color: "rgba(31,20,16,0.45)",
               textAlign: "center",
               lineHeight: 1.2,
             }}

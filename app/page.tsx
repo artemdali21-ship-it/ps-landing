@@ -442,8 +442,8 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.65} show={0.69} hide={0.77} exit={0.81}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere — beige gap after s4 exits */}
-        <SectionOverlay p={p} enter={0.84} show={0.85} hide={0.86} exit={0.87}>
+        {/* Sphere — beige gap after s4 exits, holds until Process begins */}
+        <SectionOverlay p={p} enter={0.84} show={0.85} hide={0.90} exit={0.92}>
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem", overflowY: "auto" }}>
             <div style={{ width: "100%", maxWidth: 1100, background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 60px rgba(31,20,16,0.14)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -148,7 +148,7 @@ function DashLink({ x1, y1, x2, y2, show }: { x1: number; y1: number; x2: number
   );
 }
 
-// ─── LIQUID GLASS CORE ───────────────────────────────────────────────────────
+// ─── LIQUID GLASS CORE ────────────────────────────────────────────────────��──
 const CARD_W = 216;
 const CARD_H = 44;
 const CARD_GAP = 5;
@@ -682,7 +682,7 @@ export default function Examples() {
 
 
       {/* Foundation badges */}
-      <div className="flex flex-wrap justify-center gap-3 mt-6 pb-8">
+      <div className="flex flex-wrap justify-center gap-2 mt-4 pb-4">
         {FOUNDATIONS.map((f, i) => (
           <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}>
             <span style={{ color: "#C41230" }}>{f.icon}</span>

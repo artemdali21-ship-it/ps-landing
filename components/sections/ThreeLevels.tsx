@@ -129,7 +129,8 @@ const LEVELS = [
     timeline: "1–2 недели",
     description: "Одна задача. Один точный результат.",
     number: "01",
-    accentColor: "#8A7B6B",
+    accentColor: "#4A9B6F",
+    sideCardBg: "/images/cards/L11.jpg",
     cards: [
       { position: "center",  label: "Микросистемы", sublabel: "01", iconName: "Filter", image: "/images/cards/L1.jpg" },
       { position: "left-1",  label: "Итоги встречи",         sublabel: "Авто-протокол", iconName: "FileCheck" },
@@ -151,6 +152,7 @@ const LEVELS = [
     description: "Связанный процесс от входа до результата.",
     number: "02",
     accentColor: "#C41230",
+    sideCardBg: "/images/cards/L22.jpg",
     cards: [
       { position: "center",  label: "Рабочие системы", sublabel: "02", iconName: "TrendingUp", image: "/images/cards/L2.jpg" },
       { position: "left-1",  label: "HR-скрининг",          sublabel: "100 → shortlist",  iconName: "Users" },
@@ -171,7 +173,8 @@ const LEVELS = [
     timeline: "4–12 недель",
     description: "Там, где важны контекст, проверка и цена ошибки.",
     number: "03",
-    accentColor: "#D2B68A",
+    accentColor: "#C9A84C",
+    sideCardBg: "/images/cards/L33.jpg",
     cards: [
       { position: "center",  label: "Экспертные системы", sublabel: "03", iconName: "Award", image: "/images/cards/L3.jpg" },
       { position: "left-1",  label: "Система принятия решений",  sublabel: "С памятью",       iconName: "GitBranch" },
@@ -228,11 +231,13 @@ function MiniCard({
   index,
   isOpen,
   accentColor,
+  sideCardBg,
 }: {
   card: CardData;
   index: number;
   isOpen: boolean;
   accentColor: string;
+  sideCardBg?: string;
 }) {
   const isCenter = index === 0;
   const state = isOpen ? EXPANDED[index] : COLLAPSED[index];
@@ -254,7 +259,9 @@ function MiniCard({
         marginLeft: isCenter ? -80 : -60,
         width: isCenter ? 160 : 120,
         height: isCenter ? 200 : 160,
-        background: "#FAF6F0",
+        background: (!isCenter && sideCardBg)
+          ? `url(${sideCardBg}) center/cover`
+          : "#FAF6F0",
         borderRadius: 12,
         border: (isCenter && card.image) ? "none" : "1px solid rgba(212,200,184,0.6)",
         boxShadow: "0 8px 32px rgba(31,20,16,0.12)",
@@ -303,17 +310,25 @@ function MiniCard({
         </div>
       ) : (
         <>
-          <span style={{ color: accentColor, display: "flex", flexShrink: 0 }}>
+          {/* Dark overlay for side cards with bg image */}
+          {!isCenter && sideCardBg && (
+            <div style={{
+              position: "absolute", inset: 0, borderRadius: 12,
+              background: "rgba(10,6,4,0.42)",
+            }} />
+          )}
+          <span style={{ color: (!isCenter && sideCardBg) ? "#fff" : accentColor, display: "flex", flexShrink: 0, position: "relative" }}>
             {ICONS[card.iconName] ?? ICONS["FileText"]}
           </span>
           <span
             style={{
               fontSize: isCenter ? 11 : 9,
               fontWeight: 700,
-              color: "#1F1410",
+              color: (!isCenter && sideCardBg) ? "#fff" : "#1F1410",
               textAlign: "center",
               lineHeight: 1.3,
               letterSpacing: 0.2,
+              position: "relative",
             }}
           >
             {card.label}
@@ -321,9 +336,10 @@ function MiniCard({
           <span
             style={{
               fontSize: isCenter ? 9 : 8,
-              color: "rgba(31,20,16,0.45)",
+              color: (!isCenter && sideCardBg) ? "rgba(255,255,255,0.55)" : "rgba(31,20,16,0.45)",
               textAlign: "center",
               lineHeight: 1.2,
+              position: "relative",
             }}
           >
             {card.sublabel}
@@ -343,6 +359,7 @@ interface Level {
   description: string;
   number: string;
   accentColor: string;
+  sideCardBg?: string;
   cards: CardData[];
   examples: string[];
 }
@@ -390,6 +407,7 @@ function FolderCard({ level }: { level: Level }) {
             index={i}
             isOpen={isOpen}
             accentColor={level.accentColor}
+            sideCardBg={level.sideCardBg}
           />
         ))}
       </div>

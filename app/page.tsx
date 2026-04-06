@@ -264,14 +264,9 @@ function MobileLayout() {
 
       <Examples />
 
-      {/* Scene 4 — digital screens, before sphere card */}
+      {/* Scene 4 — clean office with door, no floating objects (порядок в офисе) */}
       <div style={{ position: "relative", height: "45vw", minHeight: "180px", maxHeight: "280px" }}>
         <ParallaxBg src="/images/scenes/4-mobile.webp" factor={0.3} />
-        {/* Floating crumpled paper — top right */}
-        <motion.img src="/images/objects/--------------2026-04-03---10-43-44.webp" alt=""
-          animate={{ y: [0, -9, 0] }}
-          transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          style={{ position: "absolute", top: "10%", right: "4%", width: "20%", maxWidth: 75, zIndex: 2, pointerEvents: "none", opacity: 0.78, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.35))" }} />
       </div>
 
       {/* Sphere card — ai-sphere.jpg glass card (same as desktop) */}
@@ -291,12 +286,16 @@ function MobileLayout() {
       <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <ParallaxBg src="/images/scenes/5-mobile.webp" overlay="rgba(10,6,4,0.55)" />
         <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
-        {/* 3D object — robot, bottom right */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/objects/img-4780.webp" alt="" style={{ position: "absolute", bottom: "8%", right: "-4%", width: "52%", maxWidth: 240, zIndex: 2, pointerEvents: "none", opacity: 0.92, filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))" }} />
-        {/* 3D object — butterfly/orb, top left */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/objects/img-4500.webp" alt="" style={{ position: "absolute", top: "6%", left: "-2%", width: "38%", maxWidth: 160, zIndex: 2, pointerEvents: "none", opacity: 0.88, filter: "drop-shadow(0 6px 24px rgba(0,0,0,0.45))" }} />
+        {/* 3D object — robot arm, bottom right, floating */}
+        <motion.img src="/images/objects/img-4780.webp" alt=""
+          animate={{ y: [0, -14, 0] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          style={{ position: "absolute", bottom: "8%", right: "-4%", width: "52%", maxWidth: 240, zIndex: 2, pointerEvents: "none", opacity: 0.92, filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))" }} />
+        {/* 3D object — butterfly, top left, floating */}
+        <motion.img src="/images/objects/img-4500.webp" alt=""
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 4.3, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+          style={{ position: "absolute", top: "6%", left: "-2%", width: "38%", maxWidth: 160, zIndex: 2, pointerEvents: "none", opacity: 0.88, filter: "drop-shadow(0 6px 24px rgba(0,0,0,0.45))" }} />
         <p className="font-outfit font-black uppercase leading-tight tracking-tight text-center"
           style={{ position: "relative", zIndex: 3, fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff", textShadow: "0 2px 24px rgba(0,0,0,0.6)" }}>
           СИСТЕМА ДОЛЖНА{" "}

@@ -617,7 +617,7 @@ export default function Examples() {
             }} />
             <div className="sphere-float" style={{ width: "100%", height: "100%" }}>
               <img
-                src="/images/sphere-3d.png"
+                src="/images/sphere-3d.webp"
                 alt="AI система — 3D визуализация"
                 style={{
                   width: "100%", height: "100%", objectFit: "contain", objectPosition: "top center",
@@ -651,7 +651,7 @@ export default function Examples() {
         {/* DIAGRAM — z-index:2 so sphere wires go behind it */}
         <motion.div layout transition={{ duration: 0.4 }}
           style={{
-            backgroundImage: "url('/images/diagram-bg.jpg'), linear-gradient(135deg, #1a1035 0%, #0d2a4a 40%, #1a2810 70%, #2a1010 100%)",
+            backgroundImage: "url('/images/diagram-bg.webp'), linear-gradient(135deg, #1a1035 0%, #0d2a4a 40%, #1a2810 70%, #2a1010 100%)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: 18,

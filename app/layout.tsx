@@ -63,6 +63,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <head>
+        {/* Preload hero scenes for fast LCP */}
+        <link rel="preload" as="image" href="/images/scenes/1-desktop.webp" media="(min-width: 768px)" />
+        <link rel="preload" as="image" href="/images/scenes/1-mobile.webp" media="(max-width: 767px)" />
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"

@@ -131,7 +131,7 @@ const LEVELS = [
     number: "01",
     accentColor: "#8A7B6B",
     cards: [
-      { position: "center",  label: "Квалификация входящих", sublabel: "AI фильтр",    iconName: "Filter" },
+      { position: "center",  label: "Квалификация входящих", sublabel: "AI фильтр",    iconName: "Filter", image: "/images/cards/L1.png" },
       { position: "left-1",  label: "Итоги встречи",         sublabel: "Авто-протокол", iconName: "FileCheck" },
       { position: "left-2",  label: "Черновик КП",           sublabel: "Из брифа",      iconName: "FileEdit" },
       { position: "right-1", label: "Сортировка входящих",   sublabel: "Приоритеты",    iconName: "ArrowUpDown" },
@@ -152,7 +152,7 @@ const LEVELS = [
     number: "02",
     accentColor: "#C41230",
     cards: [
-      { position: "center",  label: "Система продаж",       sublabel: "CRM + AI",        iconName: "TrendingUp" },
+      { position: "center",  label: "Система продаж",       sublabel: "CRM + AI",        iconName: "TrendingUp", image: "/images/cards/L2.png" },
       { position: "left-1",  label: "HR-скрининг",          sublabel: "100 → shortlist",  iconName: "Users" },
       { position: "left-2",  label: "Встреча → задачи",     sublabel: "Протокол",         iconName: "ListChecks" },
       { position: "right-1", label: "Документооборот",      sublabel: "Авто-поток",       iconName: "FolderOpen" },
@@ -173,7 +173,7 @@ const LEVELS = [
     number: "03",
     accentColor: "#D2B68A",
     cards: [
-      { position: "center",  label: "Экспертная оценка",         sublabel: "Human-in-loop",   iconName: "Award" },
+      { position: "center",  label: "Экспертная оценка",         sublabel: "Human-in-loop",   iconName: "Award", image: "/images/cards/L3.png" },
       { position: "left-1",  label: "Система принятия решений",  sublabel: "С памятью",       iconName: "GitBranch" },
       { position: "left-2",  label: "Аналитика с прогнозом",     sublabel: "Мультифакторная", iconName: "LineChart" },
       { position: "right-1", label: "Контекстная система",       sublabel: "Под отрасль",     iconName: "Brain" },

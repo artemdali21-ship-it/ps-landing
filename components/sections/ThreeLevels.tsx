@@ -538,7 +538,15 @@ export default function ThreeLevels() {
         {/* Folders UI */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
           {LEVELS.map((level, idx) => (
-            <FolderCard key={idx} level={level} />
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <FolderCard level={level} />
+            </motion.div>
           ))}
         </div>
 

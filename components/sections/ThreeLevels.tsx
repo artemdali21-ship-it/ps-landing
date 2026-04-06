@@ -256,14 +256,15 @@ function MiniCard({
         height: isCenter ? 200 : 160,
         background: "#FAF6F0",
         borderRadius: 12,
-        border: "1px solid rgba(212,200,184,0.6)",
+        border: (isCenter && card.image) ? "none" : "1px solid rgba(212,200,184,0.6)",
         boxShadow: "0 8px 32px rgba(31,20,16,0.12)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         gap: 8,
-        padding: "12px 10px",
+        padding: (isCenter && card.image) ? 0 : "12px 10px",
+        overflow: (isCenter && card.image) ? "hidden" : "visible",
         userSelect: "none",
         zIndex: state.zIndex,
         transformOrigin: "bottom center",
@@ -275,7 +276,7 @@ function MiniCard({
           <img
             src={card.image}
             alt={card.label}
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10 }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
           {isCenter && (
             <div style={{

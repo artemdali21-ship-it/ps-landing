@@ -169,8 +169,8 @@ function FinalOverlay({ p, enter, show, children }: {
 
 // ─── JS PARALLAX BG — Золотые швы #1: transform:translate3d, not CSS fixed ────
 // background-attachment:fixed breaks iOS Safari. Use real <img> + JS scroll.
-function ParallaxBg({ src, factor = 0.35, overlay }: {
-  src: string; factor?: number; overlay?: string;
+function ParallaxBg({ src, factor = 0.35, overlay, objectPosition = "center" }: {
+  src: string; factor?: number; overlay?: string; objectPosition?: string;
 }) {
   const imgRef = useRef<HTMLImageElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -193,7 +193,7 @@ function ParallaxBg({ src, factor = 0.35, overlay }: {
     <div ref={boxRef} style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img ref={imgRef} src={src} alt=""
-        style={{ position: "absolute", top: "-12%", left: 0, width: "100%", height: "124%", objectFit: "cover", willChange: "transform" }} />
+        style={{ position: "absolute", top: "-12%", left: 0, width: "100%", height: "124%", objectFit: "cover", objectPosition, willChange: "transform" }} />
       {overlay && <div style={{ position: "absolute", inset: 0, background: overlay }} />}
     </div>
   );
@@ -250,31 +250,34 @@ function MobileLayout() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
           <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
-            <p style={{ fontFamily: "var(--font-space-grotesk-var), sans-serif", fontWeight: 600, fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C41230", margin: "0 0 0.5rem" }}>
-              AI-системы, которые работают
-            </p>
-            <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.2rem, 4vw, 1.6rem)" }}>
-              Работает в процессе,<br />а не в презентации.
+            <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
+              <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
             </h2>
           </div>
         </div>
       </div>
 
-      {/* Process — scene 5, JS parallax */}
-      <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "50vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {/* Process — scene 5, JS parallax + 3D objects */}
+      <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <ParallaxBg src="/images/scenes/5-mobile.webp" overlay="rgba(10,6,4,0.55)" />
         <div className="grain-overlay" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
+        {/* 3D object — robot, bottom right */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/objects/img-4780.webp" alt="" style={{ position: "absolute", bottom: "8%", right: "-4%", width: "52%", maxWidth: 240, zIndex: 2, pointerEvents: "none", opacity: 0.92, filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))" }} />
+        {/* 3D object — butterfly/orb, top left */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/objects/img-4500.webp" alt="" style={{ position: "absolute", top: "6%", left: "-2%", width: "38%", maxWidth: 160, zIndex: 2, pointerEvents: "none", opacity: 0.88, filter: "drop-shadow(0 6px 24px rgba(0,0,0,0.45))" }} />
         <p className="font-outfit font-black uppercase leading-tight tracking-tight text-center"
-          style={{ position: "relative", zIndex: 2, fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff", textShadow: "0 2px 24px rgba(0,0,0,0.6)" }}>
+          style={{ position: "relative", zIndex: 3, fontSize: "clamp(1.8rem, 6vw, 3rem)", color: "#ffffff", textShadow: "0 2px 24px rgba(0,0,0,0.6)" }}>
           СИСТЕМА ДОЛЖНА{" "}
           <span style={{ color: "#C41230" }}>МЕНЯТЬ РЕАЛЬНОСТЬ.</span>
           <br />ИНАЧЕ ЭТО ИНТЕРФЕЙС.
         </p>
       </section>
 
-      {/* CTA — scene 6g (meditation), JS parallax */}
+      {/* CTA — scene 6g (meditation), JS parallax — objectPosition shows person */}
       <div id="cta-wrapper" style={{ position: "relative" }}>
-        <ParallaxBg src="/images/scenes/6g-desktop.webp" overlay="rgba(20,12,8,0.45)" factor={0.25} />
+        <ParallaxBg src="/images/scenes/6g-desktop.webp" overlay="rgba(20,12,8,0.45)" factor={0.25} objectPosition="62% center" />
         <div style={{ position: "relative", zIndex: 1 }}>
           <FinalCTA />
         </div>
@@ -416,11 +419,8 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <p style={{ fontFamily: "var(--font-space-grotesk-var), sans-serif", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#C41230", margin: "0 0 0.5rem" }}>
-                  AI-системы, которые работают
-                </p>
-                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)" }}>
-                  Работает в процессе,<br />а не в презентации.
+                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
+                  <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
                 </h2>
               </div>
             </div>

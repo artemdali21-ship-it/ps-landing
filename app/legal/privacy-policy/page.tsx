@@ -13,78 +13,162 @@ export default function PrivacyPolicy() {
       <p className="text-taupe text-sm mb-10">Последнее обновление: 07.04.2026</p>
 
       <section className="space-y-8 text-charcoal">
-        <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">1. Владелец сайта</h2>
-          <p className="font-inter font-light text-taupe leading-relaxed">
-            Полищук Артём Викторович, самозанятый (плательщик налога на профессиональный доход, НПД),
-            ИНН 616204739770, действующий под брендом Polishchuk AI Systems («мы», «нас», «наш»).
-            В своей работе мы руководствуемся принципами Федерального закона от 27.07.2006 № 152-ФЗ
-            «О персональных данных».
-          </p>
-        </div>
 
         <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">2. Какую информацию мы собираем</h2>
-          <p className="font-inter font-light text-taupe leading-relaxed">
-            Данный сайт не содержит форм ввода данных и не собирает персональные данные посетителей
-            напрямую. Если вы свяжетесь с нами по email или Telegram, мы будем обрабатывать только ту
-            информацию, которую вы предоставите добровольно в рамках переписки (имя, контактные данные,
-            описание вашей задачи).
-          </p>
-        </div>
-
-        <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Аналитика</h2>
-          <p className="font-inter font-light text-taupe leading-relaxed">
-            Мы используем Vercel Web Analytics для анонимной статистики посещений: просматриваемые
-            страницы, переходы, примерная география. Этот сервис не использует cookies и не собирает
-            персональные данные. Данные агрегированы и не позволяют идентифицировать конкретного
-            пользователя.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">4. Хостинг и трансграничная передача данных</h2>
-          <p className="font-inter font-light text-taupe leading-relaxed">
-            Сайт размещён на платформе Vercel Inc. (США). Технические данные о подключении
-            (IP-адрес, заголовки запросов) могут обрабатываться на серверах за пределами Российской
-            Федерации в рамках работы хостинг-провайдера.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">5. Как мы используем информацию</h2>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">1. Общие положения</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Информацию, полученную в ходе добровольной переписки, мы используем исключительно для:
+            Настоящая Политика разработана в соответствии с Федеральным законом от 27.07.2006
+            № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных
+            лицами, обращающимися к услугам Polishchuk AI Systems.
           </p>
-          <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe">
-            <li>Ответа на ваш запрос и организации сотрудничества</li>
-            <li>Оказания согласованных услуг</li>
-            <li>Соблюдения требований применимого законодательства</li>
-          </ul>
+          <p className="font-inter font-light text-taupe leading-relaxed">
+            <strong className="font-medium text-charcoal">Оператор:</strong> Полищук Артём Викторович,
+            самозанятый (плательщик налога на профессиональный доход, НПД), ИНН 616204739770,
+            действующий под брендом Polishchuk AI Systems (далее — «Оператор», «мы»).
+          </p>
           <p className="font-inter font-light text-taupe leading-relaxed mt-3">
-            Мы не отправляем рекламные рассылки и не передаём ваши данные третьим лицам без вашего
-            согласия, за исключением случаев, предусмотренных законодательством.
+            <strong className="font-medium text-charcoal">Персональные данные</strong> — любая
+            информация, относящаяся к прямо или косвенно определённому физическому лицу (субъекту
+            персональных данных), в соответствии с п.1 ст.3 ФЗ-152.
           </p>
         </div>
 
         <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">6. Ваши права</h2>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">2. Цели обработки персональных данных</h2>
+          <p className="font-inter font-light text-taupe leading-relaxed mb-4">
+            Оператор обрабатывает персональные данные только в конкретных, заранее определённых
+            целях и на законных основаниях (ст.6 ФЗ-152):
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-inter font-light text-taupe" style={{ borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.7)" }}>
+                  <th className="text-left py-2 pr-4 font-space-grotesk font-semibold text-charcoal pb-3" style={{ minWidth: "140px" }}>Цель</th>
+                  <th className="text-left py-2 pr-4 font-space-grotesk font-semibold text-charcoal pb-3" style={{ minWidth: "150px" }}>Категории данных</th>
+                  <th className="text-left py-2 pr-4 font-space-grotesk font-semibold text-charcoal pb-3" style={{ minWidth: "160px" }}>Основание (ст.6 ФЗ-152)</th>
+                  <th className="text-left py-2 font-space-grotesk font-semibold text-charcoal pb-3" style={{ minWidth: "130px" }}>Срок хранения</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.4)" }}>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Ответ на обращения через email / Telegram</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Имя, контактные данные, содержание обращения, Telegram username</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">п.1 ч.1 ст.6 — согласие субъекта (факт обращения = согласие)</td>
+                  <td className="py-3 align-top leading-relaxed">До завершения переписки + 1 год</td>
+                </tr>
+                <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.4)" }}>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Исполнение договора об оказании услуг</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">ФИО, реквизиты, контактные данные, данные проекта</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">п.5 ч.1 ст.6 — исполнение договора</td>
+                  <td className="py-3 align-top leading-relaxed">Срок договора + 3 года (исковая давность)</td>
+                </tr>
+                <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.4)" }}>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Налоговая отчётность и бухгалтерский учёт</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">ФИО, ИНН, реквизиты оплаты</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">п.2 ч.1 ст.6 — требование закона</td>
+                  <td className="py-3 align-top leading-relaxed">5 лет (ФЗ «О бухгалтерском учёте»)</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Статистика посещений сайта</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">Агрегированные данные без идентификации</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">п.7 ч.1 ст.6 — законный интерес оператора</td>
+                  <td className="py-3 align-top leading-relaxed">До отзыва или прекращения деятельности</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Какие данные мы обрабатываем</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Если в рамках сотрудничества мы получим ваши персональные данные, вы имеете право:
+            Данный сайт <strong className="font-medium text-charcoal">не содержит форм ввода данных</strong> и
+            не собирает персональные данные посетителей напрямую.
           </p>
           <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe">
-            <li>На доступ к вашим данным и информацию об их обработке</li>
-            <li>На исправление неточных или устаревших данных</li>
-            <li>На удаление данных при отсутствии законных оснований для их хранения</li>
-            <li>На отзыв согласия на обработку</li>
+            <li>
+              <strong className="font-medium text-charcoal">При обращении через Telegram/Email:</strong> имя
+              или username, контактные данные, содержание переписки, описание задачи — только то,
+              что вы сами предоставите.
+            </li>
+            <li>
+              <strong className="font-medium text-charcoal">При заключении договора:</strong> ФИО,
+              ИНН (для ИП/юрлиц), реквизиты для выставления счёта, контактные данные.
+            </li>
+            <li>
+              <strong className="font-medium text-charcoal">Технические данные сайта:</strong> Vercel
+              Web Analytics собирает агрегированную анонимную статистику посещений без cookies
+              и без идентификации пользователей. Хостинг-провайдер (Vercel Inc.) обрабатывает
+              IP-адреса в рамках технического функционирования серверов.
+            </li>
           </ul>
+        </div>
+
+        <div>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">4. Передача данных третьим лицам и трансграничная передача</h2>
+          <p className="font-inter font-light text-taupe leading-relaxed mb-3">
+            В рамках оказания услуг данные могут обрабатываться следующими третьими лицами
+            (обработчиками):
+          </p>
+          <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe mb-4">
+            <li><strong className="font-medium text-charcoal">Vercel Inc. (США)</strong> — хостинг сайта, обработка технических данных (IP-адреса, заголовки запросов).</li>
+            <li><strong className="font-medium text-charcoal">Telegram Messenger Inc. (ОАЭ/Великобритания)</strong> — канал связи с клиентами, переписка хранится на зарубежных серверах.</li>
+            <li><strong className="font-medium text-charcoal">Яндекс (Россия)</strong> — email-провайдер, хранение входящей и исходящей переписки на территории РФ.</li>
+            <li><strong className="font-medium text-charcoal">Anthropic PBC (США)</strong> — AI-сервис (Claude), может использоваться при оказании услуг. Данные клиентов передаются в минимальном объёме и только при необходимости для выполнения задач проекта.</li>
+            <li><strong className="font-medium text-charcoal">Notion Labs Inc. (США)</strong> — система управления проектами, может использоваться для хранения данных о проектах и контактов клиентов.</li>
+          </ul>
+          <p className="font-inter font-light text-taupe leading-relaxed mb-3">
+            <strong className="font-medium text-charcoal">Трансграничная передача данных (ст.12 ФЗ-152):</strong>{" "}
+            Сайт размещён на серверах Vercel Inc. (США). Общение происходит через Telegram
+            и Anthropic API — зарубежные сервисы. США не включены в перечень государств,
+            обеспечивающих адекватную защиту персональных данных по версии Роскомнадзора.
+            Правовое основание трансграничной передачи — ч.4 ст.12 ФЗ-152 (согласие субъекта
+            и необходимость исполнения договора).
+          </p>
+          <p className="font-inter font-light text-taupe leading-relaxed">
+            Мы не продаём и не передаём ваши данные третьим лицам для маркетинговых целей.
+            Перечень обработчиков обновляется при изменении состава используемых сервисов.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">5. Защита персональных данных</h2>
+          <p className="font-inter font-light text-taupe leading-relaxed">
+            Оператор принимает необходимые правовые, организационные и технические меры для
+            защиты персональных данных от неправомерного доступа, уничтожения, изменения,
+            блокирования, копирования и распространения. При работе с зарубежными сервисами
+            Оператор использует только провайдеров с собственными политиками безопасности и
+            защиты данных.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">6. Права субъекта персональных данных</h2>
+          <p className="font-inter font-light text-taupe leading-relaxed mb-3">
+            В соответствии с ФЗ-152 вы имеете право:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe mb-4">
+            <li>На получение информации об обработке ваших персональных данных (ст.14 ФЗ-152)</li>
+            <li>На доступ к своим персональным данным</li>
+            <li>На уточнение, блокирование или уничтожение данных (ст.21 ФЗ-152)</li>
+            <li>На отзыв согласия на обработку</li>
+            <li>На обжалование действий Оператора в уполномоченном органе (Роскомнадзор)</li>
+          </ul>
+          <p className="font-inter font-light text-taupe leading-relaxed">
+            <strong className="font-medium text-charcoal">Порядок реализации прав:</strong> направьте
+            запрос на email{" "}
+            <a href="mailto:a.polishchuk21@yandex.com" className="text-crimson hover:underline">
+              a.polishchuk21@yandex.com
+            </a>{" "}
+            с указанием ФИО и сути запроса. Срок обработки — 10 рабочих дней с момента
+            получения запроса (в соответствии со ст.14 ФЗ-152).
+          </p>
         </div>
 
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">7. Файлы Cookie</h2>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            Подробнее о файлах Cookie и их использовании на сайте — в нашей{" "}
+            Подробнее о технологиях отслеживания, используемых на сайте, — в нашей{" "}
             <Link href="/legal/cookie-policy" className="text-crimson hover:underline">
               Политике использования Cookie
             </Link>.
@@ -94,23 +178,31 @@ export default function PrivacyPolicy() {
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">8. Изменения в Политике</h2>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            Мы оставляем за собой право изменять данную Политику конфиденциальности. Изменения вступают
-            в силу после публикации на сайте. Дата последнего обновления указана в начале документа.
+            Оператор вправе вносить изменения в настоящую Политику. Актуальная версия всегда
+            размещена на сайте. Дата последнего обновления указана в начале документа.
           </p>
         </div>
 
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">9. Контактная информация</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            По любым вопросам о конфиденциальности обращайтесь по контактам ниже. Ответ — в течение
-            30 дней.
+            Ответственный за обработку персональных данных: Полищук Артём Викторович.
+            По вопросам, связанным с обработкой ПД, обращайтесь на email. Ответ — в течение
+            10 рабочих дней.
           </p>
           <ul className="list-none space-y-1 font-inter font-light text-taupe">
-            <li>Полищук Артём Викторович, самозанятый (НПД), ИНН 616204739770</li>
+            <li>ИНН: 616204739770 · Самозанятый (НПД)</li>
             <li>Email: <a href="mailto:a.polishchuk21@yandex.com" className="text-crimson hover:underline">a.polishchuk21@yandex.com</a></li>
             <li>Telegram: <a href="https://t.me/spaces_love" className="text-crimson hover:underline" target="_blank" rel="noopener noreferrer">@spaces_love</a></li>
           </ul>
+          <p className="font-inter font-light text-taupe leading-relaxed mt-4">
+            Связанные документы:{" "}
+            <Link href="/legal/cookie-policy" className="text-crimson hover:underline">Cookie Policy</Link>
+            {" · "}
+            <Link href="/legal/public-offer" className="text-crimson hover:underline">Публичная оферта</Link>
+          </p>
         </div>
+
       </section>
     </>
   );

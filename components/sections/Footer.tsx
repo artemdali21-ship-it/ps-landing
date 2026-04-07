@@ -29,6 +29,14 @@ export default function Footer() {
         <p className="font-inter font-light text-crimson text-sm text-center">
           Polishchuk AI Systems · © 2026
         </p>
+        <p className="font-inter font-light text-center leading-relaxed max-w-2xl mx-auto mt-1" style={{ fontSize: "10px", color: "rgba(109,89,74,0.45)" }}>
+          Описания услуг на сайте носят ознакомительный характер и не являются гарантией конкретного результата.
+          Результаты AI-систем зависят от входных данных, среды внедрения и участия заказчика.
+          Подробные условия —{" "}
+          <Link href="/legal/public-offer" className="underline hover:opacity-75 transition-opacity">
+            Публичная оферта
+          </Link>.
+        </p>
       </div>
     </footer>
   );

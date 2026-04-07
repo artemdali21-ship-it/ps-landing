@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: "Освобождаем время для того, что действительно важно.",
     images: [
       {
-        url: `${SITE_URL}/og`,
+        url: `${SITE_URL}/og-bg.webp`,
         width: 1200,
         height: 630,
         alt: "Polishchuk AI Systems",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Polishchuk AI Systems",
     description: "Освобождаем время для того, что действительно важно.",
-    images: [`${SITE_URL}/og`],
+    images: [`${SITE_URL}/og-bg.webp`],
   },
 };
 

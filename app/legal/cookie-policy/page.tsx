@@ -18,7 +18,7 @@ export default function CookiePolicy() {
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">1. Введение</h2>
           <p className="font-inter font-light text-taupe leading-relaxed">
             Данная страница разъясняет, какие технологии отслеживания используются на сайте
-            polishchuk-ai-systems.vercel.app, принадлежащем самозанятому Полищук Артёму Викторовичу
+            polishchuk-ai-systems.ru, принадлежащем самозанятому Полищук Артёму Викторовичу
             (ИНН 616204739770), действующему под брендом Polishchuk AI Systems.
           </p>
         </div>
@@ -37,23 +37,19 @@ export default function CookiePolicy() {
         </div>
 
         <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Vercel Web Analytics</h2>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Аналитика и технические данные</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Для анализа посещаемости используется Vercel Web Analytics — встроенный инструмент
-            хостинг-провайдера. Этот сервис:
+            На данный момент сайт не использует аналитических сервисов (Яндекс.Метрика,
+            Google Analytics и аналоги). При подключении аналитики в будущем настоящая
+            Политика будет обновлена до начала их использования.
           </p>
-          <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe mb-4">
-            <li>Не использует файлы Cookie</li>
-            <li>Не собирает персональные данные пользователей</li>
-            <li>Работает исключительно на агрегированных и анонимных данных</li>
-            <li>Не позволяет идентифицировать конкретного посетителя</li>
-          </ul>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            При этом хостинг-провайдер{" "}
-            <strong className="font-medium text-charcoal">Vercel Inc. (США)</strong> в рамках
-            технического функционирования серверов обрабатывает IP-адреса посетителей. Это
-            является неотъемлемой частью работы любого веб-хостинга и происходит вне зависимости
-            от использования cookies.
+            Хостинг-провайдер{" "}
+            <strong className="font-medium text-charcoal">Timeweb Cloud (Россия, г. Москва)</strong>{" "}
+            в рамках технического функционирования серверов обрабатывает IP-адреса и заголовки
+            запросов посетителей. Это является стандартной частью работы любого веб-хостинга
+            и происходит вне зависимости от использования cookies. Данные обрабатываются на
+            территории Российской Федерации.
           </p>
         </div>
 

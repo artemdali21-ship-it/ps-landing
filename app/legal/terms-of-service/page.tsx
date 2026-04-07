@@ -18,7 +18,7 @@ export default function TermsOfService() {
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">1. Общие положения</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
             Настоящие Условия регулируют использование сайта{" "}
-            <span className="font-medium text-charcoal">polishchuk-ai-systems.vercel.app</span>{" "}
+            <span className="font-medium text-charcoal">polishchuk-ai-systems.ru</span>{" "}
             (далее — «Сайт»), принадлежащего самозанятому Полищук Артёму Викторовичу
             (ИНН 616204739770, НПД), действующему под брендом Polishchuk AI Systems
             (далее — «Исполнитель»).
@@ -36,12 +36,12 @@ export default function TermsOfService() {
             автоматизации бизнес-процессов. Сайт не является средством массовой информации.
           </p>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            Информация на Сайте носит ознакомительный характер и{" "}
-            <strong className="font-medium text-charcoal">не является публичной офертой</strong>,
-            если не указано иное. Коммерческие условия оказания услуг определяются{" "}
+            Информация на Сайте носит ознакомительный характер.
+            Условия оказания услуг определяются{" "}
             <Link href="/legal/public-offer" className="text-crimson hover:underline">
-              Публичной офертой
-            </Link>.
+              Общими условиями оказания услуг
+            </Link>{" "}
+            и/или индивидуальным договором-заявкой.
           </p>
         </div>
 
@@ -146,7 +146,7 @@ export default function TermsOfService() {
             </li>
             <li>
               <Link href="/legal/public-offer" className="text-crimson hover:underline">
-                Публичная оферта
+                Общие условия оказания услуг
               </Link>{" "}
               — коммерческие условия оказания услуг
             </li>

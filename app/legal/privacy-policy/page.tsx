@@ -53,7 +53,7 @@ export default function PrivacyPolicy() {
                 <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.4)" }}>
                   <td className="py-3 pr-4 align-top leading-relaxed">Ответ на обращения через email / Telegram</td>
                   <td className="py-3 pr-4 align-top leading-relaxed">Имя, контактные данные, содержание обращения, Telegram username</td>
-                  <td className="py-3 pr-4 align-top leading-relaxed">п.1 ч.1 ст.6 — согласие субъекта (факт обращения = согласие)</td>
+                  <td className="py-3 pr-4 align-top leading-relaxed">п.5 ч.1 ст.6 — обработка необходима для ответа на обращение и совершения действий по инициативе субъекта до заключения договора; п.1 ч.1 ст.6 — согласие субъекта в случаях, когда оно требуется законом</td>
                   <td className="py-3 align-top leading-relaxed">До завершения переписки + 1 год</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid rgba(212,200,184,0.4)" }}>
@@ -82,8 +82,9 @@ export default function PrivacyPolicy() {
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Какие данные мы обрабатываем</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Данный сайт <strong className="font-medium text-charcoal">не содержит форм ввода данных</strong> и
-            не собирает персональные данные посетителей напрямую.
+            Данный сайт <strong className="font-medium text-charcoal">не содержит форм сбора данных</strong> и
+            не принимает заявки через веб-интерфейс. Обработка персональных данных может начаться
+            при обращении пользователя по указанным на сайте каналам связи (электронная почта, Telegram).
           </p>
           <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe">
             <li>
@@ -96,10 +97,10 @@ export default function PrivacyPolicy() {
               ИНН (для ИП/юрлиц), реквизиты для выставления счёта, контактные данные.
             </li>
             <li>
-              <strong className="font-medium text-charcoal">Технические данные сайта:</strong> Vercel
-              Web Analytics собирает агрегированную анонимную статистику посещений без cookies
-              и без идентификации пользователей. Хостинг-провайдер (Vercel Inc.) обрабатывает
-              IP-адреса в рамках технического функционирования серверов.
+              <strong className="font-medium text-charcoal">Технические данные сайта:</strong> хостинг-провайдер
+              Timeweb Cloud (Россия) обрабатывает IP-адреса и заголовки запросов в рамках технического
+              функционирования серверов. Данные обрабатываются на территории РФ. Аналитические сервисы
+              на сайте не подключены.
             </li>
           </ul>
         </div>
@@ -111,19 +112,18 @@ export default function PrivacyPolicy() {
             (обработчиками):
           </p>
           <ul className="list-disc pl-6 space-y-2 font-inter font-light text-taupe mb-4">
-            <li><strong className="font-medium text-charcoal">Vercel Inc. (США)</strong> — хостинг сайта, обработка технических данных (IP-адреса, заголовки запросов).</li>
+            <li><strong className="font-medium text-charcoal">Timeweb Cloud (Россия, г. Москва)</strong> — хостинг сайта, обработка технических данных (IP-адреса, заголовки запросов) на территории РФ.</li>
             <li><strong className="font-medium text-charcoal">Telegram Messenger Inc. (ОАЭ/Великобритания)</strong> — канал связи с клиентами, переписка хранится на зарубежных серверах.</li>
             <li><strong className="font-medium text-charcoal">Яндекс (Россия)</strong> — email-провайдер, хранение входящей и исходящей переписки на территории РФ.</li>
             <li><strong className="font-medium text-charcoal">Anthropic PBC (США)</strong> — AI-сервис (Claude), может использоваться при оказании услуг. Данные клиентов передаются в минимальном объёме и только при необходимости для выполнения задач проекта.</li>
-            <li><strong className="font-medium text-charcoal">Notion Labs Inc. (США)</strong> — система управления проектами, может использоваться для хранения данных о проектах и контактов клиентов.</li>
           </ul>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
             <strong className="font-medium text-charcoal">Трансграничная передача данных (ст.12 ФЗ-152):</strong>{" "}
-            Сайт размещён на серверах Vercel Inc. (США). Общение происходит через Telegram
-            и Anthropic API — зарубежные сервисы. США не включены в перечень государств,
-            обеспечивающих адекватную защиту персональных данных по версии Роскомнадзора.
-            Правовое основание трансграничной передачи — ч.4 ст.12 ФЗ-152 (согласие субъекта
-            и необходимость исполнения договора).
+            Сайт размещён на серверах Timeweb Cloud (Россия). При оказании услуг могут использоваться
+            зарубежные сервисы, если это необходимо для исполнения договора или взаимодействия
+            с клиентом. Такая передача осуществляется только в объёме, необходимом для
+            соответствующей цели, при наличии предусмотренных законом оснований.
+            Перечень сервисов указан в разделе 4 настоящей Политики.
           </p>
           <p className="font-inter font-light text-taupe leading-relaxed">
             Мы не продаём и не передаём ваши данные третьим лицам для маркетинговых целей.
@@ -199,7 +199,7 @@ export default function PrivacyPolicy() {
             Связанные документы:{" "}
             <Link href="/legal/cookie-policy" className="text-crimson hover:underline">Cookie Policy</Link>
             {" · "}
-            <Link href="/legal/public-offer" className="text-crimson hover:underline">Публичная оферта</Link>
+            <Link href="/legal/public-offer" className="text-crimson hover:underline">Общие условия оказания услуг</Link>
           </p>
         </div>
 

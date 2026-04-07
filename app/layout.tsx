@@ -26,7 +26,7 @@ const inter = Inter({
   weight: ["300", "400", "500"],
 });
 
-const SITE_URL = "https://polishchuk-systems-landing.vercel.app";
+const SITE_URL = "https://polishchuk-ai-systems.ru";
 
 export const metadata: Metadata = {
   title: "Polishchuk AI Systems — AI-системы, которые работают",

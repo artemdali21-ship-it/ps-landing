@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Публичная оферта — Polishchuk AI Systems",
+  title: "Общие условия оказания услуг — Polishchuk AI Systems",
 };
 
 export default function PublicOffer() {
   return (
     <>
       <h1 className="font-space-grotesk font-bold text-charcoal text-3xl md:text-4xl mb-2">
-        Публичная оферта
+        Общие условия оказания услуг
       </h1>
       <p className="text-taupe text-sm mb-10">Дата актуальности: 07.04.2026</p>
 
@@ -17,7 +17,7 @@ export default function PublicOffer() {
         <div>
           <h2 className="font-space-grotesk font-semibold text-xl mb-3">1. Общие положения</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Настоящий документ является публичной офертой (далее — «Оферта») самозанятого
+            Настоящий документ определяет общие условия оказания услуг (далее — «Условия») самозанятого
             <strong className="font-medium text-charcoal"> Полищук Артёма Викторовича</strong>,
             ИНН 616204739770, плательщика налога на профессиональный доход (НПД), действующего
             под брендом Polishchuk AI Systems (далее — «Исполнитель»), адресованной любому лицу
@@ -28,7 +28,8 @@ export default function PublicOffer() {
             и индивидуальным предпринимателям), так и физическим лицам — потребителям.
           </p>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            Заказчик подтверждает, что ознакомился с настоящей Офертой,{" "}
+            Условия, применимые только к субъектам предпринимательской деятельности или только
+            к потребителям, отмечены в соответствующих разделах. Заказчик подтверждает, что ознакомился с настоящими Условиями,{" "}
             <Link href="/legal/privacy-policy" className="text-crimson hover:underline">Политикой конфиденциальности</Link>,{" "}
             <Link href="/legal/terms-of-service" className="text-crimson hover:underline">Условиями использования</Link>{" "}
             и{" "}
@@ -52,6 +53,10 @@ export default function PublicOffer() {
             Конкретный перечень, объём, сроки и стоимость услуг определяются в договоре-заявке,
             согласованном сторонами.
           </p>
+          <p className="font-inter font-light text-taupe leading-relaxed mt-3">
+            Предмет, объём, этапность, сроки и итоговая стоимость определяются индивидуально
+            и фиксируются в договоре-заявке.
+          </p>
           <p className="font-inter font-light text-taupe leading-relaxed">
             Ценовые диапазоны, указанные на сайте (например, «от 150 000 ₽»), являются
             <strong className="font-medium text-charcoal"> ориентировочными</strong> и не являются
@@ -60,13 +65,14 @@ export default function PublicOffer() {
         </div>
 
         <div>
-          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Акцепт оферты</h2>
+          <h2 className="font-space-grotesk font-semibold text-xl mb-3">3. Принятие условий</h2>
           <p className="font-inter font-light text-taupe leading-relaxed mb-3">
-            Акцептом настоящей Оферты является оплата счёта Исполнителя или подписание
-            договора-заявки. Акцепт означает полное и безоговорочное принятие всех условий Оферты.
+            Принятием настоящих Условий является оплата счёта Исполнителя или подписание
+            договора-заявки. Принятие означает полное и безоговорочное согласие со всеми настоящими
+            Условиями.
           </p>
           <p className="font-inter font-light text-taupe leading-relaxed">
-            Первичная консультация («30 минут. Без обязательств.») не является акцептом Оферты
+            Первичная консультация («30 минут. Без обязательств.») не является принятием Условий
             и не создаёт у сторон обязательств по заключению договора.
           </p>
         </div>

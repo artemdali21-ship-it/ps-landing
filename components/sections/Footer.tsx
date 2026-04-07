@@ -5,7 +5,7 @@ export default function Footer() {
     { href: "/legal/privacy-policy", label: "Политика конфиденциальности" },
     { href: "/legal/terms-of-service", label: "Условия использования" },
     { href: "/legal/cookie-policy", label: "Cookie" },
-    { href: "/legal/public-offer", label: "Публичная оферта" },
+    { href: "/legal/public-offer", label: "Общие условия" },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function Footer() {
           Результаты AI-систем зависят от входных данных, среды внедрения и участия заказчика.
           Подробные условия —{" "}
           <Link href="/legal/public-offer" className="underline hover:opacity-75 transition-opacity">
-            Публичная оферта
+            Общие условия
           </Link>.
         </p>
       </div>

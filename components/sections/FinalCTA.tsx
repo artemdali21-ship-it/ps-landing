@@ -87,6 +87,21 @@ export default function FinalCTA() {
         >
           30 минут. Без обязательств.
         </motion.p>
+
+        <motion.p
+          className="font-inter font-light"
+          style={{ fontSize: "11px", color: "rgba(255,255,255,0.32)", maxWidth: "420px", lineHeight: "1.5" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+        >
+          При обращении вы передаёте контактные данные и содержание запроса для ответа
+          и обсуждения проекта.{" "}
+          <a href="/legal/privacy-policy" className="underline hover:opacity-75 transition-opacity" style={{ color: "rgba(255,255,255,0.42)" }}>
+            Политика конфиденциальности
+          </a>.
+        </motion.p>
       </motion.div>
     </section>
   );

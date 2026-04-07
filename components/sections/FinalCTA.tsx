@@ -72,7 +72,7 @@ export default function FinalCTA() {
           >
             Telegram
           </motion.a>
-          <a href="mailto:a.polishchuk21@yandex.com" className="btn-ghost text-center">
+          <a href="mailto:a.polishchuk21@yandex.com" className="btn-ghost text-center" style={{ color: "#fff", borderColor: "rgba(255,255,255,0.45)" }}>
             Email
           </a>
         </motion.div>

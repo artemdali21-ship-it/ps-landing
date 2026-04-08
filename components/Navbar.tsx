@@ -7,15 +7,22 @@ import { useMagneticHover } from "@/hooks/useMagneticHover";
 
 // Scroll progress targets for each section (fraction of total scroll distance)
 const NAV_LINKS = [
-  { label: "Услуги",   id: "services", pct: 0.15 },  // WhatWeDo  show=0.23
-  { label: "Форматы",  id: "services", pct: 0.30 },  // ThreeLevels show=0.45
-  { label: "Процесс",  id: "process",  pct: 0.54 },  // Examples  show=0.72
+  { label: "Услуги",   id: "whatwedo",  pct: 0.15 },
+  { label: "Форматы",  id: "services",  pct: 0.30 },
+  { label: "Процесс",  id: "examples",  pct: 0.54 },
 ];
 
-function scrollToSection(pct: number) {
+function scrollToSection(pct: number, mobileId?: string) {
   const spacer = document.getElementById("scroll-spacer");
-  if (!spacer) return;
-  // Total scrollable distance = spacer height − viewport height (matches page.tsx logic)
+  if (!spacer) {
+    // Mobile: normal scroll to section by ID
+    const target = mobileId ? document.getElementById(mobileId) : null;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+  // Desktop: scroll-spacer based animation
   const total = spacer.offsetHeight - window.innerHeight;
   window.scrollTo({ top: Math.max(0, pct * total), behavior: "smooth" });
 }
@@ -86,7 +93,7 @@ export default function Navbar() {
             {NAV_LINKS.map(({ label, id, pct }, i) => (
               <button
                 key={id + i}
-                onClick={() => scrollToSection(pct)}
+                onClick={() => scrollToSection(pct, id)}
                 className="relative font-space-grotesk font-medium text-xs uppercase tracking-widest transition-colors duration-200 bg-transparent border-none cursor-pointer p-0"
                 style={{ color: activeIdx === i ? "#C41230" : undefined }}
               >
@@ -111,8 +118,8 @@ export default function Navbar() {
               className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-4 md:px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
               onMouseMove={ctaMagnetic.onMouseMove as React.MouseEventHandler<HTMLButtonElement>}
               onMouseLeave={ctaMagnetic.onMouseLeave}
-              onClick={() => { scrollToSection(0.89); setOpen(false); }}
-              onTouchEnd={(e) => { e.preventDefault(); scrollToSection(0.89); setOpen(false); }}
+              onClick={() => { scrollToSection(0.89, "cta"); setOpen(false); }}
+              onTouchEnd={(e) => { e.preventDefault(); scrollToSection(0.89, "cta"); setOpen(false); }}
               style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer", x: ctaMagnetic.x, y: ctaMagnetic.y, touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
             >
               <span className="hidden sm:inline">Разобрать кейс</span>
@@ -180,8 +187,8 @@ export default function Navbar() {
                   key={id}
                   role="button"
                   tabIndex={0}
-                  onTouchStart={() => { scrollToSection(pct); setOpen(false); }}
-                  onClick={() => { scrollToSection(pct); setOpen(false); }}
+                  onTouchStart={() => { scrollToSection(pct, id); setOpen(false); }}
+                  onClick={() => { scrollToSection(pct, id); setOpen(false); }}
                   style={{
                     display: "flex",
                     alignItems: "center",

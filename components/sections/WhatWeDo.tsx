@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function WhatWeDo() {
   return (
-    <section className="glass-section min-h-screen flex items-center section-padding">
+    <section id="whatwedo" className="glass-section min-h-screen flex items-center section-padding">
       <div className="w-full max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
 

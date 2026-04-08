@@ -34,7 +34,7 @@ export default function WhatWeDo() {
               transition={{ duration: 0.7, delay: 0.1 }}
             >
               Создаём <span style={{ color: "#C41230", fontWeight: 900 }}>AI-системы для бизнеса,</span>
-              {" "}встроенные в ваши процессы, работающие на ваших данных и дающие{" "}
+              {" "}встроенные в Ваши процессы, работающие на Ваших данных и дающие{" "}
               <span className="text-crimson" style={{ fontWeight: 900 }}>предсказуемый результат.</span>
             </motion.h2>
 

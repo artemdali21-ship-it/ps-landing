@@ -279,14 +279,14 @@ function MobileLayout() {
           <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
           <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
             <h2 className="h2" style={{ margin: 0, marginBottom: "0.75rem", fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
-              Это не <span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
+              Это не<br /><span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
             </h2>
             <p className="font-outfit text-base leading-relaxed" style={{ color: "#8A7B6B", margin: 0 }}>
               <span style={{ fontWeight: 600, color: "#5A4D41" }}>Не чат-бот. Не набор промптов. Не AI-обёртка над API.</span>
               <br /><br />
               Каждая система — <span style={{ fontWeight: 700, color: "#C41230" }}>инженерная конструкция</span> с логикой, памятью, маршрутизацией и контролем качества.
               <br /><br />
-              <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
+              <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри Вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
             </p>
           </div>
         </div>
@@ -486,7 +486,7 @@ export default function Home() {
                   <br /><br />
                   Каждая система — <span style={{ fontWeight: 700, color: "#C41230" }}>инженерная конструкция</span> с логикой, памятью, маршрутизацией и контролем качества.
                   <br /><br />
-                  <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
+                  <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри Вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
                 </p>
               </div>
             </div>

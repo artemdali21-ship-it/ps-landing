@@ -7,193 +7,102 @@ export default function NotChatGPT() {
   return (
     <section
       id="not-chatgpt"
-      className="section-padding"
-      style={{ background: "#FAF6F0", height: "100%", display: "flex", alignItems: "center" }}
+      style={{
+        background: "#FAF6F0",
+        /* Desktop: compact padding so everything fits in one viewport */
+        padding: "clamp(2rem, 5vw, 4rem) clamp(1.25rem, 5vw, 5rem)",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+      }}
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div style={{ maxWidth: 900, margin: "0 auto", width: "100%" }}>
 
-        {/* ── DESKTOP: 2-column side-by-side ── */}
-        <div className="hidden md:grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
-          {/* Left — image */}
-          <motion.div
-            className="rounded-2xl overflow-hidden"
-            initial={{ opacity: 0, x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ boxShadow: "0 16px 64px rgba(31,20,16,0.14)" }}
+        {/* Sphere image — constrained height so text fits below */}
+        <motion.div
+          style={{ width: "100%", marginBottom: "clamp(1rem, 2.5vw, 2rem)", borderRadius: 12, overflow: "hidden", maxHeight: "clamp(180px, 30vh, 280px)" }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Image
+            src="/images/ai-sphere.webp"
+            alt="AI система"
+            width={1200}
+            height={630}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+          />
+        </motion.div>
+
+        {/* Text block */}
+        <motion.div
+          style={{ maxWidth: 700 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <h2
+            style={{
+              fontFamily: "Satoshi, system-ui, sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)",
+              lineHeight: 1.1,
+              textTransform: "uppercase",
+              marginBottom: "clamp(0.75rem, 1.5vw, 1.25rem)",
+            }}
           >
-            <Image
-              src="/images/ai-sphere.webp"
-              alt="AI система"
-              width={1200}
-              height={630}
-              className="w-full object-cover"
-              style={{ objectPosition: "center", display: "block" }}
-            />
-          </motion.div>
+            ЭТО НЕ{" "}
+            <br />
+            <span style={{ color: "#C41230" }}>«ВНЕДРЕНИЕ CHATGPT».</span>
+          </h2>
 
-          {/* Right — text */}
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+          <p
+            style={{
+              fontFamily: "Outfit, system-ui, sans-serif",
+              fontWeight: 700,
+              fontSize: "clamp(0.875rem, 1.4vw, 1.05rem)",
+              color: "#1F1410",
+              marginBottom: "clamp(0.5rem, 1vw, 0.875rem)",
+              lineHeight: 1.6,
+            }}
           >
-            <h2
-              style={{
-                fontFamily: "Satoshi, system-ui, sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(1.8rem, 3.2vw, 3rem)",
-                lineHeight: 1.1,
-                textTransform: "uppercase",
-                marginBottom: "1.5rem",
-              }}
-            >
-              ЭТО НЕ{" "}
-              <br />
-              <span style={{ color: "#C41230" }}>«ВНЕДРЕНИЕ CHATGPT».</span>
-            </h2>
+            Не чат-бот. Не набор промптов. Не AI-обёртка над API.
+          </p>
 
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontWeight: 700,
-                fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
-                color: "#1F1410",
-                marginBottom: "1rem",
-                lineHeight: 1.6,
-              }}
-            >
-              Не чат-бот. Не набор промптов. Не AI-обёртка над API.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
-                color: "#8A7B6B",
-                marginBottom: "1rem",
-                lineHeight: 1.7,
-              }}
-            >
-              Каждая система —{" "}
-              <strong style={{ color: "#C41230", fontWeight: 700 }}>
-                инженерная конструкция
-              </strong>{" "}
-              с логикой, памятью, маршрутизацией и контролем качества.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
-                color: "#1F1410",
-                lineHeight: 1.6,
-              }}
-            >
-              <strong style={{ fontWeight: 700 }}>Работает внутри Вашего процесса</strong>{" "}
-              и{" "}
-              <strong style={{ color: "#C41230", fontWeight: 700 }}>
-                даёт рабочий результат.
-              </strong>
-            </p>
-          </motion.div>
-        </div>
-
-        {/* ── MOBILE: stacked ── */}
-        <div className="md:hidden">
-          {/* Sphere image */}
-          <motion.div
-            className="w-full mb-8 rounded-2xl overflow-hidden"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <p
+            style={{
+              fontFamily: "Outfit, system-ui, sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(0.875rem, 1.4vw, 1.05rem)",
+              color: "#8A7B6B",
+              marginBottom: "clamp(0.5rem, 1vw, 0.875rem)",
+              lineHeight: 1.7,
+            }}
           >
-            <Image
-              src="/images/ai-sphere.webp"
-              alt="AI система"
-              width={1200}
-              height={630}
-              className="w-full object-cover"
-              style={{ objectPosition: "center" }}
-            />
-          </motion.div>
+            Каждая система —{" "}
+            <strong style={{ color: "#C41230", fontWeight: 700 }}>
+              инженерная конструкция
+            </strong>{" "}
+            с логикой, памятью, маршрутизацией и контролем качества.
+          </p>
 
-          {/* Text block */}
-          <motion.div
-            className="max-w-3xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+          <p
+            style={{
+              fontFamily: "Outfit, system-ui, sans-serif",
+              fontSize: "clamp(0.875rem, 1.4vw, 1.05rem)",
+              color: "#1F1410",
+              lineHeight: 1.6,
+            }}
           >
-            <h2
-              style={{
-                fontFamily: "Satoshi, system-ui, sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                lineHeight: 1.1,
-                textTransform: "uppercase",
-                marginBottom: "1.5rem",
-              }}
-            >
-              ЭТО НЕ{" "}
-              <br />
-              <span style={{ color: "#C41230" }}>«ВНЕДРЕНИЕ CHATGPT».</span>
-            </h2>
-
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontWeight: 700,
-                fontSize: "clamp(1rem, 2vw, 1.125rem)",
-                color: "#1F1410",
-                marginBottom: "1.25rem",
-                lineHeight: 1.6,
-              }}
-            >
-              Не чат-бот. Не набор промптов.{" "}
-              <br />
-              Не AI-обёртка над API.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(1rem, 2vw, 1.125rem)",
-                color: "#8A7B6B",
-                marginBottom: "1.25rem",
-                lineHeight: 1.7,
-              }}
-            >
-              Каждая система —{" "}
-              <strong style={{ color: "#C41230", fontWeight: 700 }}>
-                инженерная конструкция
-              </strong>{" "}
-              <br />
-              с логикой, памятью, маршрутизацией и контролем качества.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "Outfit, system-ui, sans-serif",
-                fontSize: "clamp(1rem, 2vw, 1.125rem)",
-                color: "#1F1410",
-                lineHeight: 1.6,
-              }}
-            >
-              <strong style={{ fontWeight: 700 }}>Работает внутри Вашего процесса</strong>{" "}
-              и{" "}
-              <strong style={{ color: "#C41230", fontWeight: 700 }}>
-                даёт рабочий результат.
-              </strong>
-            </p>
-          </motion.div>
-        </div>
+            <strong style={{ fontWeight: 700 }}>Работает внутри Вашего процесса</strong>{" "}
+            и даёт не просто ответ, а{" "}
+            <strong style={{ color: "#C41230", fontWeight: 700 }}>
+              рабочий результат.
+            </strong>
+          </p>
+        </motion.div>
 
       </div>
     </section>

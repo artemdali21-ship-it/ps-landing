@@ -251,7 +251,6 @@ function MobileLayout() {
       </div>
 
       <WhatWeDo />
-      <NotChatGPT />
       <ThreeLevels />
 
       {/* Scene 3 — clean office visual break before Examples */}
@@ -271,6 +270,7 @@ function MobileLayout() {
         <ParallaxBg src="/images/scenes/4-mobile.webp" factor={0.3} />
       </div>
 
+      <NotChatGPT />
 
       {/* Process — scene 5, JS parallax + 3D objects */}
       <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>

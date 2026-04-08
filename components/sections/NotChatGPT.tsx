@@ -18,9 +18,9 @@ export default function NotChatGPT() {
     >
       <div style={{ maxWidth: 900, margin: "0 auto", width: "100%" }}>
 
-        {/* Sphere image — constrained height so text fits below */}
+        {/* Sphere image — full natural proportions, no crop */}
         <motion.div
-          style={{ width: "100%", marginBottom: "clamp(1rem, 2.5vw, 2rem)", borderRadius: 12, overflow: "hidden", maxHeight: "clamp(180px, 30vh, 280px)" }}
+          style={{ width: "100%", marginBottom: "clamp(1rem, 2.5vw, 2rem)", borderRadius: 12, overflow: "hidden" }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -31,7 +31,7 @@ export default function NotChatGPT() {
             alt="AI система"
             width={1200}
             height={630}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+            style={{ width: "100%", height: "auto", display: "block" }}
           />
         </motion.div>
 

@@ -68,7 +68,9 @@ export default function NotChatGPT() {
               lineHeight: 1.6,
             }}
           >
-            Не чат-бот. Не набор промптов. Не AI-обёртка над API.
+            Не чат-бот. Не набор промптов.{" "}
+            <br className="md:hidden" />
+            Не AI-обёртка над API.
           </p>
 
           <p

@@ -278,9 +278,16 @@ function MobileLayout() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
           <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
-            <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
-              <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
+            <h2 className="h2" style={{ margin: 0, marginBottom: "0.75rem", fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
+              Это не <span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
             </h2>
+            <p className="font-outfit font-light text-base leading-relaxed" style={{ color: "#8A7B6B", margin: 0 }}>
+              Не чат-бот. Не набор промптов. Не AI-обёртка над API.
+              <br />
+              Каждая система — инженерная конструкция с логикой, памятью, маршрутизацией и контролем качества.
+              <br />
+              Работает внутри вашего процесса и даёт рабочий результат.
+            </p>
           </div>
         </div>
       </div>
@@ -425,7 +432,7 @@ export default function Home() {
             ))}
           </h1>
           <motion.p
-            className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-4"
+            className="font-outfit font-light text-xl leading-relaxed max-w-xl mb-10"
             style={{ color: "rgba(255,255,255,0.75)", textShadow: "0 1px 12px rgba(0,0,0,0.3)" }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -433,19 +440,11 @@ export default function Home() {
           >
             AI-системы, которые работают.
           </motion.p>
-          <motion.p
-            className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
-          >
-            Не начинайте с решения. Начните с результата.
-          </motion.p>
           <motion.div
             className="pointer-events-auto"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.85, ease: "easeOut" }}
+            transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
           >
             <a href="#cta" className="btn-primary">Разобрать кейс</a>
           </motion.div>
@@ -479,9 +478,16 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/ai-sphere.jpg" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
-                  <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
+                <h2 className="h2" style={{ margin: 0, marginBottom: "1rem", fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
+                  Это не <span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
                 </h2>
+                <p className="font-outfit font-light text-lg leading-relaxed" style={{ color: "#8A7B6B", margin: 0, maxWidth: "42rem" }}>
+                  Не чат-бот. Не набор промптов. Не AI-обёртка над API.
+                  <br />
+                  Каждая система — инженерная конструкция с логикой, памятью, маршрутизацией и контролем качества.
+                  <br />
+                  Работает внутри вашего процесса и даёт рабочий результат.
+                </p>
               </div>
             </div>
           </div>

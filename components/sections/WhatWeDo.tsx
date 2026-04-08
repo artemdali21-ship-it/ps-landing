@@ -27,28 +27,11 @@ export default function WhatWeDo() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              Убираем рутину. Снижаем шум.{" "}
-              <span className="text-crimson">Делаем процесс управляемым.</span>
+              Создаём AI-системы для бизнеса, встроенные в Ваши процессы, работающие на Ваших данных и дающие{" "}
+              <span className="text-crimson">предсказуемый результат.</span>
             </motion.h2>
 
-            <div className="flex flex-col gap-5 font-outfit font-light text-taupe text-lg leading-relaxed">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Повторяющиеся задачи работают сами. Люди занимаются тем, для чего нужны люди.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                Входящие, документы, знания, решения — каждый процесс получает логику, память и контроль.
-              </motion.p>
-            </div>
+
 
             {/* Mobile heart — behind text, only on mobile */}
             <motion.img

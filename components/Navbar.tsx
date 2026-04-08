@@ -109,10 +109,11 @@ export default function Navbar() {
             <motion.button
               ref={ctaMagnetic.ref as React.Ref<HTMLButtonElement>}
               className="bg-crimson text-beige font-space-grotesk font-semibold uppercase text-xs tracking-widest px-4 md:px-6 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(196,18,48,0.25)] transition-all duration-200"
-              style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer", x: ctaMagnetic.x, y: ctaMagnetic.y }}
               onMouseMove={ctaMagnetic.onMouseMove as React.MouseEventHandler<HTMLButtonElement>}
               onMouseLeave={ctaMagnetic.onMouseLeave}
               onClick={() => { scrollToSection(0.89); setOpen(false); }}
+              onTouchEnd={(e) => { e.preventDefault(); scrollToSection(0.89); setOpen(false); }}
+              style={{ letterSpacing: "0.12em", border: "none", cursor: "pointer", x: ctaMagnetic.x, y: ctaMagnetic.y, touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
             >
               <span className="hidden sm:inline">Разобрать кейс</span>
               <span className="sm:hidden">Кейс</span>
@@ -164,20 +165,24 @@ export default function Navbar() {
             {/* Menu panel */}
             <motion.div
               className="absolute top-[72px] left-4 right-4 rounded-xl overflow-hidden"
-              style={{ background: "rgba(250,246,240,0.97)", border: "1px solid rgba(212,200,184,0.8)" }}
+              style={{ background: "rgba(250,246,240,0.97)", border: "1px solid rgba(212,200,184,0.8)", zIndex: 1 }}
               initial={{ opacity: 0, y: -12, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
             >
               {NAV_LINKS.map(({ label, id, pct }, i) => (
                 <button
                   key={id}
                   onClick={() => { scrollToSection(pct); setOpen(false); }}
+                  onTouchEnd={(e) => { e.preventDefault(); scrollToSection(pct); setOpen(false); }}
                   className="flex items-center justify-between w-full px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso hover:text-crimson hover:bg-stone/30 transition-colors duration-150 bg-transparent border-none cursor-pointer"
                   style={{
                     borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(212,200,184,0.5)" : "none",
                     letterSpacing: "0.14em",
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "transparent",
                   }}
                 >
                   {label}

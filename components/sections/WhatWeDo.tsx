@@ -21,14 +21,21 @@ export default function WhatWeDo() {
             </motion.p>
 
             <motion.h2
-              className="h2 mb-10"
+              className="font-outfit font-bold leading-tight mb-10"
+              style={{
+                fontSize: "clamp(1.5rem, 4.5vw, 2.8rem)",
+                lineHeight: 1.25,
+                color: "#1F1410",
+                textTransform: "none",
+              }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              Создаём AI-системы для бизнеса, встроенные в Ваши процессы, работающие на Ваших данных и дающие{" "}
-              <span className="text-crimson">предсказуемый результат.</span>
+              Создаём <span style={{ color: "#C41230", fontWeight: 900 }}>AI-системы для бизнеса,</span>
+              {" "}встроенные в ваши процессы, работающие на ваших данных и дающие{" "}
+              <span className="text-crimson" style={{ fontWeight: 900 }}>предсказуемый результат.</span>
             </motion.h2>
 
 

@@ -281,12 +281,12 @@ function MobileLayout() {
             <h2 className="h2" style={{ margin: 0, marginBottom: "0.75rem", fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
               Это не <span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
             </h2>
-            <p className="font-outfit font-light text-base leading-relaxed" style={{ color: "#8A7B6B", margin: 0 }}>
-              Не чат-бот. Не набор промптов. Не AI-обёртка над API.
-              <br />
-              Каждая система — инженерная конструкция с логикой, памятью, маршрутизацией и контролем качества.
-              <br />
-              Работает внутри вашего процесса и даёт рабочий результат.
+            <p className="font-outfit text-base leading-relaxed" style={{ color: "#8A7B6B", margin: 0 }}>
+              <span style={{ fontWeight: 600, color: "#5A4D41" }}>Не чат-бот. Не набор промптов. Не AI-обёртка над API.</span>
+              <br /><br />
+              Каждая система — <span style={{ fontWeight: 700, color: "#C41230" }}>инженерная конструкция</span> с логикой, памятью, маршрутизацией и контролем качества.
+              <br /><br />
+              <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
             </p>
           </div>
         </div>
@@ -481,12 +481,12 @@ export default function Home() {
                 <h2 className="h2" style={{ margin: 0, marginBottom: "1rem", fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
                   Это не <span style={{ color: "#C41230" }}>«внедрение ChatGPT».</span>
                 </h2>
-                <p className="font-outfit font-light text-lg leading-relaxed" style={{ color: "#8A7B6B", margin: 0, maxWidth: "42rem" }}>
-                  Не чат-бот. Не набор промптов. Не AI-обёртка над API.
-                  <br />
-                  Каждая система — инженерная конструкция с логикой, памятью, маршрутизацией и контролем качества.
-                  <br />
-                  Работает внутри вашего процесса и даёт рабочий результат.
+                <p className="font-outfit text-lg leading-relaxed" style={{ color: "#8A7B6B", margin: 0, maxWidth: "42rem" }}>
+                  <span style={{ fontWeight: 600, color: "#5A4D41" }}>Не чат-бот. Не набор промптов. Не AI-обёртка над API.</span>
+                  <br /><br />
+                  Каждая система — <span style={{ fontWeight: 700, color: "#C41230" }}>инженерная конструкция</span> с логикой, памятью, маршрутизацией и контролем качества.
+                  <br /><br />
+                  <span style={{ fontWeight: 700, color: "#1F1410" }}>Работает внутри вашего процесса</span> и <span style={{ fontWeight: 700, color: "#C41230" }}>даёт рабочий результат.</span>
                 </p>
               </div>
             </div>

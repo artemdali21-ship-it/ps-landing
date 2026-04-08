@@ -160,13 +160,15 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
             />
 
-            {/* Menu panel — z-50, fully independent from backdrop */}
+            {/* Menu panel — z-[9999], fully independent from backdrop */}
             <motion.div
-              className="fixed left-4 right-4 z-50 md:hidden rounded-xl overflow-hidden"
+              className="fixed left-4 right-4 md:hidden rounded-xl overflow-hidden"
               style={{
                 top: 72,
+                zIndex: 9999,
                 background: "rgba(250,246,240,0.97)",
                 border: "1px solid rgba(212,200,184,0.8)",
+                pointerEvents: "auto",
               }}
               initial={{ opacity: 0, y: -12, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -174,23 +176,38 @@ export default function Navbar() {
               transition={{ duration: 0.2, ease: "easeOut" }}
             >
               {NAV_LINKS.map(({ label, id, pct }, i) => (
-                <button
+                <div
                   key={id}
+                  role="button"
+                  tabIndex={0}
+                  onTouchStart={() => { scrollToSection(pct); setOpen(false); }}
                   onClick={() => { scrollToSection(pct); setOpen(false); }}
-                  className="flex items-center justify-between w-full px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso bg-transparent border-none cursor-pointer"
                   style={{
-                    borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(212,200,184,0.5)" : "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    padding: "16px 24px",
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    fontWeight: 600,
+                    fontSize: "0.875rem",
+                    textTransform: "uppercase",
                     letterSpacing: "0.14em",
+                    color: "#1F1410",
+                    borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(212,200,184,0.5)" : "none",
+                    background: "transparent",
+                    cursor: "pointer",
                     touchAction: "manipulation",
                     WebkitTapHighlightColor: "transparent",
-                    color: "#1F1410",
+                    pointerEvents: "auto",
+                    userSelect: "none",
                   }}
                 >
                   {label}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </button>
+                </div>
               ))}
             </motion.div>
           </>

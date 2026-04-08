@@ -78,7 +78,7 @@ export default function NotChatGPT() {
               fontFamily: "Outfit, system-ui, sans-serif",
               fontWeight: 400,
               fontSize: "clamp(0.875rem, 1.4vw, 1.05rem)",
-              color: "#8A7B6B",
+              color: "#5A4D40",
               marginBottom: "clamp(0.5rem, 1vw, 0.875rem)",
               lineHeight: 1.7,
             }}

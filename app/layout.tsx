@@ -55,6 +55,10 @@ export const metadata: Metadata = {
     description: "Освобождаем время для того, что действительно важно.",
     images: [`${SITE_URL}/og-bg.webp`],
   },
+  icons: {
+    icon: "/Fly.png",
+    apple: "/Fly.png",
+  },
 };
 
 export const viewport = { themeColor: "#FAF6F0" };

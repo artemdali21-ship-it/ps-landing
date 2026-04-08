@@ -11,6 +11,7 @@ import {
 import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import WhatWeDo from "@/components/sections/WhatWeDo";
+import NotChatGPT from "@/components/sections/NotChatGPT";
 import ThreeLevels from "@/components/sections/ThreeLevels";
 import Examples from "@/components/sections/Examples";
 import Process from "@/components/sections/Process";
@@ -230,9 +231,6 @@ function MobileLayout() {
           <p className="font-outfit font-light text-lg leading-relaxed max-w-sm mb-3" style={{ color: "rgba(255,255,255,0.75)" }}>
             AI-системы, которые работают.
           </p>
-          <p className="font-space-grotesk font-medium text-crimson text-xs uppercase tracking-widest mb-8">
-            Не начинайте с решения. Начните с результата.
-          </p>
           <a href="#cta" className="btn-primary self-start">Разобрать кейс</a>
         </div>
       </section>
@@ -253,6 +251,7 @@ function MobileLayout() {
       </div>
 
       <WhatWeDo />
+      <NotChatGPT />
       <ThreeLevels />
 
       {/* Scene 3 — clean office visual break before Examples */}
@@ -272,18 +271,6 @@ function MobileLayout() {
         <ParallaxBg src="/images/scenes/4-mobile.webp" factor={0.3} />
       </div>
 
-      {/* Sphere card — ai-sphere.jpg glass card (same as desktop) */}
-      <div style={{ background: "#FAF6F0", padding: "2rem 1.25rem" }}>
-        <div style={{ width: "100%", maxWidth: 480, margin: "0 auto", background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 40px rgba(31,20,16,0.12)" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/ai-sphere.webp" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
-          <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
-            <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.2rem, 4vw, 1.6rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
-              <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
-            </h2>
-          </div>
-        </div>
-      </div>
 
       {/* Process — scene 5, JS parallax + 3D objects */}
       <section style={{ position: "relative", padding: "5rem 1.25rem", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -433,14 +420,6 @@ export default function Home() {
           >
             AI-системы, которые работают.
           </motion.p>
-          <motion.p
-            className="font-space-grotesk font-medium text-crimson text-sm uppercase tracking-widest mb-10"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
-          >
-            Не начинайте с решения. Начните с результата.
-          </motion.p>
           <motion.div
             className="pointer-events-auto"
             initial={{ opacity: 0, y: 10 }}
@@ -472,19 +451,9 @@ export default function Home() {
         <SectionOverlay p={p} enter={0.52} show={0.54} hide={0.72} exit={0.74} slideY={36}>
           <Examples />
         </SectionOverlay>
-        {/* Sphere — beige gap after s4 exits, holds until Process begins */}
+        {/* NotChatGPT — beige gap after s4 exits, holds until Process begins */}
         <SectionOverlay p={p} enter={0.76} show={0.78} hide={0.83} exit={0.85} slideY={36}>
-          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "72px clamp(1.25rem, 4vw, 3rem) 2rem", overflowY: "auto" }}>
-            <div style={{ width: "100%", maxWidth: 1100, background: "#FAF6F0", border: "1px solid rgba(212,200,184,0.5)", borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 60px rgba(31,20,16,0.14)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/ai-sphere.webp" alt="AI система" style={{ width: "100%", height: "auto", display: "block" }} />
-              <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <h2 className="h2" style={{ margin: 0, fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)", textTransform: "uppercase", lineHeight: 1.2 }}>
-                  <span style={{ color: "#C41230" }}>Работает в процессе,</span><br />а не в презентации.
-                </h2>
-              </div>
-            </div>
-          </div>
+          <NotChatGPT />
         </SectionOverlay>
         {/* Process */}
         <SectionOverlay p={p} enter={0.87} show={0.89} hide={0.96} exit={0.98} slideY={36}>

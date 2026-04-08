@@ -145,44 +145,45 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu — backdrop and panel are SEPARATE elements for iOS Safari */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            className="fixed inset-0 z-40 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0"
+          <>
+            {/* Backdrop — standalone, never parent of buttons */}
+            <motion.div
+              className="fixed inset-0 z-40 md:hidden"
               style={{ background: "rgba(31,20,16,0.55)", backdropFilter: "blur(8px)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
             />
 
-            {/* Menu panel */}
+            {/* Menu panel — z-50, fully independent from backdrop */}
             <motion.div
-              className="absolute top-[72px] left-4 right-4 rounded-xl overflow-hidden"
-              style={{ background: "rgba(250,246,240,0.97)", border: "1px solid rgba(212,200,184,0.8)", zIndex: 1 }}
+              className="fixed left-4 right-4 z-50 md:hidden rounded-xl overflow-hidden"
+              style={{
+                top: 72,
+                background: "rgba(250,246,240,0.97)",
+                border: "1px solid rgba(212,200,184,0.8)",
+              }}
               initial={{ opacity: 0, y: -12, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
             >
               {NAV_LINKS.map(({ label, id, pct }, i) => (
                 <button
                   key={id}
                   onClick={() => { scrollToSection(pct); setOpen(false); }}
-                  onTouchEnd={(e) => { e.preventDefault(); scrollToSection(pct); setOpen(false); }}
-                  className="flex items-center justify-between w-full px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso hover:text-crimson hover:bg-stone/30 transition-colors duration-150 bg-transparent border-none cursor-pointer"
+                  className="flex items-center justify-between w-full px-6 py-4 font-space-grotesk font-semibold text-sm uppercase tracking-widest text-espresso bg-transparent border-none cursor-pointer"
                   style={{
                     borderBottom: i < NAV_LINKS.length - 1 ? "1px solid rgba(212,200,184,0.5)" : "none",
                     letterSpacing: "0.14em",
                     touchAction: "manipulation",
                     WebkitTapHighlightColor: "transparent",
+                    color: "#1F1410",
                   }}
                 >
                   {label}
@@ -192,7 +193,7 @@ export default function Navbar() {
                 </button>
               ))}
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: "Освобождаем время для того, что действительно важно.",
     images: [
       {
-        url: `https://raw.githubusercontent.com/artemdali21-ship-it/ps-landing/main/public/og-bg.webp`,
+        url: `https://raw.githubusercontent.com/artemdali21-ship-it/ps-landing/main/public/og-bg.jpg`,
         width: 1200,
         height: 630,
         alt: "Polishchuk AI Systems",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Polishchuk AI Systems",
     description: "Освобождаем время для того, что действительно важно.",
-    images: [`https://raw.githubusercontent.com/artemdali21-ship-it/ps-landing/main/public/og-bg.webp`],
+    images: [`https://raw.githubusercontent.com/artemdali21-ship-it/ps-landing/main/public/og-bg.jpg`],
   },
   icons: {
     icon: "/Fly.png",

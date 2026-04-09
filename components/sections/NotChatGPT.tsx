@@ -86,8 +86,9 @@ export default function NotChatGPT() {
             Каждая система —{" "}
             <strong style={{ color: "#C41230", fontWeight: 700 }}>
               инженерная конструкция
-            </strong>{" "}
-            с логикой, памятью, маршрутизацией и контролем качества.
+            </strong>
+            <br className="md:hidden" />
+            {" "}с логикой, памятью, маршрутизацией и контролем качества.
           </p>
 
           <p
@@ -99,7 +100,9 @@ export default function NotChatGPT() {
             }}
           >
             <strong style={{ fontWeight: 700 }}>Работает внутри Вашего процесса</strong>{" "}
-            и даёт не просто ответ, а{" "}
+            и даёт{" "}
+            <br className="md:hidden" />
+            не просто ответ, а{" "}
             <strong style={{ color: "#C41230", fontWeight: 700 }}>
               рабочий результат.
             </strong>

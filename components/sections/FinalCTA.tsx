@@ -88,21 +88,35 @@ export default function FinalCTA() {
           30 минут. Без обязательств.
         </motion.p>
 
-        <motion.p
-          className="font-inter font-light"
-          style={{ fontSize: "11px", color: "rgba(255,255,255,0.32)", maxWidth: "420px", lineHeight: "1.5" }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-        >
-          При обращении вы передаёте контактные данные и содержание запроса для ответа
-          и обсуждения проекта.{" "}
-          <a href="/legal/privacy-policy" className="underline hover:opacity-75 transition-opacity" style={{ color: "rgba(255,255,255,0.42)" }}>
-            Политика конфиденциальности
-          </a>.
-        </motion.p>
       </motion.div>
+
+      {/* Privacy disclaimer — anchored to bottom of section, near the pillow */}
+      <motion.p
+        className="font-inter font-light"
+        style={{
+          position: "absolute",
+          bottom: "clamp(1.5rem, 4vh, 3rem)",
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          fontSize: "11px",
+          color: "rgba(255,255,255,0.47)",
+          maxWidth: "420px",
+          margin: "0 auto",
+          lineHeight: "1.5",
+          padding: "0 1.25rem",
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, delay: 0.5 }}
+      >
+        При обращении вы передаёте контактные данные и содержание запроса для ответа
+        и обсуждения проекта.{" "}
+        <a href="/legal/privacy-policy" className="underline hover:opacity-75 transition-opacity" style={{ color: "rgba(255,255,255,0.55)" }}>
+          Политика конфиденциальности
+        </a>.
+      </motion.p>
     </section>
   );
 }

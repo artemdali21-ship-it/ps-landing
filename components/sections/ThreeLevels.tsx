@@ -522,9 +522,17 @@ export default function ThreeLevels() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h2 className="h2 mb-4">{"Три уровня AI-систем"}</h2>
+          <h2 className="h2 mb-4">
+            Три уровня{" "}
+            <br className="md:hidden" />
+            AI-систем
+          </h2>
           <p className="font-inter font-light text-taupe text-lg max-w-xl mx-auto leading-relaxed">
-            {"Одни закрывают одну задачу. Другие становятся частью процесса. Третьи — основой экспертной системы."}
+            Одни закрывают одну задачу.{" "}
+            <br className="md:hidden" />
+            Другие становятся частью процесса.{" "}
+            <br className="md:hidden" />
+            Третьи — основой экспертной системы.
           </p>
           <motion.p
             className="font-space-grotesk font-medium text-crimson mt-4"
